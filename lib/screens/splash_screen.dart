@@ -30,14 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isFirstTime) {
         Future.delayed(
           const Duration(seconds: 2),
-              () => Navigator.of(context).pushReplacement(
+          () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HomePage()),
           ),
         );
       } else {
         Future.delayed(
           const Duration(seconds: 2),
-              () => Navigator.of(context).pushReplacement(
+          () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const IntroScreen()),
           ),
         );
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          "assets/images/LOGO.png",
+          "assets/images/LOGO-SMALL.png",
           width: 220,
           height: 220,
         ),
