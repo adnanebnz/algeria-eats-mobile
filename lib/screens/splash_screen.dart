@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:algeria_eats/screens/home_screen.dart';
+import 'package:algeria_eats/screens/on_board_screen.dart';
 import 'package:algeria_eats/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Future.delayed(
           const Duration(seconds: 2),
           () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const OnBoardPage()),
           ),
         );
       } else {

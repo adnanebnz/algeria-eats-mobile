@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home_screen.dart';
+import 'on_board_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -17,9 +17,7 @@ class _IntroScreen extends State<IntroScreen> {
   Widget build(BuildContext context) {
     PageDecoration pageDecoration = const PageDecoration(
         titleTextStyle: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.w400,
-            color: Colors.black),
+            fontSize: 28.0, fontWeight: FontWeight.w400, color: Colors.black),
         bodyTextStyle: TextStyle(fontSize: 19.0, color: Colors.black),
         imagePadding: EdgeInsets.all(20),
         boxDecoration: BoxDecoration(
@@ -27,17 +25,17 @@ class _IntroScreen extends State<IntroScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 stops: [
-                  0.1,
-                  0.5,
-                  0.7,
-                  0.9
-                ],
+              0.1,
+              0.5,
+              0.7,
+              0.9
+            ],
                 colors: [
-                  Colors.white,
-                  Colors.white,
-                  Colors.white,
-                  Colors.white,
-                ])));
+              Colors.white,
+              Colors.white,
+              Colors.white,
+              Colors.white,
+            ])));
 
     Future setIsSeen() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -49,21 +47,22 @@ class _IntroScreen extends State<IntroScreen> {
       pages: [
         PageViewModel(
           title: "Bienvenu a votre application!",
-          body: "Notre application vous aide a gerer vos patients.",
+          body:
+              "Notre application vous aide a acheter des produits artisanaux de qualite.",
           image: intoImage('assets/images/welcome.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Ergonomie",
           body:
-          "Notre application est facile a utiliser et vous permet de gerer vos patients facilement.",
+              "Application simple et facile a utiliser, vous pouvez acheter vos produits en quelques clics.",
           image: intoImage('assets/images/cookie.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Laissez un commentaire",
           body:
-          "Vous pouvez laisser un commentaire sur google play pour nous aider a ameliorer notre application.",
+              "Vous pouvez laisser un commentaire sur google play pour nous aider a ameliorer cette application.",
           image: intoImage('assets/images/street.png'),
           decoration: pageDecoration,
         ),
@@ -96,8 +95,8 @@ class _IntroScreen extends State<IntroScreen> {
   void goHomePage(context) {
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) {
-          return const HomePage();
-        }), (Route<dynamic> route) => false);
+      return const OnBoardPage();
+    }), (Route<dynamic> route) => false);
   }
 }
 

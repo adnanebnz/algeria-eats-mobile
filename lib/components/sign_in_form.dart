@@ -1,7 +1,13 @@
+// ignore_for_file: avoid_print
+
+import 'package:algeria_eats/controllers/authController.dart';
+import 'package:algeria_eats/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
+import 'package:get/get.dart';
+// import 'dart:developer' as console show log;
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -13,7 +19,7 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isShowLoading = false;
   bool isShowConfetti = false;
 
@@ -22,6 +28,11 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger reset;
 
   late SMITrigger confetti;
+
+  String _email = "";
+  String _password = "";
+  bool showError = false;
+  AuthController authController = Get.put(AuthController());
 
   StateMachineController getRiveController(Artboard artboard) {
     StateMachineController? controller =
@@ -34,20 +45,42 @@ class _SignInFormState extends State<SignInForm> {
     setState(() {
       isShowLoading = true;
       isShowConfetti = true;
+      showError = false;
     });
-    Future.delayed(Duration(seconds: 1), () {
+
+    Future.delayed(const Duration(seconds: 1), () {
       if (_formKey.currentState!.validate()) {
-        // show success
-        check.fire();
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            isShowLoading = false;
-          });
-          confetti.fire();
+        _formKey.currentState!.save();
+
+        authController.login(_email, _password).then((value) {
+          if (authController.isLoggedIn.value) {
+            Future.delayed(const Duration(seconds: 2), () {
+              check.fire();
+              setState(() {
+                isShowLoading = false;
+              });
+              confetti.fire();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false,
+              );
+            });
+          } else {
+            setState(() {
+              showError = true;
+            });
+
+            error.fire();
+            Future.delayed(const Duration(seconds: 2), () {
+              setState(() {
+                isShowLoading = false;
+              });
+            });
+          }
         });
       } else {
         error.fire();
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 2), () {
           setState(() {
             isShowLoading = false;
           });
@@ -71,19 +104,37 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
-                    onSaved: (email) {},
-                    decoration: InputDecoration(
-                        prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SvgPicture.asset("assets/icons/email.svg"),
-                    )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your email";
+                          }
+                          return null;
+                        },
+                        onSaved: (email) {
+                          _email = email!;
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SvgPicture.asset("assets/icons/email.svg"),
+                        )),
+                      ),
+                      if (showError)
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "Invalid email or password",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 const Text(
@@ -95,11 +146,13 @@ class _SignInFormState extends State<SignInForm> {
                   child: TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "";
+                        return "Please enter your password";
                       }
                       return null;
                     },
-                    onSaved: (password) {},
+                    onSaved: (password) {
+                      _password = password!;
+                    },
                     obscureText: true,
                     decoration: InputDecoration(
                         prefixIcon: Padding(
@@ -115,7 +168,8 @@ class _SignInFormState extends State<SignInForm> {
                         signIn(context);
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFF77D8E),
+                          backgroundColor:
+                              const Color.fromRGBO(249, 115, 22, 1),
                           minimumSize: const Size(double.infinity, 56),
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -125,9 +179,12 @@ class _SignInFormState extends State<SignInForm> {
                                   bottomLeft: Radius.circular(25)))),
                       icon: const Icon(
                         CupertinoIcons.arrow_right,
-                        color: Color(0xFFFE0037),
+                        color: Colors.white,
                       ),
-                      label: const Text("Sign In")),
+                      label: const Text(
+                        "Sign In",
+                        style: TextStyle(color: Colors.white),
+                      )),
                 )
               ],
             )),
@@ -174,13 +231,13 @@ class CustomPositioned extends StatelessWidget {
     return Positioned.fill(
       child: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           SizedBox(
             height: size,
             width: size,
             child: child,
           ),
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
         ],
       ),
     );
