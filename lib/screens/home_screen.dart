@@ -1,3 +1,4 @@
+import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,23 +13,32 @@ class _WelcomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bonjour"),
+        title: const Text("Bonjour",
+            style: TextStyle(
+                fontSize: 22,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500)),
+      ),
+      extendBody: true,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            children: [
-              HomeHeader(),
-              DiscountBanner(),
-              Categories(),
-              SpecialOffers(),
-              SizedBox(height: 20),
-              PopularProducts(),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
+        child: FeaturedProductsScreen(),
       ),
     );
   }
