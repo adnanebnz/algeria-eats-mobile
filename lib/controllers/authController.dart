@@ -1,14 +1,16 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'dart:developer' as console show log;
+import 'dart:developer' as console show log;
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
+  RxMap<dynamic, dynamic> user = {}.obs;
+
   final dio = Dio();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
@@ -40,6 +42,32 @@ class AuthController extends GetxController {
       };
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> me() async {
+    isLoading.value = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    try {
+      final response = await dio.get(
+        '$apiUrl/me',
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        }),
+      );
+
+      final responseData = response.data;
+      user.value = responseData['user'];
+      console.log(user.values.toString());
+
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return {
+        'error': e.toString(),
+      };
     }
   }
 

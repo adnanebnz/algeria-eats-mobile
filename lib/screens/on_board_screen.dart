@@ -77,6 +77,7 @@ class _HomePageState extends State<OnBoardPage> {
                                 style: TextStyle(
                                   fontSize: 56,
                                   fontFamily: "Poppins",
+                                  fontWeight: FontWeight.bold,
                                   height: 1.2,
                                 ),
                               ),
@@ -111,13 +112,6 @@ class _HomePageState extends State<OnBoardPage> {
                             );
                           },
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0),
-                          child: Text(
-                            "Unlock a world of culinary knowledge with your purchase. Gain access to 30+ courses, 240+ premium tutorials, 120+ hours of culinary inspiration through videos, source files, and certificates.",
-                            style: TextStyle(),
-                          ),
-                        )
                       ],
                     ),
                   ),

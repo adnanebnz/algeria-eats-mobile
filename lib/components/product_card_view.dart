@@ -37,10 +37,10 @@ class ProductCardView extends StatelessWidget {
                       return child;
                     }
                     return AnimatedOpacity(
-                      child: child,
                       opacity: frame == null ? 0 : 1,
                       duration: const Duration(seconds: 1),
                       curve: Curves.easeOut,
+                      child: child,
                     );
                   }, 'https://plus.unsplash.com/premium_photo-1678198828975-02016abf2c5e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                       // TODO REPLACE WITH REAL IMAGE
