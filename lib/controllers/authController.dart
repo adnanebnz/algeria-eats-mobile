@@ -4,7 +4,7 @@ import 'package:algeria_eats/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:developer' as console show log;
+// import 'dart:developer' as console show log;
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
@@ -60,7 +60,6 @@ class AuthController extends GetxController {
 
       final responseData = response.data;
       user.value = responseData['user'];
-      console.log(user.values.toString());
 
       return user;
     } catch (e) {

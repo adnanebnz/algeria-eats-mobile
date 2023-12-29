@@ -13,11 +13,21 @@ class HomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<HomeScreen> {
   final AuthController authController = Get.put(AuthController());
+  int _currentIndex = 0;
+  late PageController _pageController;
+
   @override
   void initState() {
-    authController.me();
-    // TODO MAYBE REFRESH TOKEN
     super.initState();
+    authController.me();
+    _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _pageController.jumpToPage(index);
+    });
   }
 
   @override
@@ -37,7 +47,7 @@ class _WelcomeScreenState extends State<HomeScreen> {
         actions: [
           CircleAvatar(
             backgroundImage: Image.network(
-              'https://placehold.co/100',
+              '${authController.user['image'] ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'}',
               fit: BoxFit.cover,
               height: 100,
               width: 100,
@@ -46,7 +56,8 @@ class _WelcomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -72,42 +83,68 @@ class _WelcomeScreenState extends State<HomeScreen> {
               ),
               child: Obx(() {
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: Image.network(
+                        '${authController.user['image'] ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'}',
+                        fit: BoxFit.cover,
+                      ).image,
+                    ),
+                    const SizedBox(height: 8),
                     Text(
-                      "${authController.user['nom']} ${authController.user['prenom']}!",
+                      "${authController.user['nom'] ?? ''}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
                     ),
                     Text(
-                      authController.user['email'] ?? '',
+                      "${authController.user['prenom'] ?? ''}",
                       style: const TextStyle(
                         color: Colors.white,
+                        fontSize: 16,
                       ),
                     ),
                   ],
                 );
               }),
             ),
-            ListTile(
-              title: const Text('Deconnexion'),
-              onTap: () {
-                authController.logout().then((value) => {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => const OnBoardPage(),
-                          ),
-                          (route) => false)
-                    });
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                leading: const Icon(Icons.logout),
+                title: const Text('Deconnexion'),
+                onTap: () {
+                  authController.logout().then((value) => {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => const OnBoardPage(),
+                            ),
+                            (route) => false)
+                      });
+                },
+                tileColor: const Color.fromRGBO(229, 231, 235, 1),
+              ),
             ),
           ],
         ),
       ),
       body: SafeArea(
-        child: FeaturedProductsScreen(),
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          children: [
+            FeaturedProductsScreen(),
+            const Center(child: Text('Search')),
+            const Center(child: Text('Profile')),
+          ],
+        ),
       ),
     );
   }

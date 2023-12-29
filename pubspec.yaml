@@ -20,7 +20,7 @@ dependencies:
   dio: ^5.4.0
   rive: ^0.12.4
   flutter_svg: ^2.0.9
-  dot_navigation_bar: ^1.0.2
+  shimmer: ^3.0.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
