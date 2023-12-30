@@ -1,3 +1,4 @@
+import 'package:algeria_eats/screens/categories_view.dart';
 import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [FeaturedProductsScreen()],
+      children: [FeaturedProductsScreen(), const CategoriesView()],
     );
   }
 }
