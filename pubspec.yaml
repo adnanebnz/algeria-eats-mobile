@@ -21,6 +21,7 @@ dependencies:
   rive: ^0.12.4
   flutter_svg: ^2.0.9
   shimmer: ^3.0.0
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -33,20 +34,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 16
   web:
-    generate: true
-    image_path: "path/to/image.png"
+    generate: false
+    image_path: "assets/images/icon.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
-    generate: true
-    image_path: "path/to/image.png"
-    icon_size: 48 # min:48, max:256, default: 48
+    generate: false
+    image_path: "assets/images/icon.png"
+    icon_size: 48
   macos:
-    generate: true
-    image_path: "path/to/image.png"
+    generate: false
+    image_path: "assets/images/icon.png"
 
 flutter:
   uses-material-design: true

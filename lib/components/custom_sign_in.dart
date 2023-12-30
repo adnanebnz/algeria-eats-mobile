@@ -35,7 +35,10 @@ Future<Object?> customSigninDialog(BuildContext context,
                     Column(children: [
                       Text(
                         "Sign In",
-                        style: TextStyle(fontSize: 34, fontFamily: "Poppins"),
+                        style: TextStyle(
+                            fontSize: 34,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.bold),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),

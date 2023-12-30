@@ -7,19 +7,21 @@ class ProductCardView extends StatelessWidget {
       {Key? key,
       required this.product,
       this.imageAlignment = Alignment.bottomCenter,
-      this.onTap})
+      required this.onTap})
       : super(key: key);
 
   final Product product;
   final Alignment imageAlignment;
-  final Function(String)? onTap;
+  final Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {
     final priceValue = product.prix;
 
     return GestureDetector(
-      onTap: () => onTap?.call(product.id.toString()),
+      onTap: () {
+        onTap(product.id);
+      },
       child: SizedBox(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(

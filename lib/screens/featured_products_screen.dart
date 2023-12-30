@@ -2,6 +2,7 @@
 
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/models/product.dart';
+import 'package:algeria_eats/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:algeria_eats/controllers/productController.dart';
@@ -86,7 +87,15 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
           child: ProductCardView(
             product: product,
-            onTap: (productId) {},
+            onTap: (productId) {
+              // Navigate to ProductScreen with the selected product
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductScreen(product: product),
+                ),
+              );
+            },
           ),
         );
       }).toList(),
@@ -106,6 +115,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
             product: Product(
               id: 0,
               nom: '',
+              description: '',
               prix: 0,
               categorie: '',
               images: [],

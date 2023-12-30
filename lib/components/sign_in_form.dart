@@ -4,7 +4,6 @@ import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/screens/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
 import 'package:get/get.dart';
 // import 'dart:developer' as console show log;
@@ -54,17 +53,18 @@ class _SignInFormState extends State<SignInForm> {
 
         authController.login(_email, _password).then((value) {
           if (authController.isLoggedIn.value) {
-            Future.delayed(const Duration(seconds: 2), () {
+            Future.delayed(const Duration(seconds: 1), () {
               check.fire();
               setState(() {
                 isShowLoading = false;
               });
               confetti.fire();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const MainScreen()),
-                (route) => false,
-              );
-            });
+            }).then((value) => {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const MainScreen()),
+                    (route) => false,
+                  )
+                });
           } else {
             setState(() {
               showError = true;
@@ -117,10 +117,10 @@ class _SignInFormState extends State<SignInForm> {
                         onSaved: (email) {
                           _email = email!;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: SvgPicture.asset("assets/icons/email.svg"),
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(CupertinoIcons.mail),
                         )),
                       ),
                       if (showError)
@@ -154,10 +154,10 @@ class _SignInFormState extends State<SignInForm> {
                       _password = password!;
                     },
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SvgPicture.asset("assets/icons/password.svg"),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(CupertinoIcons.lock),
                     )),
                   ),
                 ),

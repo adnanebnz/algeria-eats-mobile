@@ -67,7 +67,9 @@ class _HomePageState extends State<OnBoardPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Spacer(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                        ),
                         const SizedBox(
                           width: 260,
                           child: Column(
@@ -90,8 +92,8 @@ class _HomePageState extends State<OnBoardPage> {
                             ],
                           ),
                         ),
-                        const Spacer(
-                          flex: 2,
+                        const SizedBox(
+                          height: 32,
                         ),
                         AnimatedBtn(
                           btnAnimationController: _btnAnimationController,
