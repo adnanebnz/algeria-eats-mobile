@@ -67,7 +67,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                   height: MediaQuery.of(context).size.height * 0.33,
                   child: buildProductList(productController.products)),
             ],

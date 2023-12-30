@@ -29,8 +29,7 @@ class _CategoriesViewState extends State<CategoriesView> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          Center(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
