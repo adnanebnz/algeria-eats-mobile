@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:algeria_eats/controllers/productController.dart';
 import 'package:shimmer/shimmer.dart';
-import 'dart:developer' as console show log;
+// import 'dart:developer' as console show log;
 
 class FeaturedProductsScreen extends StatefulWidget {
   @override
@@ -23,51 +23,70 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Featured Products',
-            style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500)),
-      ),
-      body: Obx(
-        () {
-          if (productController.isLoading.value) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.22,
-              width: MediaQuery.of(context).size.width,
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!, // You can customize these colors
-                highlightColor: Colors.grey[100]!,
-                child: buildShimmerProductList(),
+    return Obx(
+      () {
+        if (productController.isLoading.value) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Featured Products",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
-            );
-          } else {
-            return buildProductList(productController.products);
-          }
-        },
-      ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.27,
+                child: Shimmer.fromColors(
+                  baseColor:
+                      Colors.grey[300]!, // You can customize these colors
+                  highlightColor: Colors.grey[100]!,
+                  child: buildShimmerProductList(),
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Featured Products",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.31,
+                  child: buildProductList(productController.products)),
+            ],
+          );
+        }
+      },
     );
   }
 
   Widget buildProductList(List<Product> products) {
     return ListView(
-      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: products.map((product) {
         return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.height * 0.3,
+          width: MediaQuery.of(context).size.width * 0.5,
           margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
           child: ProductCardView(
             product: product,
-            onTap: (productId) {
-              console.log('Product id: $productId');
-            },
+            onTap: (productId) {},
           ),
         );
       }).toList(),
@@ -78,9 +97,10 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
     return ListView(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      children: List.generate(10, (index) {
+      children: List.generate(4, (index) {
         return Container(
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.height * 0.3,
+          width: MediaQuery.of(context).size.width * 0.5,
           margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
           child: ProductCardView(
             product: Product(
@@ -91,9 +111,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
               images: [],
               rating: 0,
             ),
-            onTap: (productId) {
-              console.log('Product id: $productId');
-            },
+            onTap: (productId) {},
           ),
         );
       }),

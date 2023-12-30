@@ -4,7 +4,7 @@ import 'package:algeria_eats/constants.dart';
 import 'package:algeria_eats/models/product.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
-import 'dart:developer' as console show log;
+// import 'dart:developer' as console show log;
 
 class ProductController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -21,8 +21,6 @@ class ProductController extends GetxController {
           'Accept': 'application/json',
         }),
       );
-
-      console.log('Response status code: ${response.statusCode}');
 
       final responseData = response.data;
 

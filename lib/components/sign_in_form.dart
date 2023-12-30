@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:algeria_eats/controllers/authController.dart';
-import 'package:algeria_eats/screens/home_screen.dart';
+import 'package:algeria_eats/screens/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -61,7 +61,7 @@ class _SignInFormState extends State<SignInForm> {
               });
               confetti.fire();
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => const MainScreen()),
                 (route) => false,
               );
             });

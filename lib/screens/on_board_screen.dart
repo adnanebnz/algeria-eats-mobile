@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:algeria_eats/components/animated_button.dart';
 import 'package:algeria_eats/components/custom_sign_in.dart';
 import 'package:algeria_eats/controllers/authController.dart';
-import 'package:algeria_eats/screens/home_screen.dart';
+import 'package:algeria_eats/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:get/get.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<OnBoardPage> {
     return Scaffold(
       body: Obx(() {
         if (authController.isLoggedIn.value) {
-          return const HomeScreen();
+          return const MainScreen();
         } else {
           return Stack(
             children: [

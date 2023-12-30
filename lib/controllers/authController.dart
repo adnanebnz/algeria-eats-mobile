@@ -67,6 +67,8 @@ class AuthController extends GetxController {
       return {
         'error': e.toString(),
       };
+    } finally {
+      isLoading.value = false;
     }
   }
 

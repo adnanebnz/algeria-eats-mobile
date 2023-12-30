@@ -21,14 +21,12 @@ class ProductCardView extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap?.call(product.id.toString()),
       child: SizedBox(
-        width: 100,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             alignment: AlignmentDirectional.bottomStart,
             children: [
               SizedBox(
                   height: 150,
-                  width: MediaQuery.of(context).size.width,
                   child: Image.network(frameBuilder: (BuildContext context,
                           Widget child,
                           int? frame,
