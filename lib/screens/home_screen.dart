@@ -1,4 +1,4 @@
-import 'package:algeria_eats/components/sarch_input_view.dart';
+import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/screens/categories_view.dart';
 import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Benzerdjeb MOHAMED Adnane",
                 style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.normal,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black87),
               ),
             ],

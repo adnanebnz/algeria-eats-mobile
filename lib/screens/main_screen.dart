@@ -145,7 +145,7 @@ class _WelcomeScreenState extends State<MainScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 leading: const Icon(Icons.logout),
-                title: const Text('Deconnexion'),
+                title: const Text('Déconnexion'),
                 onTap: () {
                   authController.logout().then((value) => {
                         Navigator.of(context).pushAndRemoveUntil(
@@ -155,7 +155,7 @@ class _WelcomeScreenState extends State<MainScreen> {
                             (route) => false)
                       });
                 },
-                tileColor: const Color.fromRGBO(229, 231, 235, 1),
+                tileColor: Colors.white,
               ),
             ),
           ],

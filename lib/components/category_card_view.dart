@@ -28,7 +28,7 @@ class CategoryCardView extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.5),
           boxShadow: [
             BoxShadow(
-                offset: const Offset(10, 20),
+                offset: const Offset(5, 10),
                 blurRadius: 10,
                 spreadRadius: 0,
                 color: Colors.grey.withOpacity(.05)),
