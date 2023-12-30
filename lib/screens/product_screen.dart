@@ -193,15 +193,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                     Icon(
                                       Icons.shopping_cart,
                                       color: Colors.white,
-                                      size: 24.0,
+                                      size: 22.0,
                                     ),
-                                    SizedBox(width: 8.0),
+                                    SizedBox(width: 4.0),
                                     Text(
                                       "Ajouter au panier",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.white,
-                                        fontSize: 16.0,
+                                        fontSize: 14.0,
                                       ),
                                     ),
                                   ],

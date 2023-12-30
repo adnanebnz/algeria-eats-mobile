@@ -35,15 +35,8 @@ class _WelcomeScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(
-          "Acceuil",
-          style: TextStyle(
-            fontSize: 20,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         actions: [
           Padding(
             padding:
@@ -78,16 +71,16 @@ class _WelcomeScreenState extends State<MainScreen> {
         onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
+            icon: Icon(Icons.food_bank_outlined),
+            label: "Produits",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
+            icon: Icon(Icons.person_pin_outlined),
+            label: "Artisans",
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:algeria_eats/components/sarch_input_view.dart';
 import 'package:algeria_eats/screens/categories_view.dart';
 import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,42 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [FeaturedProductsScreen(), const CategoriesView()],
+    return ListView(
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Bienvenue",
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              Text(
+                "Benzerdjeb MOHAMED Adnane",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black87),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: SearchInput(
+              textController: textController,
+              hintText: "Rechercher un produit ou un artisan"),
+        ),
+        const CategoriesView(),
+        FeaturedProductsScreen()
+      ],
     );
   }
 }

@@ -67,8 +67,8 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.31,
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.33,
                   child: buildProductList(productController.products)),
             ],
           );
@@ -82,13 +82,10 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
       scrollDirection: Axis.horizontal,
       children: products.map((product) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.5,
           margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
           child: ProductCardView(
             product: product,
             onTap: (productId) {
-              // Navigate to ProductScreen with the selected product
               Navigator.push(
                 context,
                 MaterialPageRoute(

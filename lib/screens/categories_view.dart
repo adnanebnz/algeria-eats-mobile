@@ -12,10 +12,11 @@ class _CategoriesViewState extends State<CategoriesView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 8.0),
-      height: MediaQuery.of(context).size.height * 0.22,
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Set crossAxisAlignment to start
         children: [
           const Padding(
             padding: EdgeInsets.all(8.0),
@@ -28,20 +29,28 @@ class _CategoriesViewState extends State<CategoriesView> {
               ),
             ),
           ),
-          Expanded(
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CategoryCardView(
-                      title: 'Sucrée',
-                      image: 'assets/images/sucree.jpg',
-                      onTap: () {}),
+                    text: 'Sucrée',
+                    subtitle: '12 items',
+                    imageUrl:
+                        'https://static.vecteezy.com/system/resources/previews/023/522/885/non_2x/birthday-cake-cutout-free-png.png',
+                    onPressed: () {},
+                  ),
                   CategoryCardView(
-                      title: 'Salée',
-                      image: 'assets/images/salee.jpg',
-                      onTap: () {}),
+                    text: 'Salée',
+                    subtitle: '12 items',
+                    imageUrl:
+                        'https://static.vecteezy.com/system/resources/previews/021/217/138/non_2x/arabian-esfiha-of-chicken-esfirra-brazilian-snack-png.png',
+                    onPressed: () {},
+                  ),
                 ],
               ),
             ),

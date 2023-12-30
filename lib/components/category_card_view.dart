@@ -1,56 +1,63 @@
 import 'package:flutter/material.dart';
 
 class CategoryCardView extends StatelessWidget {
-  const CategoryCardView({
-    Key? key,
-    required this.title,
-    required this.image,
-    this.onTap,
-  }) : super(key: key);
+  final String text;
+  final String imageUrl;
+  final String subtitle;
+  final Function() onPressed;
 
-  final String title;
-  final String image;
-  final Function()? onTap;
+  const CategoryCardView(
+      {required this.text,
+      required this.imageUrl,
+      required this.subtitle,
+      required this.onPressed,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onPressed,
       child: Container(
-        margin: const EdgeInsets.only(right: 8.0, left: 8.0),
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: 150,
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
         height: 150,
+        padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: const LinearGradient(
-            colors: [Color(0xff53E88B), Color(0xff15BE77)],
-          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.5),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(10, 20),
+                blurRadius: 10,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.05)),
+          ],
         ),
-        child: Stack(
+        child: Column(
           children: [
-            Opacity(
-              opacity: 0.5,
-              child: Image.network(
-                "https://firebasestorage.googleapis.com/v0/b/flutterbricks-public.appspot.com/o/BACKGROUND%202.png?alt=media&token=0d003860-ba2f-4782-a5ee-5d5684cdc244",
-                fit: BoxFit.cover,
-              ),
+            Image.network(imageUrl, height: 59, fit: BoxFit.cover),
+            const Spacer(),
+            Text(text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                )),
+            const SizedBox(
+              height: 5,
             ),
-            Image.network(
-              "https://firebasestorage.googleapis.com/v0/b/flutterbricks-public.appspot.com/o/Image.png?alt=media&token=8256c357-cf86-4f76-8c4d-4322d1ebc06c",
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 12),
             ),
-            const Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.all(25.0),
-                child: Text(
-                  "Produits\nSucrée",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            const SizedBox(
+              height: 10,
             ),
           ],
         ),

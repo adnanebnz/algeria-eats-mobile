@@ -22,28 +22,46 @@ class ProductCardView extends StatelessWidget {
       onTap: () {
         onTap(product.id);
       },
-      child: SizedBox(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.5),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(10, 20),
+                blurRadius: 10,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.05)),
+          ],
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             alignment: AlignmentDirectional.bottomStart,
             children: [
               SizedBox(
-                  height: 150,
-                  child: Image.network(frameBuilder: (BuildContext context,
-                          Widget child,
-                          int? frame,
-                          bool wasSynchronouslyLoaded) {
-                    if (wasSynchronouslyLoaded) {
-                      return child;
-                    }
-                    return AnimatedOpacity(
-                      opacity: frame == null ? 0 : 1,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.easeOut,
-                      child: child,
-                    );
-                  }, product.images[0],
-                      alignment: imageAlignment, fit: BoxFit.cover)),
+                height: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.network(
+                    frameBuilder: (BuildContext context, Widget child,
+                        int? frame, bool wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return AnimatedOpacity(
+                        opacity: frame == null ? 0 : 1,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.easeOut,
+                        child: child,
+                      );
+                    },
+                    product.images[0],
+                    alignment: imageAlignment,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
