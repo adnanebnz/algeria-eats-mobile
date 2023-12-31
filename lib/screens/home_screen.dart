@@ -16,6 +16,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.put(AuthController());
   TextEditingController textController = TextEditingController();
+
+  @override
+  void initState() {
+    authController.me();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -81,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               hintText: "Rechercher un produit ou un artisan"),
         ),
         const CategoriesView(),
-        FeaturedProductsScreen()
+        FeaturedProductsScreen(),
       ],
     );
   }

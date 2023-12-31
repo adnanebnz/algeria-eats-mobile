@@ -14,15 +14,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<MainScreen> {
-  final AuthController authController = Get.put(AuthController());
+  AuthController authController = Get.put(AuthController());
   int _currentIndex = 0;
   late PageController _pageController;
 
   @override
   void initState() {
-    super.initState();
     authController.me();
     _pageController = PageController(initialPage: _currentIndex);
+    super.initState();
   }
 
   void _onTabTapped(int index) {
