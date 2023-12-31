@@ -35,61 +35,52 @@ class ProductCardView extends StatelessWidget {
                 color: Colors.grey.withOpacity(.05)),
           ],
         ),
-        child: IntrinsicHeight(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IntrinsicHeight(
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomStart,
-                    children: [
-                      SizedBox(
-                        height: 150,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.network(
-                            product.images[0],
-                            alignment: imageAlignment,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Stack(
+            alignment: AlignmentDirectional.bottomStart,
+            children: [
+              SizedBox(
+                height: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.network(
+                    product.images[0],
+                    alignment: imageAlignment,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 8),
-                SizedBox(
-                    child: Text(
-                        product.categorie == 'sucree' ? 'Sucrée' : 'Salée',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: Theme.of(context).textTheme.bodySmall)),
-                SizedBox(
-                    child: Text(product.nom,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: Theme.of(context).textTheme.bodyMedium)),
-                Row(
-                  children: [
-                    Text('$priceValue DZD',
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                        softWrap: false,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent)),
-                  ],
-                ),
-                RatingView(
-                  iconSize: 16,
-                  fontSize: 16,
-                  value: product.rating?.toInt() ?? 0,
-                ),
-              ]),
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+              child: Text(product.categorie == 'sucree' ? 'Sucrée' : 'Salée',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: Theme.of(context).textTheme.bodySmall)),
+          SizedBox(
+              child: Text(product.nom,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: Theme.of(context).textTheme.bodyMedium)),
+          Row(
+            children: [
+              Text('$priceValue DZD',
+                  maxLines: 1,
+                  overflow: TextOverflow.clip,
+                  softWrap: false,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold, color: Colors.orangeAccent)),
+            ],
+          ),
+          RatingView(
+            iconSize: 16,
+            fontSize: 16,
+            value: product.rating?.toInt() ?? 0,
+          ),
+        ]),
       ),
     );
   }
