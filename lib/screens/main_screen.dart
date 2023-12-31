@@ -1,6 +1,7 @@
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/screens/home_screen.dart';
 import 'package:algeria_eats/screens/on_board_screen.dart';
+import 'package:algeria_eats/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -167,7 +168,7 @@ class _WelcomeScreenState extends State<MainScreen> {
           controller: _pageController,
           children: const [
             HomeScreen(),
-            Center(child: Text('Search')),
+            ProductsScreen(),
             Center(child: Text('Profile')),
           ],
         ),

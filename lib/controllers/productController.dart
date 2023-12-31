@@ -24,10 +24,10 @@ class ProductController extends GetxController {
 
       final responseData = response.data;
 
-      // Convert the list of dynamic to List<Product>
-      products.value = (responseData['products'] as List<dynamic>)
-          .map((productJson) => Product.fromJson(productJson))
-          .toList();
+      products.value =
+          (responseData['products'] as List<dynamic>).map((productJson) {
+        return Product.fromJson(productJson);
+      }).toList();
 
       return responseData;
     } catch (e) {

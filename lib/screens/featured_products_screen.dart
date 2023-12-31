@@ -1,7 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:algeria_eats/components/product_card_view.dart';
+import 'package:algeria_eats/models/artisan.dart';
 import 'package:algeria_eats/models/product.dart';
+import 'package:algeria_eats/models/user.dart';
 import 'package:algeria_eats/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -109,7 +111,28 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
           width: MediaQuery.of(context).size.width * 0.5,
           margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
           child: ProductCardView(
+            onTap: (productId) {},
             product: Product(
+              artisan: Artisan(
+                  user_id: 0,
+                  created_at: '',
+                  desc_entreprise: '',
+                  heure_fermeture: '',
+                  heure_ouverture: '',
+                  rating: 0,
+                  type_service: '',
+                  updated_at: '',
+                  user: User(
+                      adresse: '',
+                      created_at: '',
+                      email: '',
+                      id: 0,
+                      image: '',
+                      nom: '',
+                      num_telephone: '',
+                      prenom: '',
+                      updated_at: '',
+                      wilaya: '')),
               id: 0,
               nom: '',
               description: '',
@@ -117,8 +140,9 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
               categorie: '',
               images: [],
               rating: 0,
+              created_at: '',
+              updated_at: '',
             ),
-            onTap: (productId) {},
           ),
         );
       }),

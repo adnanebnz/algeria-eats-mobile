@@ -12,7 +12,7 @@ class SearchInput extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-            offset: const Offset(12, 26),
+            offset: const Offset(10, 10),
             blurRadius: 50,
             spreadRadius: 0,
             color: Colors.grey.withOpacity(.1)),

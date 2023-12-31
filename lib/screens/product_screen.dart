@@ -44,44 +44,54 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.courseCardColor,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         leading: BackButton(color: MyTheme.catalogueButtonColor),
       ),
       body: Stack(
         children: [
-          Column(children: [
-            Expanded(
-              flex: 35,
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: double.infinity,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1.0,
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(children: [
+              Expanded(
+                flex: 40,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: double.infinity,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1.0,
+                  ),
+                  items: widget.product.images.map((image) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 6.0),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16.0)),
+                              child: Image.network(
+                                image,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
                 ),
-                items: widget.product.images.map((image) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Center(
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
               ),
-            ),
-            const Spacer(
-              flex: 65,
-            )
-          ]),
+              const Spacer(
+                flex: 65,
+              )
+            ]),
+          ),
           DraggableScrollableSheet(
-            initialChildSize: 0.65,
-            minChildSize: 0.65,
+            initialChildSize: 0.6,
+            minChildSize: 0.6,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 decoration: const BoxDecoration(
@@ -124,6 +134,32 @@ class _ProductScreenState extends State<ProductScreen> {
                           Text("${widget.product.prix} DA",
                               style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      MyTheme.mediumVerticalPadding,
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(
+                                widget.product.artisan.user.image!),
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              RatingView(
+                                iconSize: 18,
+                                fontSize: 18,
+                                value: widget.product.artisan.rating.toInt(),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       MyTheme.mediumVerticalPadding,
