@@ -23,8 +23,8 @@ class ProductCardView extends StatelessWidget {
         onTap(product.id);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        width: 200,
+        padding: const EdgeInsets.all(8.0),
+        width: MediaQuery.of(context).size.width * 0.43,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.5),
           color: Colors.white,
@@ -37,22 +37,22 @@ class ProductCardView extends StatelessWidget {
           ],
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomStart,
-            children: [
-              SizedBox(
-                height: 150,
-                child: ClipRRect(
+          Expanded(
+            child: Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.network(
                     product.images[0],
                     alignment: imageAlignment,
                     fit: BoxFit.cover,
                     width: double.infinity,
+                    height: double.infinity,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           SizedBox(

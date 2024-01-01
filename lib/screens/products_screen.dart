@@ -36,13 +36,34 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     ),
                   ),
 
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: DropdownButton(
+                        isExpanded: true,
+                        hint: const Text('Sort by'),
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'category',
+                            child: Text('Category'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'price',
+                            child: Text('Price'),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          print(value);
+                        }),
+                  ),
+
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GridView.builder(
+                        shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1 / 1.5,
+                          childAspectRatio: 1 / 1.43,
                           mainAxisSpacing: 4,
                           crossAxisSpacing: 4,
                           crossAxisCount: 2,

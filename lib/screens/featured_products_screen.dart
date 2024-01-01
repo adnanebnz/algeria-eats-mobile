@@ -60,7 +60,8 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(
+                    left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
                 child: Text(
                   "Featured Products",
                   style: TextStyle(
@@ -70,11 +71,11 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                   ),
                 ),
               ),
-              AspectRatio(
-                aspectRatio: 1.43,
-                child: SizedBox(
-                    child:
-                        buildProductList(productController.featuredProducts)),
+              Container(
+                margin: const EdgeInsets.only(bottom: 8.0),
+                child: AspectRatio(
+                    aspectRatio: 1.4,
+                    child: buildProductList(productController.products)),
               ),
             ],
           );
