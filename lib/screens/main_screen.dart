@@ -1,4 +1,5 @@
 import 'package:algeria_eats/controllers/authController.dart';
+import 'package:algeria_eats/controllers/productController.dart';
 import 'package:algeria_eats/screens/home_screen.dart';
 import 'package:algeria_eats/screens/on_board_screen.dart';
 import 'package:algeria_eats/screens/products_screen.dart';
@@ -16,12 +17,15 @@ class MainScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<MainScreen> {
   AuthController authController = Get.put(AuthController());
+  ProductController productController = Get.put(ProductController());
   int _currentIndex = 0;
   late PageController _pageController;
 
   @override
   void initState() {
     authController.me();
+    productController.getAllProducts();
+    productController.getFeaturedProducts();
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }
@@ -57,7 +61,8 @@ class _WelcomeScreenState extends State<MainScreen> {
                   return CircleAvatar(
                     radius: 22,
                     backgroundImage: NetworkImage(
-                      '${authController.user['image'] ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'}',
+                      authController.user.value.image ??
+                          'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
                     ),
                     backgroundColor: Colors.grey[300],
                   );
@@ -113,7 +118,8 @@ class _WelcomeScreenState extends State<MainScreen> {
                           return CircleAvatar(
                             radius: 40,
                             backgroundImage: NetworkImage(
-                              '${authController.user['image'] ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'}',
+                              authController.user.value.image ??
+                                  'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
                             ),
                             backgroundColor: Colors.grey[300],
                           );
@@ -122,14 +128,14 @@ class _WelcomeScreenState extends State<MainScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "${authController.user['nom'] ?? ''}",
+                      authController.user.value.nom,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
                     ),
                     Text(
-                      "${authController.user['prenom'] ?? ''}",
+                      authController.user.value.prenom,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,

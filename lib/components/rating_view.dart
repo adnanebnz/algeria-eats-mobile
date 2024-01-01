@@ -39,6 +39,7 @@ class StarView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(5, (index) {
         return Icon(
+          color: Colors.amber,
           index < value ? Icons.star : Icons.star_border,
           size: size,
         );

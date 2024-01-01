@@ -141,8 +141,9 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            backgroundImage: NetworkImage(
-                                widget.product.artisan.user.image!),
+                            backgroundImage: NetworkImage(widget
+                                    .product.artisan.user.image ??
+                                'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
                           ),
                           const SizedBox(width: 12),
                           Column(

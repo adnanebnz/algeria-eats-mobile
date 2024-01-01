@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
+import 'package:algeria_eats/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoggedIn = false.obs;
-  RxMap<dynamic, dynamic> user = {}.obs;
+  Rx<User> user = User(
+          adresse: "",
+          created_at: "",
+          email: "",
+          id: null,
+          image: "",
+          nom: "",
+          num_telephone: "",
+          prenom: "",
+          updated_at: "",
+          wilaya: "")
+      .obs;
 
   final dio = Dio();
 
@@ -45,7 +57,7 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<Map<dynamic, dynamic>> me() async {
+  Future<Map<String, dynamic>> me() async {
     isLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -59,16 +71,16 @@ class AuthController extends GetxController {
       );
 
       final responseData = response.data;
-      user.value = responseData['user'];
+      // map the response to the user model
+      user.value = User.fromJson(responseData['user']);
 
-      return user;
+      isLoading.value = false;
+      return responseData;
     } catch (e) {
       print(e.toString());
       return {
         'error': e.toString(),
       };
-    } finally {
-      isLoading.value = false;
     }
   }
 

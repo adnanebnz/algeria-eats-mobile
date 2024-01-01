@@ -1,5 +1,6 @@
-import 'package:algeria_eats/components/product_grid_card.dart';
+import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/controllers/productController.dart';
+import 'package:algeria_eats/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
@@ -14,12 +15,6 @@ class ProductsScreen extends StatefulWidget {
 class _ProductsScreenState extends State<ProductsScreen> {
   ProductController productController = Get.put(ProductController());
   TextEditingController textController = TextEditingController();
-
-  @override
-  void initState() {
-    productController.getAllProducts();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +37,31 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   ),
 
                   Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1 / 1.5,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 4,
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: controller.products.length,
+                        itemBuilder: (context, index) {
+                          return ProductCardView(
+                              product: controller.products[index],
+                              onTap: (productId) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductScreen(
+                                        product: controller.products[index]),
+                                  ),
+                                );
+                              });
+                        },
                       ),
-                      itemCount: controller.products.length,
-                      itemBuilder: (context, index) {
-                        return ProductGridCard(
-                            product: controller.products[index], onTap: () {});
-                      },
                     ),
                   ),
                 ],

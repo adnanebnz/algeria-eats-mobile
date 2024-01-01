@@ -20,7 +20,6 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
   final ProductController productController = Get.put(ProductController());
   @override
   void initState() {
-    productController.getAllProducts();
     super.initState();
   }
 
@@ -43,13 +42,15 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.27,
-                child: Shimmer.fromColors(
-                  baseColor:
-                      Colors.grey[300]!, // You can customize these colors
-                  highlightColor: Colors.grey[100]!,
-                  child: buildShimmerProductList(),
+              AspectRatio(
+                aspectRatio: 1.43,
+                child: SizedBox(
+                  child: Shimmer.fromColors(
+                    baseColor:
+                        Colors.grey[300]!, // You can customize these colors
+                    highlightColor: Colors.grey[100]!,
+                    child: buildShimmerProductList(),
+                  ),
                 ),
               ),
             ],
@@ -69,9 +70,12 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.33,
-                  child: buildProductList(productController.products)),
+              AspectRatio(
+                aspectRatio: 1.43,
+                child: SizedBox(
+                    child:
+                        buildProductList(productController.featuredProducts)),
+              ),
             ],
           );
         }
@@ -81,10 +85,11 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
 
   Widget buildProductList(List<Product> products) {
     return ListView(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: products.map((product) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+          margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
           child: ProductCardView(
             product: product,
             onTap: (productId) {
@@ -107,9 +112,9 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
       scrollDirection: Axis.horizontal,
       children: List.generate(4, (index) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.5,
-          margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
+          height: MediaQuery.of(context).size.height * 0.4,
+          width: MediaQuery.of(context).size.width * 0.6,
+          margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
           child: ProductCardView(
             onTap: (productId) {},
             product: Product(

@@ -18,12 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController textController = TextEditingController();
 
   @override
-  void initState() {
-    authController.me();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
@@ -70,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black),
                   ),
                   Text(
-                    "${authController.user['nom']} ${authController.user['prenom']}",
+                    "${authController.user.value.nom} ${authController.user.value.prenom}",
                     style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,

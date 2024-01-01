@@ -24,6 +24,7 @@ class ProductCardView extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.5),
           color: Colors.white,
@@ -47,6 +48,7 @@ class ProductCardView extends StatelessWidget {
                     product.images[0],
                     alignment: imageAlignment,
                     fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
                 ),
               ),
@@ -72,7 +74,7 @@ class ProductCardView extends StatelessWidget {
                   overflow: TextOverflow.clip,
                   softWrap: false,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.orangeAccent)),
+                      fontWeight: FontWeight.bold, color: Colors.orange)),
             ],
           ),
           RatingView(
