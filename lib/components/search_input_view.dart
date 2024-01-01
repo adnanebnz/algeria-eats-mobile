@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class SearchInput extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
+  final Function(String) onChanged;
   const SearchInput(
-      {required this.textController, required this.hintText, Key? key})
+      {required this.textController,
+      required this.hintText,
+      required this.onChanged,
+      Key? key})
       : super(key: key);
 
   @override
@@ -20,7 +24,7 @@ class SearchInput extends StatelessWidget {
       child: TextField(
         controller: textController,
         onChanged: (value) {
-          //Do something with the user input.
+          onChanged(value);
         },
         decoration: InputDecoration(
           prefixIcon: const Icon(

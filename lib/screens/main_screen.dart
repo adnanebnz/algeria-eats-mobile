@@ -42,34 +42,47 @@ class _WelcomeScreenState extends State<MainScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        toolbarHeight: 70,
+        elevation: 1,
+        backgroundColor: const Color.fromRGBO(251, 146, 60, 1),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 28),
         actions: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-            child: Obx(
-              () {
-                if (authController.isLoading.value) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: CircleAvatar(
-                      radius: 22,
-                      backgroundColor: Colors.grey[300],
-                    ),
-                  );
-                } else {
-                  return CircleAvatar(
-                    radius: 22,
-                    backgroundImage: NetworkImage(
-                      authController.user.value.image ??
-                          'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
-                    ),
-                    backgroundColor: Colors.grey[300],
-                  );
-                }
-              },
-            ),
-          )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Obx(
+                  () {
+                    if (authController.isLoading.value) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: CircleAvatar(
+                          radius: 22,
+                          backgroundColor: Colors.grey[300],
+                        ),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(
+                          authController.user.value.image ??
+                              'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+                        ),
+                        backgroundColor: Colors.grey[300],
+                      );
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +109,7 @@ class _WelcomeScreenState extends State<MainScreen> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.deepOrangeAccent,
+                color: Color.fromRGBO(251, 146, 60, 1),
               ),
               child: Obx(() {
                 return Column(

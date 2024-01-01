@@ -1,4 +1,3 @@
-import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/screens/categories_view.dart';
 import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +20,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        Container(
+          margin: const EdgeInsets.only(right: 8.0, left: 8.0, top: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          height: MediaQuery.of(context).size.height * 0.15,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(10, 10),
+                    blurRadius: 50,
+                    spreadRadius: 0,
+                    color: Colors.grey.withOpacity(.1)),
+              ],
+              color: Colors.white),
           child: Obx(() {
             if (authController.isLoading.value) {
               return Column(
@@ -74,12 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           }),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: SearchInput(
-              textController: textController,
-              hintText: "Rechercher un produit ou un artisan"),
         ),
         const CategoriesView(),
         FeaturedProductsScreen(),

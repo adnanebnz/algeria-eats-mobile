@@ -46,8 +46,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                 aspectRatio: 1.43,
                 child: SizedBox(
                   child: Shimmer.fromColors(
-                    baseColor:
-                        Colors.grey[300]!, // You can customize these colors
+                    baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,
                     child: buildShimmerProductList(),
                   ),

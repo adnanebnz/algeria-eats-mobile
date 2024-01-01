@@ -15,7 +15,8 @@ class ProductsScreen extends StatefulWidget {
 class _ProductsScreenState extends State<ProductsScreen> {
   ProductController productController = Get.put(ProductController());
   TextEditingController textController = TextEditingController();
-
+  String searchText = '';
+  String selectedCategory = '';
   @override
   Widget build(BuildContext context) {
     return GetX<ProductController>(builder: (controller) {
@@ -26,63 +27,101 @@ class _ProductsScreenState extends State<ProductsScreen> {
               )
             : Column(
                 children: [
-                  // filter by category and search and sort
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     margin: const EdgeInsets.only(bottom: 8.0, top: 8.0),
                     child: SearchInput(
+                      onChanged: (value) {
+                        setState(() {
+                          searchText = value;
+                        });
+                      },
                       textController: textController,
-                      hintText: 'Search',
+                      hintText: 'Search product',
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: DropdownButton(
                         isExpanded: true,
-                        hint: const Text('Sort by'),
+                        hint: Text(
+                            'Catégorie : ${selectedCategory.isEmpty ? 'Tous' : selectedCategory == 'sucree' ? 'Sucrée' : 'Salée'}'),
                         items: const [
                           DropdownMenuItem(
-                            value: 'category',
-                            child: Text('Category'),
+                            value: 'sucree',
+                            child: Text('Sucrée'),
                           ),
                           DropdownMenuItem(
-                            value: 'price',
-                            child: Text('Price'),
+                            value: 'salee',
+                            child: Text('Salée'),
                           ),
                         ],
                         onChanged: (value) {
-                          print(value);
+                          setState(() {
+                            selectedCategory = value.toString();
+                          });
                         }),
                   ),
-
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1 / 1.43,
-                          mainAxisSpacing: 4,
-                          crossAxisSpacing: 4,
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: controller.products.length,
-                        itemBuilder: (context, index) {
-                          return ProductCardView(
-                              product: controller.products[index],
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1 / 1.43,
+                            mainAxisSpacing: 4,
+                            crossAxisSpacing: 4,
+                            crossAxisCount: 2,
+                          ),
+                          itemCount: searchText.isEmpty
+                              ? (selectedCategory.isEmpty
+                                  ? controller.products.length
+                                  : controller.products
+                                      .where((product) =>
+                                          product.categorie == selectedCategory)
+                                      .length)
+                              : controller.products
+                                  .where((product) =>
+                                      product.nom
+                                          .toLowerCase()
+                                          .contains(searchText.toLowerCase()) &&
+                                      (selectedCategory.isEmpty ||
+                                          product.categorie ==
+                                              selectedCategory))
+                                  .length,
+                          itemBuilder: (context, index) {
+                            final product = searchText.isEmpty
+                                ? (selectedCategory.isEmpty
+                                    ? controller.products[index]
+                                    : controller.products
+                                        .where((product) =>
+                                            product.categorie ==
+                                            selectedCategory)
+                                        .elementAt(index))
+                                : controller.products
+                                    .where((product) =>
+                                        product.nom.toLowerCase().contains(
+                                            searchText.toLowerCase()) &&
+                                        (selectedCategory.isEmpty ||
+                                            product.categorie ==
+                                                selectedCategory))
+                                    .elementAt(index);
+
+                            return ProductCardView(
+                              product: product,
                               onTap: (productId) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductScreen(
-                                        product: controller.products[index]),
+                                      product: product,
+                                    ),
                                   ),
                                 );
-                              });
-                        },
-                      ),
+                              },
+                            );
+                          }),
                     ),
                   ),
                 ],

@@ -9,6 +9,8 @@ import 'package:get/state_manager.dart';
 class ProductController extends GetxController {
   RxList<Product> products = <Product>[].obs;
   RxList<Product> featuredProducts = <Product>[].obs;
+  RxInt sweetProductsCount = 0.obs;
+  RxInt saltyProductsCount = 0.obs;
   RxBool isLoading = true.obs;
   final dio = Dio();
 
@@ -29,6 +31,14 @@ class ProductController extends GetxController {
           (responseData['products'] as List<dynamic>).map((productJson) {
         return Product.fromJson(productJson);
       }).toList();
+
+      for (var product in products) {
+        if (product.categorie == 'sucree') {
+          sweetProductsCount.value++;
+        } else {
+          saltyProductsCount.value++;
+        }
+      }
 
       return responseData;
     } catch (e) {
