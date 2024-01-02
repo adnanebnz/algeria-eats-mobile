@@ -60,7 +60,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(
-                    left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
+                    left: 14.0, right: 14.0, top: 16.0, bottom: 5.0),
                 child: Text(
                   "Featured Products",
                   style: TextStyle(
@@ -88,19 +88,16 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: products.map((product) {
-        return Container(
-          margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
-          child: ProductCardView(
-            product: product,
-            onTap: (productId) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductScreen(product: product),
-                ),
-              );
-            },
-          ),
+        return ProductCardView(
+          product: product,
+          onTap: (productId) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductScreen(product: product),
+              ),
+            );
+          },
         );
       }).toList(),
     );

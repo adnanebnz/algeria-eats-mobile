@@ -21,6 +21,13 @@ class _WelcomeScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   late PageController _pageController;
 
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _pageController.jumpToPage(index);
+    });
+  }
+
   @override
   void initState() {
     authController.me();
@@ -28,13 +35,6 @@ class _WelcomeScreenState extends State<MainScreen> {
     productController.getFeaturedProducts();
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
-  }
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-      _pageController.jumpToPage(index);
-    });
   }
 
   @override

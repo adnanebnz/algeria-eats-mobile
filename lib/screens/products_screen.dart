@@ -41,7 +41,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: DropdownButton(
                         isExpanded: true,
                         hint: Text(
@@ -64,7 +64,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: GridView.builder(
                           shrinkWrap: true,
                           gridDelegate:

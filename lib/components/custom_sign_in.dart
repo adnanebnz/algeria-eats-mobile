@@ -19,7 +19,7 @@ Future<Object?> customSigninDialog(BuildContext context,
       },
       pageBuilder: (context, _, __) => Center(
             child: Container(
-              height: size.height * 0.715,
+              height: size.height * 0.65,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
               decoration: BoxDecoration(
@@ -27,8 +27,7 @@ Future<Object?> customSigninDialog(BuildContext context,
                   borderRadius: const BorderRadius.all(Radius.circular(40))),
               child: const Scaffold(
                 backgroundColor: Colors.transparent,
-                resizeToAvoidBottomInset:
-                    false, // avoid overflow error when keyboard shows up
+                resizeToAvoidBottomInset: false,
                 body: Stack(
                   clipBehavior: Clip.none,
                   children: [

@@ -1,6 +1,5 @@
 import 'package:algeria_eats/components/category_card_view.dart';
 import 'package:algeria_eats/controllers/productController.dart';
-import 'package:algeria_eats/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +16,12 @@ class _CategoriesViewState extends State<CategoriesView> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.only(bottom: 8.0, top: 12.0),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start, // Set crossAxisAlignment to start
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
             child: Text(
               "Categories",
               style: TextStyle(
@@ -47,12 +45,6 @@ class _CategoriesViewState extends State<CategoriesView> {
                           '${productController.sweetProductsCount.value} produits',
                       imageUrl:
                           'https://static.vecteezy.com/system/resources/previews/023/522/885/non_2x/birthday-cake-cutout-free-png.png',
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const ProductsScreen()),
-                        );
-                      },
                     ),
                     CategoryCardView(
                       text: 'Salée',
@@ -60,12 +52,6 @@ class _CategoriesViewState extends State<CategoriesView> {
                           '${productController.saltyProductsCount.value} produits',
                       imageUrl:
                           'https://static.vecteezy.com/system/resources/previews/021/217/138/non_2x/arabian-esfiha-of-chicken-esfirra-brazilian-snack-png.png',
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const ProductsScreen()),
-                        );
-                      },
                     ),
                   ],
                 ),

@@ -58,7 +58,6 @@ class _SignInFormState extends State<SignInForm> {
               setState(() {
                 isShowLoading = false;
               });
-              confetti.fire();
             }).then((value) => {
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -103,38 +102,41 @@ class _SignInFormState extends State<SignInForm> {
                   style: TextStyle(color: Colors.black54),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter your email";
-                          }
-                          return null;
-                        },
-                        onSaved: (email) {
-                          _email = email!;
-                        },
-                        decoration: const InputDecoration(
-                            prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(CupertinoIcons.mail),
-                        )),
-                      ),
-                      if (showError)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "Invalid email or password",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
+                  padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter your email";
+                            }
+                            return null;
+                          },
+                          onSaved: (email) {
+                            _email = email!;
+                          },
+                          decoration: const InputDecoration(
+                              prefixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Icon(CupertinoIcons.mail),
+                          )),
+                        ),
+                        if (showError)
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              "Invalid email or password",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const Text(
@@ -142,27 +144,30 @@ class _SignInFormState extends State<SignInForm> {
                   style: TextStyle(color: Colors.black54),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please enter your password";
-                      }
-                      return null;
-                    },
-                    onSaved: (password) {
-                      _password = password!;
-                    },
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(CupertinoIcons.lock),
-                    )),
+                  padding: const EdgeInsets.only(top: 4.0, bottom: 8),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter your password";
+                        }
+                        return null;
+                      },
+                      onSaved: (password) {
+                        _password = password!;
+                      },
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Icon(CupertinoIcons.lock),
+                      )),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 24),
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 18),
                   child: ElevatedButton.icon(
                       onPressed: () {
                         signIn(context);

@@ -39,21 +39,20 @@ class _HomePageState extends State<OnBoardPage> {
           return Stack(
             children: [
               Positioned(
-                width: MediaQuery.of(context).size.width * 1.7,
-                bottom: 200,
-                left: 100,
-                child: Image.asset('assets/Backgrounds/Spline.png'),
+                bottom: 0,
+                left: 0,
+                child: Image.network(
+                    height: MediaQuery.of(context).size.height,
+                    fit: BoxFit.cover,
+                    'https://images.unsplash.com/photo-1565299543923-37dd37887442?q=80&w=1381&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
               ),
+              //add a little blur
               Positioned.fill(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
-                ),
-              ),
-              const RiveAnimation.asset('assets/RiveAssets/shapes.riv'),
-              Positioned.fill(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
-                  child: const SizedBox(),
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                  child: Container(
+                    color: Colors.black.withOpacity(0.2),
+                  ),
                 ),
               ),
               AnimatedPositioned(
@@ -77,7 +76,8 @@ class _HomePageState extends State<OnBoardPage> {
                               Text(
                                 "Discover Culinary Delights",
                                 style: TextStyle(
-                                  fontSize: 56,
+                                  color: Colors.white,
+                                  fontSize: 50,
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.bold,
                                   height: 1.2,
@@ -88,6 +88,12 @@ class _HomePageState extends State<OnBoardPage> {
                               ),
                               Text(
                                 "Don't miss the art of culinary design and technology. Learn how to craft delightful apps with Flutter and Swift. Explore comprehensive courses featuring the best tools for culinary innovation.",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Poppins",
+                                  height: 1.5,
+                                ),
                               ),
                             ],
                           ),
