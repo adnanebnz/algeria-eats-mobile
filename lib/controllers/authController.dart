@@ -46,13 +46,17 @@ class AuthController extends GetxController {
 
       final token = responseData['token'];
       await prefs.setString('token', token);
+
+      isLoggedIn.value = true;
+
       return responseData;
     } catch (e) {
+      isLoggedIn.value = false;
+
       return {
         'error': e.toString(),
       };
     } finally {
-      isLoggedIn.value = true;
       isLoading.value = false;
     }
   }

@@ -44,7 +44,6 @@ class _SignInFormState extends State<SignInForm> {
     setState(() {
       isShowLoading = true;
       isShowConfetti = true;
-      showError = false;
     });
 
     Future.delayed(const Duration(seconds: 1), () {
@@ -78,6 +77,7 @@ class _SignInFormState extends State<SignInForm> {
           }
         });
       } else {
+        // Form validation failed
         error.fire();
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {
