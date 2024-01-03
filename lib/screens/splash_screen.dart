@@ -29,14 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
     checkFirstSeen().then((bool isFirstTime) {
       if (isFirstTime) {
         Future.delayed(
-          const Duration(seconds: 2),
+          const Duration(milliseconds: 1500),
           () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const OnBoardPage()),
           ),
         );
       } else {
         Future.delayed(
-          const Duration(seconds: 2),
+          const Duration(milliseconds: 1500),
           () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const IntroScreen()),
           ),

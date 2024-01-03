@@ -1,8 +1,9 @@
 import 'package:algeria_eats/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // TODO MODIFY SIZE OF NATIVE SPLASH SCREEN AND DELETE THE ACTUAL ONE
   runApp(const MyApp());
 }
 
