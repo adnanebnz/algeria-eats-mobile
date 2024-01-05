@@ -1,3 +1,4 @@
+import 'package:algeria_eats/components/artisan_card.dart';
 import 'package:flutter/material.dart';
 
 class ArtisansScreen extends StatefulWidget {
@@ -10,6 +11,14 @@ class ArtisansScreen extends StatefulWidget {
 class _ArtisansScreenState extends State<ArtisansScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(
+        width: 235,
+        child: ArtisanCard(
+          title: "hey",
+          onMoreTap: () {},
+        ),
+      ),
+    );
   }
 }
