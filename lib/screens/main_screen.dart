@@ -167,13 +167,9 @@ class _WelcomeScreenState extends State<MainScreen> {
                 leading: const Icon(Icons.logout),
                 title: const Text('Déconnexion'),
                 onTap: () {
-                  authController.logout().then((value) => {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const OnBoardPage(),
-                            ),
-                            (route) => false)
-                      });
+                  authController
+                      .logout()
+                      .then((value) => {Get.offAll(() => const OnBoardPage())});
                 },
                 tileColor: Colors.white,
               ),

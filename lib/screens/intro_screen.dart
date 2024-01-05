@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'on_board_screen.dart';
@@ -93,10 +94,7 @@ class _IntroScreen extends State<IntroScreen> {
   }
 
   void goHomePage(context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) {
-      return const OnBoardPage();
-    }), (Route<dynamic> route) => false);
+    Get.offAll(() => const OnBoardPage());
   }
 }
 

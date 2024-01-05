@@ -5,7 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:algeria_eats/components/rating_view.dart';
-import 'package:algeria_eats/models/cart.dart';
+import 'package:algeria_eats/models/cartItem.dart';
 import 'package:algeria_eats/models/product.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -49,25 +49,23 @@ class _ProductScreenState extends State<ProductScreen> {
         elevation: 1,
         leading: BackButton(color: MyTheme.catalogueButtonColor),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(children: [
-              Expanded(
-                flex: 40,
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    height: double.infinity,
-                    enableInfiniteScroll: true,
-                    viewportFraction: 1.0,
-                  ),
-                  items: widget.product.images.map((image) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: Center(
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                Expanded(
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200,
+                      enableInfiniteScroll: true,
+                    ),
+                    items: widget.product.images.map((image) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 6.0),
                             child: ClipRRect(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16.0)),
@@ -77,183 +75,199 @@ class _ProductScreenState extends State<ProductScreen> {
                                 width: double.infinity,
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-              const Spacer(
-                flex: 65,
-              )
-            ]),
+              ]),
+            ),
           ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.6,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(32.0))),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ListView(
-                    controller: scrollController,
-                    children: [
-                      Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: MyTheme.grey.withOpacity(0.5),
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(1.0))),
-                          height: 4,
-                          width: 48,
+          MyTheme.smallVerticalPadding,
+          Expanded(
+            flex: 2,
+            child: Container(
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(32.0))),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.product.nom,
+                                style: const TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold)),
+                            RatingView(
+                              iconSize: 20,
+                              fontSize: 20,
+                              value: widget.product.rating?.toInt() ?? 0,
+                            ),
+                          ],
                         ),
-                      ),
-                      MyTheme.mediumVerticalPadding,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(widget.product.nom,
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold)),
-                              RatingView(
-                                iconSize: 22,
-                                fontSize: 22,
-                                value: widget.product.rating?.toInt() ?? 0,
-                              ),
-                            ],
+                        Text("${widget.product.prix} DA",
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    MyTheme.mediumVerticalPadding,
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(widget
+                                  .product.artisan.user.image ??
+                              'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                            RatingView(
+                              iconSize: 18,
+                              fontSize: 18,
+                              value: widget.product.artisan.rating.toInt(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    MyTheme.mediumVerticalPadding,
+                    Text(widget.product.description,
+                        style: TextStyle(fontSize: 14, color: MyTheme.grey)),
+                    MyTheme.mediumVerticalPadding,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8.0),
+                                bottomLeft: Radius.circular(8.0)),
+                            border: Border.all(
+                                color: Colors.grey[350]!,
+                                width: 1.5), // Add an outline
                           ),
-                          Text("${widget.product.prix} DA",
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      MyTheme.mediumVerticalPadding,
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(widget
-                                    .product.artisan.user.image ??
-                                'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
-                          ),
-                          const SizedBox(width: 12),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                              RatingView(
-                                iconSize: 18,
-                                fontSize: 18,
-                                value: widget.product.artisan.rating.toInt(),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      MyTheme.mediumVerticalPadding,
-                      Text(widget.product.description,
-                          style: TextStyle(fontSize: 16, color: MyTheme.grey)),
-                      MyTheme.mediumVerticalPadding,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
+                          child: IconButton(
                             onPressed: decrementQuantity,
                             icon: const Icon(Icons.remove),
-                            color: MyTheme.catalogueButtonColor,
+                            color: Colors.grey[700]!,
+                            iconSize: 24.0,
                           ),
-                          Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          height: 51,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                  color: Colors.grey[350]!,
+                                  width: 1.5), // Add top border
+                              bottom: BorderSide(
+                                  color: Colors.grey[350]!,
+                                  width: 1.5), // Add bottom border
+                            ),
+                          ),
+                          child: Center(
                             child: Text(
                               _quantity.toString(),
                               style: const TextStyle(fontSize: 16.0),
                             ),
                           ),
-                          IconButton(
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(8.0),
+                                bottomRight: Radius.circular(8.0)),
+                            border: Border.all(
+                                color: Colors.grey[350]!,
+                                width: 1.5), // Add an outline
+                          ),
+                          child: IconButton(
                             onPressed: incrementQuantity,
                             icon: const Icon(Icons.add),
-                            color: MyTheme.catalogueButtonColor,
+                            color: Colors.grey[700]!,
+                            iconSize: 24.0,
                           ),
-                        ],
-                      ),
-                      MyTheme.smallVerticalPadding,
-                      Row(
-                        children: [
-                          const Spacer(
-                            flex: 2,
-                          ),
-                          Expanded(
-                              flex: 5,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ],
+                    ),
+                    MyTheme.mediumVerticalPadding,
+                    Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                backgroundColor: Colors.orangeAccent,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 20.0),
+                              ),
+                              onPressed: () {
+                                CartItem cartItem = CartItem(
+                                  product: widget.product,
+                                  quantity: _quantity,
+                                );
+
+                                cartController.addToCart(cartItem);
+
+                                Get.snackbar(
+                                  "Produit ajouté au panier",
+                                  "${widget.product.nom} a été ajouté au panier",
+                                  backgroundColor: Colors.green,
+                                  duration: const Duration(milliseconds: 1500),
+                                  icon: const Icon(
+                                    Icons.check_circle,
+                                    color: Colors.white,
                                   ),
-                                  backgroundColor: Colors.orangeAccent,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0, horizontal: 20.0),
-                                ),
-                                onPressed: () {
-                                  CartItems cartItem = CartItems(
-                                    id: widget.product.id,
-                                    nom: widget.product.nom,
-                                    quantity: 1,
-                                    prix: widget.product.prix,
-                                  );
-
-                                  cartController.addToCart(cartItem);
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Item added to cart'),
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                },
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.shopping_cart,
+                                  colorText: Colors.white,
+                                  snackPosition: SnackPosition.TOP,
+                                );
+                              },
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                  SizedBox(width: 4.0),
+                                  Text(
+                                    "Ajouter au panier",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.white,
-                                      size: 22.0,
+                                      fontSize: 14.0,
                                     ),
-                                    SizedBox(width: 4.0),
-                                    Text(
-                                      "Ajouter au panier",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                          const Spacer(
-                            flex: 2,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ],
+                    )
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ],
       ),

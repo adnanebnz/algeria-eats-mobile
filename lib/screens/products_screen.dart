@@ -111,12 +111,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             return ProductCardView(
                               product: product,
                               onTap: (productId) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductScreen(
-                                      product: product,
-                                    ),
+                                Get.to(
+                                  () => ProductScreen(
+                                    product: product,
                                   ),
                                 );
                               },

@@ -1,4 +1,5 @@
 import 'package:algeria_eats/controllers/cartController.dart';
+import 'package:algeria_eats/screens/cart_screen.dart';
 import 'package:algeria_eats/screens/categories_view.dart';
 import 'package:algeria_eats/screens/featured_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   position: badges.BadgePosition.topEnd(top: -5, end: 1),
                   child: IconButton(
                     onPressed: () {
-                      // TODO NAVIGATE TO CART SCREEN
+                      Get.to(() => const CartScreen());
                     },
                     icon: const Icon(Icons.shopping_bag_outlined),
                   ),

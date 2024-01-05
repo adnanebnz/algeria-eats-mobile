@@ -91,12 +91,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
         return ProductCardView(
           product: product,
           onTap: (productId) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductScreen(product: product),
-              ),
-            );
+            Get.to(() => ProductScreen(product: product));
           },
         );
       }).toList(),

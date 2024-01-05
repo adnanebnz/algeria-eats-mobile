@@ -58,10 +58,7 @@ class _SignInFormState extends State<SignInForm> {
                 isShowLoading = false;
               });
             }).then((value) => {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const MainScreen()),
-                    (route) => false,
-                  )
+                  Get.offAll(() => const MainScreen()),
                 });
           } else {
             setState(() {
