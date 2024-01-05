@@ -53,12 +53,12 @@ class _ProductScreenState extends State<ProductScreen> {
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.symmetric(vertical: 4),
               child: Column(children: [
                 Expanded(
                   child: CarouselSlider(
                     options: CarouselOptions(
-                      height: 200,
+                      height: double.infinity,
                       enableInfiniteScroll: true,
                     ),
                     items: widget.product.images.map((image) {

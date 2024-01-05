@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(top: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: GetX<CartController>(
             builder: (controller) {
               return Column(

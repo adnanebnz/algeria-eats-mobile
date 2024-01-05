@@ -55,18 +55,23 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/avaters/
-    - assets/icons/
     - assets/RiveAssets/
-    - assets/shapes/
-    - assets/Backgrounds/
 
   fonts:
-    - family: Intel
+    - family: Inter
       fonts:
         - asset: assets/Fonts/Inter-Regular.ttf
+        - asset: assets/Fonts/Inter-Medium.ttf
+          weight: 500
         - asset: assets/Fonts/Inter-SemiBold.ttf
           weight: 600
+        - asset: assets/Fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/Fonts/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/Fonts/Inter-Black.ttf
+          weight: 900
+
     - family: Poppins
       fonts:
         - asset: assets/Fonts/Poppins-Bold.ttf

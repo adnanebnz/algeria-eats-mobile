@@ -22,6 +22,18 @@ class _CartItemCardState extends State<CartItemCard> {
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           cartController.removeFromCart(widget.cartItem);
+          Get.snackbar(
+            "Supprimé du panier",
+            "${widget.cartItem.product.nom} est supprimé de votre panier",
+            snackPosition: SnackPosition.TOP,
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            duration: const Duration(milliseconds: 1200),
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
         }
       },
       background: Container(
@@ -70,7 +82,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   Text(
                     widget.cartItem.product.nom,
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 16, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),

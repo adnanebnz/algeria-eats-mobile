@@ -1,11 +1,9 @@
 import 'dart:ui';
 
-import 'package:algeria_eats/components/animated_button.dart';
 import 'package:algeria_eats/components/custom_sign_in.dart';
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'package:get/get.dart';
 // import 'dart:developer' as console show log;
 
@@ -18,13 +16,11 @@ class OnBoardPage extends StatefulWidget {
 
 class _HomePageState extends State<OnBoardPage> {
   bool isSignInDialogShown = false;
-  late RiveAnimationController _btnAnimationController;
 
   AuthController authController = Get.put(AuthController());
 
   @override
   void initState() {
-    _btnAnimationController = OneShotAnimation("active", autoplay: false);
     authController.checkIsLoggedIn();
     super.initState();
   }
@@ -41,10 +37,10 @@ class _HomePageState extends State<OnBoardPage> {
               Positioned(
                 bottom: 0,
                 left: 0,
-                child: Image.network(
+                child: Image.asset(
                     height: MediaQuery.of(context).size.height,
                     fit: BoxFit.cover,
-                    'https://images.unsplash.com/photo-1565299543923-37dd37887442?q=80&w=1381&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                    'assets/images/bg.jpg'),
               ),
               //add a little blur
               Positioned.fill(
@@ -98,27 +94,89 @@ class _HomePageState extends State<OnBoardPage> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 32,
-                        ),
-                        AnimatedBtn(
-                          btnAnimationController: _btnAnimationController,
-                          press: () {
-                            _btnAnimationController.isActive = true;
-                            Future.delayed(
-                              const Duration(milliseconds: 800),
-                              () {
-                                setState(() {
-                                  isSignInDialogShown = true;
-                                });
-                                customSigninDialog(context, onClosed: (_) {
-                                  setState(() {
-                                    isSignInDialogShown = false;
-                                  });
-                                });
-                              },
-                            );
-                          },
+                        const Spacer(),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 24.0),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0, vertical: 8.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSignInDialogShown = true;
+                                      });
+                                      customSigninDialog(context,
+                                          onClosed: (_) {
+                                        setState(() {
+                                          isSignInDialogShown = false;
+                                        });
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromRGBO(
+                                            251, 146, 60, 1),
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
+                                      ),
+                                      padding: const EdgeInsets.all(14.0),
+                                      child: const Center(
+                                        child: Text(
+                                          "Créez un compte",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0, vertical: 8.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSignInDialogShown = true;
+                                      });
+                                      customSigninDialog(context,
+                                          onClosed: (_) {
+                                        setState(() {
+                                          isSignInDialogShown = false;
+                                        });
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
+                                      ),
+                                      padding: const EdgeInsets.all(14.0),
+                                      child: const Center(
+                                        child: Text(
+                                          "Connectez-vous",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),

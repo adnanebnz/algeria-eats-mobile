@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Algeria Eats',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Inter',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
         useMaterial3: true,
       ),
