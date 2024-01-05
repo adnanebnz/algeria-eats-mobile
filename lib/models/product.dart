@@ -27,6 +27,21 @@ class Product {
     required this.updated_at,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'nom': nom,
+      'description': description,
+      'prix': prix,
+      'rating': rating,
+      'categorie': categorie,
+      'images': images,
+      'artisan': artisan.toMap(),
+      'created_at': created_at,
+      'updated_at': updated_at,
+    };
+  }
+
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'],
