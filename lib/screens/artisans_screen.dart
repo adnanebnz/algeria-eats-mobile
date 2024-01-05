@@ -12,13 +12,23 @@ class _ArtisansScreenState extends State<ArtisansScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: 235,
-        child: ArtisanCard(
-          title: "hey",
-          onMoreTap: () {},
-        ),
-      ),
+      body: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 0.8,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            crossAxisCount: 2,
+          ),
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            return ArtisanCard(
+              title: "Artisan",
+              body:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!",
+              onMoreTap: () {},
+            );
+          }),
     );
   }
 }

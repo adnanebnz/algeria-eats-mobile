@@ -15,12 +15,12 @@ class ArtisanCard extends StatelessWidget {
           """Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!""",
       required this.onMoreTap,
       this.subIcon = const CircleAvatar(
+        backgroundColor: Colors.orange,
+        radius: 25,
         child: Icon(
           Icons.directions,
           color: Colors.white,
         ),
-        backgroundColor: Colors.orange,
-        radius: 25,
       ),
       this.subInfoText = "545 miles",
       this.subInfoTitle = "Directions",
@@ -41,11 +41,7 @@ class ArtisanCard extends StatelessWidget {
               spreadRadius: 0,
             )
           ],
-          gradient: RadialGradient(
-            colors: const [Colors.orangeAccent, Colors.orange],
-            focal: Alignment.topCenter,
-            radius: .85,
-          )),
+          color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -53,26 +49,33 @@ class ArtisanCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              CircleAvatar(
+                backgroundColor: Colors.orange,
+                radius: 25,
+                child: Icon(
+                  Icons.fastfood,
+                  color: Colors.white,
+                ),
+              ),
               Text(
                 title,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey[700],
                     fontSize: 26,
                     fontWeight: FontWeight.bold),
               ),
               Container(
                 width: 75,
-                height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100.0),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                       colors: [Colors.white, Colors.white],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter),
                 ),
                 child: GestureDetector(
                   onTap: onMoreTap,
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "More",
                     style: TextStyle(color: Colors.orange),
@@ -81,16 +84,14 @@ class ArtisanCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             body,
-            style:
-                TextStyle(color: Colors.white.withOpacity(.75), fontSize: 14),
+            style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
             width: double.infinity,
-            height: 75,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.0),
               color: Colors.white,
@@ -100,7 +101,7 @@ class ArtisanCard extends StatelessWidget {
               child: Row(
                 children: [
                   subIcon,
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +109,7 @@ class ArtisanCard extends StatelessWidget {
                       Text(subInfoTitle),
                       Text(
                         subInfoText,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.orange,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
