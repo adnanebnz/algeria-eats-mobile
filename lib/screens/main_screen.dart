@@ -1,5 +1,6 @@
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/controllers/productController.dart';
+import 'package:algeria_eats/screens/artisans_screen.dart';
 import 'package:algeria_eats/screens/home_screen.dart';
 import 'package:algeria_eats/screens/on_board_screen.dart';
 import 'package:algeria_eats/screens/products_screen.dart';
@@ -91,7 +92,7 @@ class _WelcomeScreenState extends State<MainScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
-            label: "Home",
+            label: "Acceuil",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank_outlined),
@@ -181,11 +182,7 @@ class _WelcomeScreenState extends State<MainScreen> {
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: const [
-            HomeScreen(),
-            ProductsScreen(),
-            Center(child: Text('Profile')),
-          ],
+          children: const [HomeScreen(), ProductsScreen(), ArtisansScreen()],
         ),
       ),
     );

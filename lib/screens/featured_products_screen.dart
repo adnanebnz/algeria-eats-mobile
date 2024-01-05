@@ -34,7 +34,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Featured Products",
+                  "Produits populaires",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 18,
@@ -62,7 +62,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                 padding: EdgeInsets.only(
                     left: 14.0, right: 14.0, top: 16.0, bottom: 5.0),
                 child: Text(
-                  "Featured Products",
+                  "Produits populaires",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 18,

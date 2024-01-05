@@ -1,6 +1,7 @@
 import 'package:algeria_eats/components/cart_item_card.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        elevation: 2,
+        elevation: 1,
         leading: const BackButton(color: Colors.black),
       ),
       body: SafeArea(
@@ -27,6 +28,24 @@ class _CartScreenState extends State<CartScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: GetX<CartController>(
             builder: (controller) {
+              if (controller.cartItems.isEmpty) {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset("assets/images/empty.svg",
+                        height: MediaQuery.of(context).size.height * 0.25),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Votre panier est vide",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[900]),
+                    ),
+                  ],
+                ));
+              }
               return Column(
                 children: [
                   Expanded(

@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[50],
+            color: Colors.white,
           ),
           margin: const EdgeInsets.only(left: 12.0, right: 12.0, top: 14.0),
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Find your \nFavorite Food",
+                    "Trouver votre \nPlat préféré",
                     style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 24,

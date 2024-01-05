@@ -19,6 +19,7 @@ class _CartItemCardState extends State<CartItemCard> {
   Widget build(BuildContext context) {
     return Dismissible(
       key: Key(widget.cartItem.product.id.toString()),
+      direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           cartController.removeFromCart(widget.cartItem);
