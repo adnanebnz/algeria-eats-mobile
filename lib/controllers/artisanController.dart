@@ -12,8 +12,8 @@ class ArtisanController extends GetxController {
   final dio = Dio();
 
   Future<Map<String, dynamic>> getArtisans() async {
-    isLoading.value = true;
     try {
+      isLoading.value = true;
       final response = await dio.get(
         '$apiUrl/artisans',
         options: Options(headers: {
@@ -26,22 +26,6 @@ class ArtisanController extends GetxController {
           .map((artisanJson) => Artisan.fromJson(artisanJson))
           .toList();
 
-      for (var artisan in artisans) {
-        print(artisan.user.nom);
-        print(artisan.user.prenom);
-        print(artisan.user.email);
-        print(artisan.user.num_telephone);
-        print(artisan.heure_fermeture);
-
-        for (var product in artisan.products!) {
-          print('Product Name: ${product.nom}');
-          print('Price: ${product.prix}');
-          print('Description: ${product.description}');
-          print('Category: ${product.categorie}');
-          print('Image: ${product.images[0]}');
-          print('---');
-        }
-      }
       isLoading.value = false;
       return responseData;
     } catch (e) {
@@ -49,6 +33,8 @@ class ArtisanController extends GetxController {
       return {
         'error': e.toString(),
       };
+    } finally {
+      isLoading.value = false;
     }
   }
 }

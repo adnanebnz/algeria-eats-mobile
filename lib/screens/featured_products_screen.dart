@@ -131,6 +131,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                       updated_at: '',
                       wilaya: '')),
               id: 0,
+              artisan_id: 0,
               nom: '',
               description: '',
               prix: 0,

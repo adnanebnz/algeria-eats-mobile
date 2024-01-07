@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: SafeArea(
         child: Container(
-          margin: const EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 8),
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: GetX<CartController>(
             builder: (controller) {
@@ -48,6 +48,28 @@ class _CartScreenState extends State<CartScreen> {
               }
               return Column(
                 children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[900]),
+                        ),
+                        Text(
+                          "${controller.total.value} DA",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     child: ListView.separated(
                       itemCount: controller.cartItems.length,
@@ -62,17 +84,29 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(251, 146, 60, 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: Text('Total: ${controller.total.value} DA',
-                          style: const TextStyle(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, top: 5.0, bottom: 32.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(251, 146, 60, 1),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        padding: const EdgeInsets.all(14.0),
+                        child: const Center(
+                          child: Text(
+                            "Commander",
+                            style: TextStyle(
+                              fontSize: 18.0,
                               color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500))),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             },

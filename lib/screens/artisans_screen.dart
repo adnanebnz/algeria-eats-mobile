@@ -1,5 +1,6 @@
 import 'package:algeria_eats/components/artisan_card.dart';
 import 'package:algeria_eats/controllers/artisanController.dart';
+import 'package:algeria_eats/screens/artisan_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,21 +23,23 @@ class _ArtisansScreenState extends State<ArtisansScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1.9,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 4,
-            crossAxisCount: 1,
-          ),
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return ArtisanCard(
-              title: "Artisan",
-              body: "Lorem ipsum dolor",
-              onMoreTap: () {},
-            );
-          }),
+      body: GetX<ArtisanController>(builder: (controller) {
+        return ListView.builder(
+            itemCount: controller.artisans.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.all(12.0),
+                child: ArtisanCard(
+                  artisan: controller.artisans[index],
+                  onTap: (userId) {
+                    Get.to(() => ArtisanProfileScreen(
+                          artisan: controller.artisans[index],
+                        ));
+                  },
+                ),
+              );
+            });
+      }),
     );
   }
 }

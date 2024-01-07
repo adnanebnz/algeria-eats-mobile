@@ -4,6 +4,7 @@ import 'package:algeria_eats/models/artisan.dart';
 
 class Product {
   int id;
+  int artisan_id;
   String nom;
   String description;
   double prix;
@@ -16,6 +17,7 @@ class Product {
 
   Product({
     required this.id,
+    required this.artisan_id,
     required this.nom,
     required this.description,
     required this.prix,
@@ -30,6 +32,7 @@ class Product {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'artisan_id': artisan_id,
       'nom': nom,
       'description': description,
       'prix': prix,
@@ -45,6 +48,7 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'],
+      artisan_id: json['artisan_id'],
       nom: json['nom'],
       description: json['description'],
       prix: json['prix'].toDouble(),

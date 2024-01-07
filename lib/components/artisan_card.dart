@@ -1,36 +1,21 @@
+import 'package:algeria_eats/components/rating_view.dart';
+import 'package:algeria_eats/models/artisan.dart';
 import 'package:flutter/material.dart';
 
 class ArtisanCard extends StatelessWidget {
-  final String title;
-  final String body;
-  final Function() onMoreTap;
+  const ArtisanCard({
+    Key? key,
+    required this.artisan,
+    required this.onTap,
+  }) : super(key: key);
 
-  final String subInfoTitle;
-  final String subInfoText;
-  final Widget subIcon;
-
-  const ArtisanCard(
-      {required this.title,
-      this.body =
-          """Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudi conseqr!""",
-      required this.onMoreTap,
-      this.subIcon = const CircleAvatar(
-        backgroundColor: Colors.orange,
-        radius: 25,
-        child: Icon(
-          Icons.directions,
-          color: Colors.white,
-        ),
-      ),
-      this.subInfoText = "545 miles",
-      this.subInfoTitle = "Directions",
-      Key? key})
-      : super(key: key);
+  final Artisan artisan;
+  final Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
           boxShadow: [
@@ -49,78 +34,87 @@ class ArtisanCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.orange,
-                radius: 25,
-                child: Icon(
-                  Icons.fastfood,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                title,
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  CircleAvatar(
+                      radius: 25,
+                      child: Image.network(
+                        artisan.user.image ?? "https://picsum.photos/200",
+                      )),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${artisan.user.nom} ${artisan.user.prenom}",
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      RatingView(
+                        value: artisan.rating,
+                        fontSize: 20,
+                        iconSize: 20,
+                      )
+                    ],
+                  ),
+                ],
               ),
               Container(
-                width: 75,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100.0),
-                  gradient: const LinearGradient(
-                      colors: [Colors.white, Colors.white],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter),
+                  border: Border.all(color: Colors.orange),
                 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 child: GestureDetector(
-                  onTap: onMoreTap,
+                  onTap: () {
+                    onTap(artisan.user_id!);
+                  },
                   child: const Center(
                       child: Text(
-                    "More",
+                    "Voir",
                     style: TextStyle(color: Colors.orange),
                   )),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Text(
-            body,
-            style: TextStyle(color: Colors.grey[700], fontSize: 14),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+          const SizedBox(height: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
                 children: [
-                  subIcon,
-                  const SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(subInfoTitle),
-                      Text(
-                        subInfoText,
-                        style: const TextStyle(
-                          color: Colors.orange,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  )
+                  Icon(Icons.location_on_outlined,
+                      color: Colors.grey[700], size: 30),
+                  const SizedBox(width: 5),
+                  Text(
+                    "${artisan.user.adresse}, ${artisan.user.wilaya}",
+                    style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
-            ),
-          )
+              Row(
+                children: [
+                  Icon(Icons.fastfood_outlined,
+                      color: Colors.grey[700], size: 30),
+                  const SizedBox(width: 5),
+                  Text(
+                    artisan.type_service == 'sucree' ? 'Sucrée' : 'Salée',
+                    style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     );
