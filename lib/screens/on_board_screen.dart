@@ -70,10 +70,10 @@ class _HomePageState extends State<OnBoardPage> {
                           child: Column(
                             children: [
                               Text(
-                                "Discover Culinary Delights",
+                                "Découvrez les délices culinaires",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 50,
+                                  fontSize: 44,
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.bold,
                                   height: 1.2,
@@ -83,7 +83,7 @@ class _HomePageState extends State<OnBoardPage> {
                                 height: 16,
                               ),
                               Text(
-                                "Don't miss the art of culinary design and technology. Learn how to craft delightful apps with Flutter and Swift. Explore comprehensive courses featuring the best tools for culinary innovation.",
+                                "Offrez-vous la commodité d’apporter une cuisine de premier ordre directement à votre porte! En quelques clics, vous pourrez savourer des plats raffinés et de haute qualité dans le confort de votre maison!",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

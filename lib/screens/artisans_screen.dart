@@ -40,37 +40,79 @@ class _ArtisansScreenState extends State<ArtisansScreen> {
               hintText: 'Rechercher un artisan',
             ),
           ),
-          GetX<ArtisanController>(builder: (controller) {
-            return Expanded(
-              child: ListView.builder(
-                  itemCount: _searchText.isEmpty
-                      ? controller.artisans.length
-                      : controller.artisans
-                          .where((artisan) =>
-                              artisan.user.nom
-                                  .toLowerCase()
-                                  .contains(_searchText.toLowerCase()) ||
-                              artisan.user.prenom
-                                  .toLowerCase()
-                                  .contains(_searchText.toLowerCase()))
-                          .length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.all(12.0),
-                      child: ArtisanCard(
-                        artisan: controller.artisans[index],
-                        onTap: (userId) {
-                          Get.to(() => ArtisanProfileScreen(
-                                artisan: controller.artisans[index],
-                              ));
-                        },
-                      ),
-                    );
-                  }),
-            );
-          }),
+          Obx(() {
+            if (artisanController.artisans.isEmpty &&
+                !artisanController.isLoading.value) {
+              return _buildEmptyState(context);
+            } else if (artisanController.isLoading.value) {
+              return _buildLoadingState(context);
+            } else {
+              return _buildArtisanList(_searchText, artisanController);
+            }
+          })
         ],
       ),
     );
   }
+}
+
+Widget _buildEmptyState(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.3,
+      ),
+      const Center(
+        child: Text("Aucun artisan trouvé"),
+      ),
+    ],
+  );
+}
+
+Widget _buildLoadingState(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.3,
+      ),
+      const Center(
+        child: CircularProgressIndicator(),
+      ),
+    ],
+  );
+}
+
+Widget _buildArtisanList(String _searchText, ArtisanController controller) {
+  return Expanded(
+    child: ListView.builder(
+      itemCount: _searchText.isEmpty
+          ? controller.artisans.length
+          : controller.artisans
+              .where((artisan) =>
+                  artisan.user.nom
+                      .toLowerCase()
+                      .contains(_searchText.toLowerCase()) ||
+                  artisan.user.prenom
+                      .toLowerCase()
+                      .contains(_searchText.toLowerCase()))
+              .length,
+      itemBuilder: (context, index) {
+        return Container(
+          padding: const EdgeInsets.all(12.0),
+          child: ArtisanCard(
+            artisan: controller.artisans[index],
+            onTap: (userId) {
+              Get.to(() => ArtisanProfileScreen(
+                    artisan: controller.artisans[index],
+                  ));
+            },
+          ),
+        );
+      },
+    ),
+  );
 }

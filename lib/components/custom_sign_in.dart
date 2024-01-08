@@ -19,7 +19,7 @@ Future<Object?> customSigninDialog(BuildContext context,
       },
       pageBuilder: (context, _, __) => Center(
             child: Container(
-              height: size.height * 0.65,
+              height: size.height * 0.73,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
               decoration: BoxDecoration(
@@ -33,7 +33,7 @@ Future<Object?> customSigninDialog(BuildContext context,
                   children: [
                     Column(children: [
                       Text(
-                        "Sign In",
+                        "Connectez-vous",
                         style: TextStyle(
                             fontSize: 34,
                             fontFamily: "Poppins",
@@ -42,7 +42,7 @@ Future<Object?> customSigninDialog(BuildContext context,
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          "Explore a world of delicious treats with AlgeriaEats! Indulge in the finest sweet and savory delights from local artisans.",
+                          "Explorez un monde de délicieuses friandises avec Algeria Eats! Offrez-vous les meilleurs délices sucrés et salés des artisans locaux.",
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -106,6 +106,7 @@ class _SignInFormState extends State<SignInForm> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Please enter your email";
@@ -164,7 +165,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 18),
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                   child: ElevatedButton.icon(
                       onPressed: () {
                         signIn(context);
@@ -184,9 +185,24 @@ class _SignInFormState extends State<SignInForm> {
                         color: Colors.white,
                       ),
                       label: const Text(
-                        "Sign In",
+                        "Connectez-vous",
                         style: TextStyle(color: Colors.white),
                       )),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Vous n'avez pas de compte ?",
+                        style: TextStyle(color: Colors.black87, fontSize: 12)),
+                    TextButton(
+                        onPressed: () {
+                          //  TODO NAVIGATE TO CREATE ACCOUNT FORM
+                        },
+                        child: const Text(
+                          "Inscrivez-vous",
+                          style: TextStyle(fontSize: 13),
+                        ))
+                  ],
                 )
               ],
             )),
