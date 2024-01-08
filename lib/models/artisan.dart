@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/models/user.dart';
+// import 'package:algeria_eats/models/product.dart';
 
 class Artisan {
   int? user_id;
   int rating;
   User user;
+  // List<Product> products = [];
   String desc_entreprise;
   String heure_ouverture;
   String heure_fermeture;
@@ -15,6 +17,7 @@ class Artisan {
 
   Artisan({
     required this.user_id,
+    // required this.products,
     required this.desc_entreprise,
     required this.heure_ouverture,
     required this.heure_fermeture,
@@ -35,6 +38,7 @@ class Artisan {
       'created_at': created_at,
       'updated_at': updated_at,
       'user': user.toMap(),
+      // 'products': products.map((product) => product.toMap()).toList(),
     };
   }
 
@@ -49,6 +53,9 @@ class Artisan {
       created_at: map['created_at'],
       updated_at: map['updated_at'],
       user: User.fromJson(map['user']),
+      // products: (map['products'] as List<dynamic>)
+      //     .map((productJson) => Product.fromJson(productJson))
+      //     .toList(),
     );
   }
 }

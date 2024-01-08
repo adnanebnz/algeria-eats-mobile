@@ -49,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
               return Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

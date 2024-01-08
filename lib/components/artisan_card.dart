@@ -37,10 +37,10 @@ class ArtisanCard extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                      radius: 25,
-                      child: Image.network(
-                        artisan.user.image ?? "https://picsum.photos/200",
-                      )),
+                    radius: 25,
+                    backgroundImage: NetworkImage(artisan.user.image ??
+                        'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
+                  ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
