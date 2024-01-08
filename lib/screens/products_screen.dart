@@ -16,7 +16,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   ProductController productController = Get.put(ProductController());
   TextEditingController textController = TextEditingController();
   String searchText = '';
-  String selectedCategory = '';
   @override
   Widget build(BuildContext context) {
     return GetX<ProductController>(builder: (controller) {
@@ -37,30 +36,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         });
                       },
                       textController: textController,
-                      hintText: 'Search product',
+                      hintText: 'Rechercher un produit',
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: DropdownButton(
-                        isExpanded: true,
-                        hint: Text(
-                            'Catégorie : ${selectedCategory.isEmpty ? 'Tous' : selectedCategory == 'sucree' ? 'Sucrée' : 'Salée'}'),
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'sucree',
-                            child: Text('Sucrée'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'salee',
-                            child: Text('Salée'),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCategory = value.toString();
-                          });
-                        }),
                   ),
                   Expanded(
                     child: Container(
@@ -75,39 +52,20 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             crossAxisCount: 2,
                           ),
                           itemCount: searchText.isEmpty
-                              ? (selectedCategory.isEmpty
-                                  ? controller.products.length
-                                  : controller.products
-                                      .where((product) =>
-                                          product.categorie == selectedCategory)
-                                      .length)
+                              ? controller.products.length
                               : controller.products
-                                  .where((product) =>
-                                      product.nom
-                                          .toLowerCase()
-                                          .contains(searchText.toLowerCase()) &&
-                                      (selectedCategory.isEmpty ||
-                                          product.categorie ==
-                                              selectedCategory))
+                                  .where((product) => product.nom
+                                      .toLowerCase()
+                                      .contains(searchText.toLowerCase()))
                                   .length,
                           itemBuilder: (context, index) {
-                            final product = searchText.isEmpty
-                                ? (selectedCategory.isEmpty
-                                    ? controller.products[index]
-                                    : controller.products
-                                        .where((product) =>
-                                            product.categorie ==
-                                            selectedCategory)
-                                        .elementAt(index))
+                            var product = searchText.isEmpty
+                                ? controller.products[index]
                                 : controller.products
-                                    .where((product) =>
-                                        product.nom.toLowerCase().contains(
-                                            searchText.toLowerCase()) &&
-                                        (selectedCategory.isEmpty ||
-                                            product.categorie ==
-                                                selectedCategory))
-                                    .elementAt(index);
-
+                                    .where((product) => product.nom
+                                        .toLowerCase()
+                                        .contains(searchText.toLowerCase()))
+                                    .toList()[index];
                             return ProductCardView(
                               product: product,
                               onTap: (productId) {

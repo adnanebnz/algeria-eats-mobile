@@ -20,11 +20,11 @@ class ArtisanCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(.05),
-              offset: const Offset(0, 10),
-              blurRadius: 0,
-              spreadRadius: 0,
-            )
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1),
+            ),
           ],
           color: Colors.white),
       child: Column(
@@ -37,27 +37,30 @@ class ArtisanCard extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 25,
+                    radius: 30,
                     backgroundImage: NetworkImage(artisan.user.image ??
                         'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
                   ),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${artisan.user.nom} ${artisan.user.prenom}",
-                        style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      RatingView(
-                        value: artisan.rating,
-                        fontSize: 20,
-                        iconSize: 20,
-                      )
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${artisan.user.nom} ${artisan.user.prenom}",
+                          style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        RatingView(
+                          value: artisan.rating,
+                          fontSize: 20,
+                          iconSize: 20,
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
