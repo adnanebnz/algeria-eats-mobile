@@ -105,22 +105,25 @@ class _SignInFormState extends State<SignInForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter your email";
-                            }
-                            return null;
-                          },
-                          onSaved: (email) {
-                            _email = email!;
-                          },
-                          decoration: const InputDecoration(
-                              prefixIcon: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Icon(CupertinoIcons.mail),
-                          )),
+                        Flexible(
+                          flex: 1,
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your email";
+                              }
+                              return null;
+                            },
+                            onSaved: (email) {
+                              _email = email!;
+                            },
+                            decoration: const InputDecoration(
+                                prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Icon(CupertinoIcons.mail),
+                            )),
+                          ),
                         ),
                         if (showError)
                           const Padding(
@@ -145,22 +148,25 @@ class _SignInFormState extends State<SignInForm> {
                   padding: const EdgeInsets.only(top: 4.0, bottom: 8),
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your password";
-                        }
-                        return null;
-                      },
-                      onSaved: (password) {
-                        _password = password!;
-                      },
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Icon(CupertinoIcons.lock),
-                      )),
+                    child: Flexible(
+                      flex: 1,
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter your password";
+                          }
+                          return null;
+                        },
+                        onSaved: (password) {
+                          _password = password!;
+                        },
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(CupertinoIcons.lock),
+                        )),
+                      ),
                     ),
                   ),
                 ),

@@ -19,7 +19,7 @@ Future<Object?> customSigninDialog(BuildContext context,
       },
       pageBuilder: (context, _, __) => Center(
             child: Container(
-              height: size.height * 0.73,
+              height: size.height * 0.685,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
               decoration: BoxDecoration(
@@ -32,12 +32,15 @@ Future<Object?> customSigninDialog(BuildContext context,
                   clipBehavior: Clip.none,
                   children: [
                     Column(children: [
-                      Text(
-                        "Connectez-vous",
-                        style: TextStyle(
-                            fontSize: 34,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.bold),
+                      Flexible(
+                        flex: 1,
+                        child: Text(
+                          "Connectez-vous",
+                          style: TextStyle(
+                              fontSize: 34,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),
