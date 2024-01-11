@@ -2,7 +2,7 @@ import 'package:algeria_eats/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

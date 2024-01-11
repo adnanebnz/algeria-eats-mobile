@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  benchmark:
+    dependency: transitive
+    description:
+      name: benchmark
+      sha256: cb3eeea01e3f054df76ee9775ca680f3afa5f19f39b2bb426ba78ba27654493b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -113,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  dart_sort_queue:
+    dependency: transitive
+    description:
+      name: dart_sort_queue
+      sha256: f3353ba8b4850e072d3368757f62edb79af34a9703c3e3df9c59342721f5f5b1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+3"
   dio:
     dependency: "direct main"
     description:
@@ -129,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  enum_to_string:
+    dependency: transitive
+    description:
+      name: enum_to_string
+      sha256: bd9e83a33b754cb43a75b36a9af2a0b92a757bfd9847d2621ca0b1bed45f8e7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -222,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: b068ffc46f82a55844acfa4fdbb61fad72fa2aef0905548419d97f0f95c456da
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -260,10 +292,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: d4872660c46d929f6b8a9ef4e7a7eff7e49bbf0c4ec3f385ee32df5119175139
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "0.13.6"
   http_parser:
     dependency: transitive
     description:
@@ -312,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  latlong2:
+    dependency: "direct main"
+    description:
+      name: latlong2
+      sha256: "18712164760cee655bc790122b0fd8f3d5b3c36da2cb7bf94b68a197fbb0811b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0"
   lints:
     dependency: transitive
     description:
@@ -320,6 +360,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  mapbox_api:
+    dependency: "direct main"
+    description:
+      name: mapbox_api
+      sha256: "2e5b38bf10bdeed6a30b77475b07d5627dbd535386b43c1626ecfd0b538e2caa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  mapbox_maps_flutter:
+    dependency: "direct main"
+    description:
+      name: mapbox_maps_flutter
+      sha256: "713c3d8080f29c371fef93d7a96cf40f5c71fdc29282b3a2ca5deba8fbf12098"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   matcher:
     dependency: transitive
     description:
@@ -384,6 +440,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      sha256: "860c6b871c94c78e202dc69546d4d8fd84bd59faeb36f8fb9888668a53ff4f78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "11.1.0"
+  permission_handler_android:
+    dependency: transitive
+    description:
+      name: permission_handler_android
+      sha256: "2f1bec180ee2f5665c22faada971a8f024761f632e93ddc23310487df52dcfa6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "12.0.1"
+  permission_handler_apple:
+    dependency: transitive
+    description:
+      name: permission_handler_apple
+      sha256: "1a816084338ada8d574b1cb48390e6e8b19305d5120fe3a37c98825bacc78306"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.2.0"
+  permission_handler_html:
+    dependency: transitive
+    description:
+      name: permission_handler_html
+      sha256: "11b762a8c123dced6461933a88ea1edbbe036078c3f9f41b08886e678e7864df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+2"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      sha256: d87349312f7eaf6ce0adaf668daf700ac5b06af84338bd8b8574dfbd93ffe1a1
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  permission_handler_windows:
+    dependency: transitive
+    description:
+      name: permission_handler_windows
+      sha256: "1e8640c1e39121128da6b816d236e714d2cf17fac5a105dd6acdd3403a628004"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   petitparser:
     dependency: transitive
     description:
@@ -416,6 +520,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.3"
+  rbush:
+    dependency: transitive
+    description:
+      name: rbush
+      sha256: "48b683421b4afb43a642f82c6aa31911e54f3069143d31c7d33cbe329df13403"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   rive:
     dependency: "direct main"
     description:
@@ -541,6 +653,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  sweepline_intersections:
+    dependency: transitive
+    description:
+      name: sweepline_intersections
+      sha256: "924fce1b02b9783fae5ca33ba4f2cc33743b0422b8b829fac60bcd3717a69afb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3+2"
   term_glyph:
     dependency: transitive
     description:
@@ -557,6 +677,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  turf:
+    dependency: transitive
+    description:
+      name: turf
+      sha256: "2be48cc7ed7e9acccaeee18e06d1ce183f3f7eee7abc0622371880951d41a0d6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.8"
+  turf_equality:
+    dependency: transitive
+    description:
+      name: turf_equality
+      sha256: "2ae3b117afd5fb134412a245a883589cae80d9d9472c587f754a0c34f82fa1b9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  turf_pip:
+    dependency: transitive
+    description:
+      name: turf_pip
+      sha256: "2b33d14ad979e4c33a4f01949b62510356d28037062bd45b60752e4dec9e7dd1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+1"
   typed_data:
     dependency: transitive
     description:

@@ -54,14 +54,14 @@ class _CartScreenState extends State<CartScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total",
+                          "Produits",
                           style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Colors.grey[900]),
                         ),
                         Text(
-                          "${controller.total.value} DA",
+                          "${controller.cartItems.length} produits",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -84,9 +84,31 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[900]),
+                        ),
+                        Text(
+                          "${controller.total.value} DA",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
                     width: double.infinity,
                     padding: const EdgeInsets.only(
-                        left: 12.0, right: 12.0, top: 5.0, bottom: 32.0),
+                        left: 12.0, right: 12.0, top: 12.0, bottom: 32.0),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
