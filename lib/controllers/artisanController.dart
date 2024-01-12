@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
+import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/artisan.dart';
 import 'package:algeria_eats/models/product.dart';
 import 'package:dio/dio.dart';
@@ -31,7 +32,11 @@ class ArtisanController extends GetxController {
       isLoading.value = false;
       return responseData;
     } catch (e) {
-      print(e.toString());
+      if (e is DioExceptions) {
+        print('DioException: ${e.message}');
+      } else {
+        print('Exception: $e');
+      }
       return {
         'error': e.toString(),
       };
@@ -58,7 +63,11 @@ class ArtisanController extends GetxController {
       isLoading.value = false;
       return responseData;
     } catch (e) {
-      print(e.toString());
+      if (e is DioExceptions) {
+        print('DioException: ${e.message}');
+      } else {
+        print('Exception: $e');
+      }
       return {
         'error': e.toString(),
       };

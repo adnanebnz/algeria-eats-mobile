@@ -90,7 +90,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
       children: products.map((product) {
         return ProductCardView(
           product: product,
-          onTap: (productId) {
+          onTap: () {
             Get.to(() => ProductScreen(product: product));
           },
         );
@@ -108,7 +108,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
           width: MediaQuery.of(context).size.width * 0.6,
           margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
           child: ProductCardView(
-            onTap: (productId) {},
+            onTap: () {},
             product: Product(
               artisan: Artisan(
                   user_id: 0,

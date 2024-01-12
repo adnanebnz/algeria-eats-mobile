@@ -12,16 +12,14 @@ class ProductCardView extends StatelessWidget {
 
   final Product product;
   final Alignment imageAlignment;
-  final Function(int) onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final priceValue = product.prix;
 
     return GestureDetector(
-      onTap: () {
-        onTap(product.id);
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(8.0),
         width: MediaQuery.of(context).size.width * 0.43,

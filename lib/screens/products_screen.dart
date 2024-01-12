@@ -68,7 +68,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                     .toList()[index];
                             return ProductCardView(
                               product: product,
-                              onTap: (productId) {
+                              onTap: () {
                                 Get.to(
                                   () => ProductScreen(
                                     product: product,

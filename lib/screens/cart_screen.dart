@@ -1,5 +1,6 @@
 import 'package:algeria_eats/components/cart_item_card.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
+import 'package:algeria_eats/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -110,7 +111,9 @@ class _CartScreenState extends State<CartScreen> {
                     padding: const EdgeInsets.only(
                         left: 12.0, right: 12.0, top: 12.0, bottom: 32.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => const CheckoutScreen());
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(251, 146, 60, 1),

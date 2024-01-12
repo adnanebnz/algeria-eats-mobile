@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
+import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
@@ -52,7 +53,11 @@ class AuthController extends GetxController {
       return responseData;
     } catch (e) {
       isLoggedIn.value = false;
-
+      if (e is DioExceptions) {
+        print('DioException: ${e.message}');
+      } else {
+        print('Exception: $e');
+      }
       return {
         'error': e.toString(),
       };
@@ -81,7 +86,11 @@ class AuthController extends GetxController {
       isLoading.value = false;
       return responseData;
     } catch (e) {
-      print(e.toString());
+      if (e is DioExceptions) {
+        print('DioException: ${e.message}');
+      } else {
+        print('Exception: $e');
+      }
       return {
         'error': e.toString(),
       };

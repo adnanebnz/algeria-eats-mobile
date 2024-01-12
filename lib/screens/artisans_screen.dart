@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:algeria_eats/components/artisan_card.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/controllers/artisanController.dart';
@@ -18,7 +20,9 @@ class _ArtisansScreenState extends State<ArtisansScreen> {
   TextEditingController textController = TextEditingController();
   @override
   void initState() {
-    artisanController.getArtisans();
+    if (artisanController.artisans.isEmpty) {
+      artisanController.getArtisans();
+    }
     super.initState();
   }
 

@@ -65,7 +65,7 @@ class _WelcomeScreenState extends State<MainScreen> {
                         baseColor: Colors.grey[300]!,
                         highlightColor: Colors.grey[100]!,
                         child: CircleAvatar(
-                          radius: 22,
+                          radius: 25,
                           backgroundColor: Colors.grey[300],
                         ),
                       );
@@ -87,6 +87,7 @@ class _WelcomeScreenState extends State<MainScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        enableFeedback: true,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
         items: const [
