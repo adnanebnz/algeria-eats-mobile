@@ -45,8 +45,10 @@ class AuthController extends GetxController {
 
       final responseData = response.data;
 
-      final token = responseData['token'];
-      await prefs.setString('token', token);
+      String token = responseData['token'];
+      List<String> parts = token.split('|');
+      String trimmedToken = parts.length > 1 ? parts[1] : '';
+      await prefs.setString('token', trimmedToken);
 
       isLoggedIn.value = true;
 

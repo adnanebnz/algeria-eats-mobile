@@ -1,5 +1,6 @@
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
+import 'package:algeria_eats/controllers/orderController.dart';
 import 'package:dzair_data_usage/commune.dart';
 import 'package:dzair_data_usage/daira.dart';
 import 'package:dzair_data_usage/langs.dart';
@@ -18,14 +19,19 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   CartController cartController = Get.put(CartController());
   AuthController authController = Get.put(AuthController());
+  OrderController orderController = Get.put(OrderController());
+
+  TextEditingController adresseController = TextEditingController();
+
   late Dzair dzair;
   List<Wilaya?>? wilayas;
   List<Daira?>? dairas;
   List<Commune?>? communes;
-
   Wilaya? selectedWilaya;
   Daira? selectedDaira;
   Commune? selectedCommune;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -48,6 +54,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         title: const Text('Commander'),
       ),
       body: Form(
+        key: _formKey,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -62,6 +69,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               const SizedBox(height: 15),
               TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer votre adresse';
+                  }
+                  return null;
+                },
+                controller: adresseController,
+                keyboardType: TextInputType.streetAddress,
                 decoration: const InputDecoration(
                     hintText: "Rue N° 12 ...",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
@@ -76,24 +91,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Icon(Icons.location_on_outlined),
-                    )),
-              ),
-              const SizedBox(height: 15),
-              TextFormField(
-                decoration: const InputDecoration(
-                    hintText: "0512345678",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.phone_outlined),
                     )),
               ),
               const SizedBox(height: 20),
@@ -209,7 +206,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: Center(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        orderController.makeOrder(
+                          adresseController.text,
+                          selectedWilaya!.getWilayaName(Language.FR)!,
+                          selectedDaira!.getDairaName(Language.FR)!,
+                          selectedCommune!.getCommuneName(Language.FR)!,
+                        );
+                      }
+                    },
                     child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
