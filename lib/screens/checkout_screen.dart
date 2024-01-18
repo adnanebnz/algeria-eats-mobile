@@ -60,9 +60,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     fontWeight: FontWeight.w500,
                     color: Colors.grey[700]),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               TextFormField(
                 decoration: const InputDecoration(
+                    hintText: "Rue N° 12 ...",
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       borderSide: BorderSide(color: Colors.grey),
@@ -79,6 +81,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               const SizedBox(height: 15),
               TextFormField(
                 decoration: const InputDecoration(
+                    hintText: "0512345678",
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       borderSide: BorderSide(color: Colors.grey),
@@ -92,7 +96,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: Icon(Icons.phone_outlined),
                     )),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
+              Text('Wilaya',
+                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
               DropdownButton<Wilaya>(
                 isExpanded: true,
                 value: selectedWilaya,
@@ -114,6 +120,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }).toList(),
               ),
               const SizedBox(height: 15),
+              Text('Daira',
+                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
               DropdownButton<Daira>(
                 isExpanded: true,
                 value: selectedDaira,
@@ -132,6 +140,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }).toList(),
               ),
               const SizedBox(height: 15),
+              Text('Commune',
+                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
               DropdownButton<Commune>(
                 isExpanded: true,
                 value: selectedCommune,
@@ -210,7 +220,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: const Center(
-                            child: Text('Commander',
+                            child: Text('Placer la commande',
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white)))),
                   ),

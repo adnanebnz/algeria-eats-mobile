@@ -18,13 +18,6 @@ class _ArtisansScreenState extends State<ArtisansScreen> {
   ArtisanController artisanController = Get.put(ArtisanController());
   String _searchText = "";
   TextEditingController textController = TextEditingController();
-  @override
-  void initState() {
-    if (artisanController.artisans.isEmpty) {
-      artisanController.getArtisans();
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

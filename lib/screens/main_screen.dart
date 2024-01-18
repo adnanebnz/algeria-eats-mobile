@@ -1,4 +1,5 @@
 import 'package:algeria_eats/controllers/authController.dart';
+import 'package:algeria_eats/controllers/artisanController.dart';
 import 'package:algeria_eats/controllers/productController.dart';
 import 'package:algeria_eats/screens/artisans_screen.dart';
 import 'package:algeria_eats/screens/home_screen.dart';
@@ -19,6 +20,7 @@ class MainScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<MainScreen> {
   AuthController authController = Get.put(AuthController());
   ProductController productController = Get.put(ProductController());
+  ArtisanController artisanController = Get.put(ArtisanController());
   int _currentIndex = 0;
   late PageController _pageController;
 
@@ -32,6 +34,7 @@ class _WelcomeScreenState extends State<MainScreen> {
   @override
   void initState() {
     authController.me();
+    artisanController.getArtisans();
     productController.getAllProducts();
     productController.getFeaturedProducts();
     _pageController = PageController(initialPage: _currentIndex);

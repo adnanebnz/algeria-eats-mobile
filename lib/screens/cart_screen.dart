@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey[900]),
+                              color: Colors.grey[800]),
                         ),
                         Text(
                           "${controller.cartItems.length} produits",
@@ -92,9 +92,9 @@ class _CartScreenState extends State<CartScreen> {
                         Text(
                           "Total",
                           style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey[900]),
+                              color: Colors.grey[800]),
                         ),
                         Text(
                           "${controller.total.value} DA",
