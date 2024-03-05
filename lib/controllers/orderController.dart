@@ -3,18 +3,31 @@
 import 'package:algeria_eats/constants.dart';
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
-import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/order.dart';
+import 'package:algeria_eats/utils/dio_exceptions.dart';
+import 'package:algeria_eats/utils/dio_instance.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 //import 'dart:developer' as console show log;
 
 class OrderController extends GetxController {
-  CartController cartController = Get.put(CartController());
-  AuthController authController = Get.put(AuthController());
+  CartController cartController = Get.find<CartController>();
+  AuthController authController = Get.find<AuthController>();
   RxList<Order> userOrders = <Order>[].obs;
   RxBool isLoading = false.obs;
-  final dio = Dio();
+  final dio = DioInstance.getDio();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getOrders();
+  }
+
+  @override
+  void onClose() {
+    userOrders.clear();
+    super.onClose();
+  }
 
   Future<List<Order>?> getOrders() async {
     try {

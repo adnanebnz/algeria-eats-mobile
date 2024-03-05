@@ -1,13 +1,13 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:algeria_eats/components/product_card_view.dart';
+import 'package:algeria_eats/controllers/productController.dart';
 import 'package:algeria_eats/models/artisan.dart';
 import 'package:algeria_eats/models/product.dart';
 import 'package:algeria_eats/models/user.dart';
-import 'package:algeria_eats/screens/product_screen.dart';
+import 'package:algeria_eats/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:algeria_eats/controllers/productController.dart';
 import 'package:shimmer/shimmer.dart';
 // import 'dart:developer' as console show log;
 
@@ -17,11 +17,7 @@ class FeaturedProductsScreen extends StatefulWidget {
 }
 
 class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
-  final ProductController productController = Get.put(ProductController());
-  @override
-  void initState() {
-    super.initState();
-  }
+  final ProductController productController = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {

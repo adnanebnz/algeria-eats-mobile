@@ -1,10 +1,9 @@
 import 'package:algeria_eats/controllers/authController.dart';
-import 'package:algeria_eats/controllers/artisanController.dart';
 import 'package:algeria_eats/controllers/productController.dart';
-import 'package:algeria_eats/screens/artisans_screen.dart';
-import 'package:algeria_eats/screens/home_screen.dart';
-import 'package:algeria_eats/screens/on_board_screen.dart';
-import 'package:algeria_eats/screens/products_screen.dart';
+import 'package:algeria_eats/views/artisans_screen.dart';
+import 'package:algeria_eats/views/home_screen.dart';
+import 'package:algeria_eats/views/on_board_screen.dart';
+import 'package:algeria_eats/views/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,9 +17,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<MainScreen> {
-  AuthController authController = Get.put(AuthController());
-  ProductController productController = Get.put(ProductController());
-  ArtisanController artisanController = Get.put(ArtisanController());
+  AuthController authController = Get.find<AuthController>();
+  ProductController productController = Get.find<ProductController>();
   int _currentIndex = 0;
   late PageController _pageController;
 
@@ -33,10 +31,6 @@ class _WelcomeScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    authController.me();
-    artisanController.getArtisans();
-    productController.getAllProducts();
-    productController.getFeaturedProducts();
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }
@@ -186,7 +180,11 @@ class _WelcomeScreenState extends State<MainScreen> {
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: const [HomeScreen(), ProductsScreen(), ArtisansScreen()],
+          children: [
+            const HomeScreen(),
+            ProductsScreen(),
+            const ArtisansScreen()
+          ],
         ),
       ),
     );

@@ -1,18 +1,32 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
-import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/artisan.dart';
 import 'package:algeria_eats/models/product.dart';
+import 'package:algeria_eats/utils/dio_exceptions.dart';
+import 'package:algeria_eats/utils/dio_instance.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
-//import 'dart:developer' as console show log;
 
 class ArtisanController extends GetxController {
   RxList<Artisan> artisans = <Artisan>[].obs;
   RxList<Product> artisanProducts = <Product>[].obs;
   RxBool isLoading = false.obs;
-  final dio = Dio();
+  final dio = DioInstance.getDio();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getArtisans();
+  }
+
+  @override
+  void onClose() {
+    artisans.clear();
+    artisanProducts.clear();
+
+    super.onClose();
+  }
 
   Future<Map<String, dynamic>> getArtisans() async {
     try {

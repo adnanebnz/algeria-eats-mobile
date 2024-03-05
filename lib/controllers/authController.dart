@@ -1,11 +1,12 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
-import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/user.dart';
+import 'package:algeria_eats/utils/dio_exceptions.dart';
+import 'package:algeria_eats/utils/dio_instance.dart';
 import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 // import 'dart:developer' as console show log;
 
 class AuthController extends GetxController {
@@ -24,12 +25,18 @@ class AuthController extends GetxController {
           wilaya: "")
       .obs;
 
-  final dio = Dio();
+  final box = GetStorage();
+
+  final dio = DioInstance.getDio();
+
+  @override
+  void onInit() {
+    super.onInit();
+    me();
+  }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     isLoading.value = true;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
       final response = await dio.post(
@@ -48,7 +55,7 @@ class AuthController extends GetxController {
       String token = responseData['token'];
       List<String> parts = token.split('|');
       String trimmedToken = parts.length > 1 ? parts[1] : '';
-      await prefs.setString('token', trimmedToken);
+      await box.write('token', trimmedToken);
 
       isLoggedIn.value = true;
 
@@ -68,10 +75,9 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<Map<String, dynamic>> me() async {
+  Future<Map<String, dynamic>?> me() async {
     isLoading.value = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('token');
+    final token = await getToken();
     try {
       final response = await dio.get(
         '$apiUrl/me',
@@ -81,12 +87,16 @@ class AuthController extends GetxController {
         }),
       );
 
-      final responseData = response.data;
-      // map the response to the user model
-      user.value = User.fromJson(responseData['user']);
-
-      isLoading.value = false;
-      return responseData;
+      if (response.statusCode != 200 || token == null) {
+        isLoggedIn.value = false;
+      } else {
+        final responseData = response.data;
+        // map the response to the user model
+        user.value = User.fromJson(responseData['user']);
+        isLoggedIn.value = true;
+        isLoading.value = false;
+        return responseData;
+      }
     } catch (e) {
       if (e is DioExceptions) {
         print('DioException: ${e.message}');
@@ -97,33 +107,16 @@ class AuthController extends GetxController {
         'error': e.toString(),
       };
     }
+    return null;
   }
 
   Future<String?> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
+    final token = await box.read('token');
     return token;
   }
 
-  Future<bool> checkIsLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    if (token != null) {
-      isLoggedIn.value = true;
-      return true;
-    } else {
-      isLoggedIn.value = false;
-      return false;
-    }
-  }
-
-  void setLoggedIn(bool value) {
-    isLoggedIn.value = value;
-  }
-
   Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
+    final token = await box.read('token');
     await dio.post(
       '$apiUrl/auth/logout',
       options: Options(headers: {
@@ -131,7 +124,7 @@ class AuthController extends GetxController {
         'Authorization': 'Bearer $token',
       }),
     );
-    await prefs.remove('token');
+    await box.remove('token');
     isLoggedIn.value = false;
   }
 }

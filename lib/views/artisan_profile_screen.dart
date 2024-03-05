@@ -1,7 +1,7 @@
 import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/controllers/artisanController.dart';
 import 'package:algeria_eats/models/artisan.dart';
-import 'package:algeria_eats/screens/product_screen.dart';
+import 'package:algeria_eats/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +15,7 @@ class ArtisanProfileScreen extends StatefulWidget {
 }
 
 class _ArtisanProfileScreenState extends State<ArtisanProfileScreen> {
-  ArtisanController artisanController = Get.put(ArtisanController());
+  ArtisanController artisanController = Get.find<ArtisanController>();
 
   @override
   void initState() {

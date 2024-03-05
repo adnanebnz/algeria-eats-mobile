@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:algeria_eats/controllers/authController.dart';
-import 'package:algeria_eats/screens/main_screen.dart';
+import 'package:algeria_eats/views/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 // import 'dart:developer' as console show log;
 
 class SignInForm extends StatefulWidget {
@@ -31,7 +31,7 @@ class _SignInFormState extends State<SignInForm> {
   String _email = "";
   String _password = "";
   bool showError = false;
-  AuthController authController = Get.put(AuthController());
+  AuthController authController = Get.find<AuthController>();
 
   StateMachineController getRiveController(Artboard artboard) {
     StateMachineController? controller =

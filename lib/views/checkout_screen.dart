@@ -3,11 +3,11 @@ import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:algeria_eats/controllers/orderController.dart';
 import 'package:dzair_data_usage/commune.dart';
 import 'package:dzair_data_usage/daira.dart';
+import 'package:dzair_data_usage/dzair.dart';
 import 'package:dzair_data_usage/langs.dart';
 import 'package:dzair_data_usage/wilaya.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dzair_data_usage/dzair.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({Key? key}) : super(key: key);
@@ -17,9 +17,9 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  CartController cartController = Get.put(CartController());
-  AuthController authController = Get.put(AuthController());
-  OrderController orderController = Get.put(OrderController());
+  CartController cartController = Get.find<CartController>();
+  AuthController authController = Get.find<AuthController>();
+  OrderController orderController = Get.find<OrderController>();
 
   TextEditingController adresseController = TextEditingController();
 

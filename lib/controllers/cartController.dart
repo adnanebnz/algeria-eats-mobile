@@ -7,6 +7,19 @@ class CartController extends GetxController {
   RxDouble total = 0.0.obs;
   RxList<CartItem> cartItems = RxList<CartItem>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    calculateTotal();
+  }
+
+  @override
+  void onClose() {
+    cartItems.clear();
+    total.value = 0.0;
+    super.onClose();
+  }
+
   addToCart(item) {
     if (cartItems.contains(item)) {
       return;

@@ -1,10 +1,12 @@
 // ignore_for_file: file_names, avoid_print
 
 import 'package:algeria_eats/constants.dart';
-import 'package:algeria_eats/helpers/dio_exceptions.dart';
 import 'package:algeria_eats/models/product.dart';
+import 'package:algeria_eats/utils/dio_exceptions.dart';
+import 'package:algeria_eats/utils/dio_instance.dart';
+import 'package:algeria_eats/utils/error_snackbar.dart';
 import 'package:dio/dio.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 // import 'dart:developer' as console show log;
 
 class ProductController extends GetxController {
@@ -13,9 +15,24 @@ class ProductController extends GetxController {
   RxInt sweetProductsCount = 0.obs;
   RxInt saltyProductsCount = 0.obs;
   RxBool isLoading = true.obs;
-  final dio = Dio();
 
-  Future<Map<String, dynamic>?> getAllProducts() async {
+  final dio = DioInstance.getDio();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllProducts();
+    getFeaturedProducts();
+  }
+
+  @override
+  void onClose() {
+    products.clear();
+    featuredProducts.clear();
+    super.onClose();
+  }
+
+  Future getAllProducts() async {
     try {
       isLoading.value = true;
       final response = await dio.get(
@@ -40,24 +57,19 @@ class ProductController extends GetxController {
           saltyProductsCount.value++;
         }
       }
-
-      return responseData;
     } catch (e) {
       isLoading.value = false;
       if (e is DioExceptions) {
-        print('DioException: ${e.message}');
+        ErrorSnackBar.show(e.message, "error");
       } else {
-        print('Exception: $e');
+        ErrorSnackBar.show("Something wrong happened!", "error");
       }
-      return {
-        'error': e.toString(),
-      };
     } finally {
       isLoading.value = false;
     }
   }
 
-  Future<Map<String, dynamic>?> getFeaturedProducts() async {
+  Future getFeaturedProducts() async {
     try {
       isLoading.value = true;
       final response = await dio.get(
@@ -74,18 +86,13 @@ class ProductController extends GetxController {
           (responseData['products'] as List<dynamic>).map((productJson) {
         return Product.fromJson(productJson);
       }).toList();
-
-      return responseData;
     } catch (e) {
       isLoading.value = false;
       if (e is DioExceptions) {
-        print('DioException: ${e.message}');
+        ErrorSnackBar.show(e.message, "error");
       } else {
-        print('Exception: $e');
+        ErrorSnackBar.show("Something wrong happened!", "error");
       }
-      return {
-        'error': e.toString(),
-      };
     } finally {
       isLoading.value = false;
     }

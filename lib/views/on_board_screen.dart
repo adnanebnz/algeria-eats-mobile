@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:algeria_eats/components/custom_sign_in.dart';
 import 'package:algeria_eats/controllers/authController.dart';
-import 'package:algeria_eats/screens/main_screen.dart';
+import 'package:algeria_eats/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'dart:developer' as console show log;
@@ -17,13 +17,7 @@ class OnBoardPage extends StatefulWidget {
 class _HomePageState extends State<OnBoardPage> {
   bool isSignInDialogShown = false;
 
-  AuthController authController = Get.put(AuthController());
-
-  @override
-  void initState() {
-    authController.checkIsLoggedIn();
-    super.initState();
-  }
+  AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {

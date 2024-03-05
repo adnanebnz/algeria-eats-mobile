@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'on_board_screen.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -39,8 +40,8 @@ class _IntroScreen extends State<IntroScreen> {
             ])));
 
     Future setIsSeen() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('alreadyShown', true);
+      final box = GetStorage();
+      await box.write('alreadyShown', true);
     }
 
     return IntroductionScreen(

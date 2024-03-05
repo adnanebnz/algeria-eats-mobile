@@ -85,38 +85,43 @@ class ArtisanCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.location_on_outlined,
-                      color: Colors.grey[700], size: 30),
-                  const SizedBox(width: 5),
-                  Text(
-                    "${artisan.user.adresse}, ${artisan.user.wilaya}",
-                    style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.fastfood_outlined,
-                      color: Colors.grey[700], size: 30),
-                  const SizedBox(width: 5),
-                  Text(
-                    artisan.type_service == 'sucree' ? 'Sucrée' : 'Salée',
-                    style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
+          SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.location_on_outlined,
+                        color: Colors.grey[700], size: 30),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        "${artisan.user.adresse}, ${artisan.user.wilaya}",
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.fastfood_outlined,
+                        color: Colors.grey[700], size: 30),
+                    const SizedBox(width: 5),
+                    Text(
+                      artisan.type_service == 'sucree' ? 'Sucrée' : 'Salée',
+                      style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -1,12 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:get/get.dart';
-import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:algeria_eats/components/rating_view.dart';
+import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:algeria_eats/models/cartItem.dart';
 import 'package:algeria_eats/models/product.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
   final Product product;
@@ -18,7 +18,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  CartController cartController = Get.put(CartController());
+  CartController cartController = Get.find<CartController>();
   int _quantity = 1;
 
   void incrementQuantity() {
@@ -33,12 +33,6 @@ class _ProductScreenState extends State<ProductScreen> {
         _quantity--;
       });
     }
-  }
-
-  @override
-  void initState() {
-    cartController.calculateTotal();
-    super.initState();
   }
 
   @override

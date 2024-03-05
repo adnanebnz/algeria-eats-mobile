@@ -1,6 +1,6 @@
 import 'package:algeria_eats/components/cart_item_card.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
-import 'package:algeria_eats/screens/checkout_screen.dart';
+import 'package:algeria_eats/views/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  CartController cartController = Get.put(CartController());
+  CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
