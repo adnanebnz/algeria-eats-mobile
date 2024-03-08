@@ -22,7 +22,7 @@ class _CartItemCardState extends State<CartItemCard> {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
-          cartController.removeFromCart(widget.cartItem);
+          cartController.removeItem(widget.cartItem.product);
           Get.snackbar(
             "Supprimé du panier",
             "${widget.cartItem.product.nom} est supprimé de votre panier",
@@ -102,7 +102,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   children: [
                     InkWell(
                       onTap: () => {
-                        controller.decrementItem(widget.cartItem),
+                        controller.updateItem(widget.cartItem.product, -1),
                         setState(() {})
                       },
                       child: Container(
@@ -123,14 +123,14 @@ class _CartItemCardState extends State<CartItemCard> {
                       margin: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Text(
                         controller
-                            .getCartItemQuantity(widget.cartItem)
+                            .getCartItemQuantity(widget.cartItem.product)
                             .toString(),
                         style: const TextStyle(fontSize: 14),
                       ),
                     ),
                     InkWell(
                       onTap: () => {
-                        controller.incrementItem(widget.cartItem),
+                        controller.updateItem(widget.cartItem.product, 1),
                         setState(() {})
                       },
                       child: Container(

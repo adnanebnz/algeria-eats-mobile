@@ -2,7 +2,6 @@
 
 import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
-import 'package:algeria_eats/models/cartItem.dart';
 import 'package:algeria_eats/models/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -215,12 +214,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                     vertical: 16.0, horizontal: 20.0),
                               ),
                               onPressed: () {
-                                CartItem cartItem = CartItem(
-                                  product: widget.product,
-                                  quantity: _quantity,
-                                );
-
-                                cartController.addToCart(cartItem);
+                                cartController.addItem(
+                                    widget.product, _quantity);
 
                                 Get.snackbar(
                                   "Produit ajouté au panier",

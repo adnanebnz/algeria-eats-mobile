@@ -1,6 +1,5 @@
-// ignore_for_file: file_names
-
 import 'package:algeria_eats/models/cartItem.dart';
+import 'package:algeria_eats/models/product.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -13,52 +12,48 @@ class CartController extends GetxController {
     calculateTotal();
   }
 
+  void calculateTotal() {
+    total.value = cartItems.fold(
+        0, (sum, item) => sum + item.product.prix * item.quantity);
+  }
+
+  void addItem(Product product, int quantity) {
+    int index = cartItems.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      // If the product is already in the cart, increase its quantity
+      cartItems[index].quantity++;
+    } else {
+      // If the product is not in the cart, add it
+      cartItems.add(CartItem(product: product, quantity: quantity));
+    }
+    calculateTotal();
+  }
+
+  void removeItem(Product product) {
+    cartItems.removeWhere((item) => item.product.id == product.id);
+    calculateTotal();
+  }
+
+  void updateItem(Product product, int quantity) {
+    int index = cartItems.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      cartItems[index].quantity = quantity;
+      calculateTotal();
+    }
+  }
+
+  int getCartItemQuantity(Product product) {
+    int index = cartItems.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      return cartItems[index].quantity;
+    } else {
+      return 0;
+    }
+  }
+
   @override
   void onClose() {
     cartItems.clear();
     total.value = 0.0;
-    super.onClose();
-  }
-
-  addToCart(item) {
-    if (cartItems.contains(item)) {
-      return;
-    }
-    cartItems.add(item);
-    calculateTotal();
-  }
-
-  incrementItem(item) {
-    if (cartItems.contains(item)) {
-      item.quantity++;
-      calculateTotal();
-    }
-  }
-
-  getCartItemQuantity(item) {
-    if (cartItems.contains(item)) {
-      return item.quantity;
-    }
-    return 0;
-  }
-
-  decrementItem(item) {
-    if (cartItems.contains(item)) {
-      if (item.quantity > 1) item.quantity--;
-      calculateTotal();
-    }
-  }
-
-  removeFromCart(item) {
-    cartItems.remove(item);
-    calculateTotal();
-  }
-
-  calculateTotal() {
-    total.value = 0.0;
-    for (var item in cartItems) {
-      total.value += item.product.prix * item.quantity;
-    }
-    return total;
   }
 }

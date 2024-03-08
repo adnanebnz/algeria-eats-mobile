@@ -1,13 +1,12 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names
 
-import 'package:algeria_eats/constants.dart';
 import 'package:algeria_eats/models/user.dart';
 import 'package:algeria_eats/utils/dio_exceptions.dart';
 import 'package:algeria_eats/utils/dio_instance.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-// import 'dart:developer' as console show log;
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
@@ -26,8 +25,7 @@ class AuthController extends GetxController {
       .obs;
 
   final box = GetStorage();
-
-  final dio = DioInstance.getDio();
+  final dio = DioInstance.instance.getDio();
 
   @override
   void onInit() {
@@ -40,10 +38,7 @@ class AuthController extends GetxController {
 
     try {
       final response = await dio.post(
-        '$apiUrl/auth/login',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-        }),
+        '/auth/login',
         data: {
           'email': email,
           'password': password,
@@ -60,15 +55,14 @@ class AuthController extends GetxController {
       isLoggedIn.value = true;
 
       return responseData;
-    } catch (e) {
+    } on DioException catch (e) {
       isLoggedIn.value = false;
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+      DioExceptions dioExceptions = DioExceptions.fromDioError(e);
+      if (kDebugMode) {
+        print('DioException: ${dioExceptions.message}');
       }
       return {
-        'error': e.toString(),
+        'error': dioExceptions.message,
       };
     } finally {
       isLoading.value = false;
@@ -80,11 +74,7 @@ class AuthController extends GetxController {
     final token = await getToken();
     try {
       final response = await dio.get(
-        '$apiUrl/me',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token'
-        }),
+        '/me',
       );
 
       if (response.statusCode != 200 || token == null) {
@@ -97,14 +87,13 @@ class AuthController extends GetxController {
         isLoading.value = false;
         return responseData;
       }
-    } catch (e) {
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+    } on DioException catch (e) {
+      DioExceptions dioExceptions = DioExceptions.fromDioError(e);
+      if (kDebugMode) {
+        print('DioException: ${dioExceptions.message}');
       }
       return {
-        'error': e.toString(),
+        'error': dioExceptions.message,
       };
     }
     return null;
@@ -116,15 +105,27 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
-    final token = await box.read('token');
     await dio.post(
-      '$apiUrl/auth/logout',
-      options: Options(headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      }),
+      '/auth/logout',
     );
     await box.remove('token');
     isLoggedIn.value = false;
+  }
+
+  Future isTokenExpired(String token) async {
+    final response = await dio.get(
+      '/me',
+    );
+    if (response.statusCode == 401) {
+      return true;
+    }
+    return false;
+  }
+
+  Future refreshToken() async {
+    final response = await dio.post(
+      '/auth/refresh',
+    );
+    return response.data['token'];
   }
 }

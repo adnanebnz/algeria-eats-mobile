@@ -12,7 +12,7 @@ class ArtisanController extends GetxController {
   RxList<Artisan> artisans = <Artisan>[].obs;
   RxList<Product> artisanProducts = <Product>[].obs;
   RxBool isLoading = false.obs;
-  final dio = DioInstance.getDio();
+  final dio = DioInstance.instance.getDio();
 
   @override
   void onInit() {
@@ -63,10 +63,7 @@ class ArtisanController extends GetxController {
     try {
       isLoading.value = true;
       final response = await dio.get(
-        '$apiUrl/products?artisan=${artisan.user.nom} ${artisan.user.prenom}',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-        }),
+        '/products?artisan=${artisan.user.nom} ${artisan.user.prenom}',
       );
 
       final responseData = response.data;

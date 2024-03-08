@@ -16,7 +16,7 @@ class Order {
   String updated_at;
   User buyer;
   Artisan artisan;
-  List<Product> orderItems; // Change the type to List<Product>
+  List<Product> orderItems;
 
   Order({
     required this.id,

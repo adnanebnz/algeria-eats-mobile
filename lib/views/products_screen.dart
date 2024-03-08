@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/controllers/productController.dart';

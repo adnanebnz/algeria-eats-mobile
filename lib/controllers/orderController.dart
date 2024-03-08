@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, avoid_print, non_constant_identifier_names
 
-import 'package:algeria_eats/constants.dart';
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/controllers/cartController.dart';
 import 'package:algeria_eats/models/order.dart';
@@ -15,7 +14,7 @@ class OrderController extends GetxController {
   AuthController authController = Get.find<AuthController>();
   RxList<Order> userOrders = <Order>[].obs;
   RxBool isLoading = false.obs;
-  final dio = DioInstance.getDio();
+  final dio = DioInstance.instance.getDio();
 
   @override
   void onInit() {
@@ -31,14 +30,9 @@ class OrderController extends GetxController {
 
   Future<List<Order>?> getOrders() async {
     try {
-      var token = await authController.getToken();
       isLoading.value = true;
       final response = await dio.get(
-        '$apiUrl/orders',
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        }),
+        '/orders',
       );
 
       final responseData = response.data;
@@ -69,7 +63,7 @@ class OrderController extends GetxController {
 
       for (var item in cartController.cartItems) {
         final response = await dio.post(
-          '$apiUrl/orders',
+          '/orders',
           data: {
             'artisan_id': item.product.artisan.user_id,
             'adresse': adresse,
@@ -84,14 +78,8 @@ class OrderController extends GetxController {
             ]
           },
           options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
-            // Add these options to handle redirections
             followRedirects: true,
-            maxRedirects:
-                5, // Set the maximum number of redirections you want to allow
+            maxRedirects: 5,
           ),
         );
 
