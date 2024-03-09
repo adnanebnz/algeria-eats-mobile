@@ -70,7 +70,8 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                 margin: const EdgeInsets.only(bottom: 8.0),
                 child: AspectRatio(
                     aspectRatio: 1.4,
-                    child: buildProductList(productController.products)),
+                    child:
+                        buildProductList(productController.featuredProducts)),
               ),
             ],
           );

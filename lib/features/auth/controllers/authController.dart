@@ -67,20 +67,27 @@ class AuthController extends GetxController {
   }
 
   Future me() async {
-    isLoading.value = true;
-    final token = await getToken();
-    final response = await dio.get(
-      '/me',
-    );
+    try {
+      isLoading.value = true;
+      final token = await getToken();
+      final response = await dio.get(
+        '/me',
+      );
 
-    if (response.statusCode != 200 || token == null) {
-      isLoggedIn.value = false;
-    } else {
-      final responseData = response.data;
-      user.value = User.fromJson(responseData['user']);
-      isLoggedIn.value = true;
+      if (response.statusCode != 200 || token == null) {
+        isLoggedIn.value = false;
+      } else {
+        final responseData = response.data;
+        user.value = User.fromJson(responseData['user']);
+        isLoggedIn.value = true;
+        return user;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        log(e.toString());
+      }
+    } finally {
       isLoading.value = false;
-      return user;
     }
   }
 

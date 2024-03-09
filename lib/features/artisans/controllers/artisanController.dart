@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, avoid_print
 
+import 'dart:developer';
+
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
-import 'package:algeria_eats/core/errors/dio_exceptions.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/state_manager.dart';
 
 class ArtisanController extends GetxController {
@@ -39,12 +41,10 @@ class ArtisanController extends GetxController {
           .toList();
 
       isLoading.value = false;
-      return responseData;
+      return artisans;
     } catch (e) {
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+      if (kDebugMode) {
+        log(e.toString());
       }
     } finally {
       isLoading.value = false;
@@ -52,7 +52,7 @@ class ArtisanController extends GetxController {
     return null;
   }
 
-  Future<Map<String, dynamic>?> getArtisanProducts(Artisan artisan) async {
+  Future<List<Product>?> getArtisanProducts(Artisan artisan) async {
     try {
       isLoading.value = true;
       final response = await dio.get(
@@ -64,19 +64,14 @@ class ArtisanController extends GetxController {
           .map((productJson) => Product.fromJson(productJson))
           .toList();
 
-      isLoading.value = false;
-      return responseData;
+      return artisanProducts;
     } catch (e) {
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+      if (kDebugMode) {
+        log(e.toString());
       }
-      return {
-        'error': e.toString(),
-      };
     } finally {
       isLoading.value = false;
     }
+    return null;
   }
 }

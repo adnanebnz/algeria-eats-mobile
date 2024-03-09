@@ -1,11 +1,18 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/auth/models/user.dart';
+import 'package:algeria_eats/features/order/models/order.dart';
+import 'package:algeria_eats/features/products/models/product.dart';
+import 'package:algeria_eats/features/reviews/models/review.dart';
 
 class Artisan {
   int? user_id;
   int rating;
   User user;
+  List<Product>? products;
+  List<Order>? orders;
+  List<Review>? reviews;
+  //TODO ADD THESE 3 LISTS TO TOMAP AND FROM JSON
   String desc_entreprise;
   String heure_ouverture;
   String heure_fermeture;
@@ -15,6 +22,7 @@ class Artisan {
 
   Artisan({
     required this.user_id,
+    this.products,
     required this.desc_entreprise,
     required this.heure_ouverture,
     required this.heure_fermeture,

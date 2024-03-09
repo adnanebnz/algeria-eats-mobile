@@ -1,13 +1,13 @@
-// ignore_for_file: file_names, avoid_print, non_constant_identifier_names
+// ignore_for_file: file_names, non_constant_identifier_names
+
+import 'dart:developer';
 
 import 'package:algeria_eats/features/auth/controllers/authController.dart';
 import 'package:algeria_eats/features/cart/controllers/cartController.dart';
 import 'package:algeria_eats/features/order/models/order.dart';
-import 'package:algeria_eats/core/errors/dio_exceptions.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
-import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-//import 'dart:developer' as console show log;
 
 class OrderController extends GetxController {
   CartController cartController = Get.find<CartController>();
@@ -28,7 +28,7 @@ class OrderController extends GetxController {
     super.onClose();
   }
 
-  Future<List<Order>?> getOrders() async {
+  Future<void> getOrders() async {
     try {
       isLoading.value = true;
       final response = await dio.get(
@@ -39,16 +39,10 @@ class OrderController extends GetxController {
       userOrders.value = (responseData['orders'] as List<dynamic>)
           .map((orderJson) => Order.fromJson(orderJson))
           .toList();
-
-      isLoading.value = false;
-      return responseData;
     } catch (e) {
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+      if (kDebugMode) {
+        log(e.toString());
       }
-      return null;
     } finally {
       isLoading.value = false;
     }
@@ -57,12 +51,10 @@ class OrderController extends GetxController {
   Future<void> makeOrder(
       String adresse, String wilaya, String daira, String commune) async {
     try {
-      var token = await authController.getToken();
-      print(token);
       isLoading.value = true;
 
       for (var item in cartController.cartItems) {
-        final response = await dio.post(
+        await dio.post(
           '/orders',
           data: {
             'artisan_id': item.product.artisan.user_id,
@@ -77,23 +69,11 @@ class OrderController extends GetxController {
               }
             ]
           },
-          options: Options(
-            followRedirects: true,
-            maxRedirects: 5,
-          ),
         );
-
-        final responseData = response.data;
-        print(responseData);
-        print(response);
       }
-
-      isLoading.value = false;
     } catch (e) {
-      if (e is DioExceptions) {
-        print('DioException: ${e.message}');
-      } else {
-        print('Exception: $e');
+      if (kDebugMode) {
+        log(e.toString());
       }
     } finally {
       isLoading.value = false;

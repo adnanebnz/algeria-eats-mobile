@@ -30,7 +30,7 @@ class ProductController extends GetxController {
     super.onClose();
   }
 
-  Future getAllProducts() async {
+  Future<void> getAllProducts() async {
     try {
       isLoading.value = true;
       final response = await dio.get(
