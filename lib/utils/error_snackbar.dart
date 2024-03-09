@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 class ErrorSnackBar {
   static SnackbarController show(String message, String type) {
     return GetSnackBar(
-      margin: const EdgeInsets.all(8),
+      borderRadius: 12,
+      margin: const EdgeInsets.all(12),
       title: type == 'error' ? 'Error' : 'Success',
       message: message,
       snackPosition: SnackPosition.BOTTOM,

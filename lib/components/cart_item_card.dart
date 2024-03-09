@@ -102,7 +102,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   children: [
                     InkWell(
                       onTap: () => {
-                        controller.updateItem(widget.cartItem.product, -1),
+                        controller.decrementQuantity(widget.cartItem.product),
                         setState(() {})
                       },
                       child: Container(
@@ -130,7 +130,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     ),
                     InkWell(
                       onTap: () => {
-                        controller.updateItem(widget.cartItem.product, 1),
+                        controller.incrementQuantity(widget.cartItem.product),
                         setState(() {})
                       },
                       child: Container(

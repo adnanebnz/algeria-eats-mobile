@@ -34,12 +34,20 @@ class CartController extends GetxController {
     calculateTotal();
   }
 
-  void updateItem(Product product, int quantity) {
+  void incrementQuantity(Product product) {
     int index = cartItems.indexWhere((item) => item.product.id == product.id);
     if (index != -1) {
-      cartItems[index].quantity = quantity;
-      calculateTotal();
+      cartItems[index].quantity++;
     }
+    calculateTotal();
+  }
+
+  void decrementQuantity(Product product) {
+    int index = cartItems.indexWhere((item) => item.product.id == product.id);
+    if (index != -1 && cartItems[index].quantity > 1) {
+      cartItems[index].quantity--;
+    }
+    calculateTotal();
   }
 
   int getCartItemQuantity(Product product) {

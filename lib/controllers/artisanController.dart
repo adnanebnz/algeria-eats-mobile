@@ -1,11 +1,9 @@
 // ignore_for_file: file_names, avoid_print
 
-import 'package:algeria_eats/constants.dart';
 import 'package:algeria_eats/models/artisan.dart';
 import 'package:algeria_eats/models/product.dart';
 import 'package:algeria_eats/utils/dio_exceptions.dart';
 import 'package:algeria_eats/utils/dio_instance.dart';
-import 'package:dio/dio.dart';
 import 'package:get/state_manager.dart';
 
 class ArtisanController extends GetxController {
@@ -28,14 +26,11 @@ class ArtisanController extends GetxController {
     super.onClose();
   }
 
-  Future<Map<String, dynamic>> getArtisans() async {
+  Future<List<Artisan>?> getArtisans() async {
     try {
       isLoading.value = true;
       final response = await dio.get(
-        '$apiUrl/artisans',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-        }),
+        '/artisans',
       );
 
       final responseData = response.data;
@@ -51,12 +46,10 @@ class ArtisanController extends GetxController {
       } else {
         print('Exception: $e');
       }
-      return {
-        'error': e.toString(),
-      };
     } finally {
       isLoading.value = false;
     }
+    return null;
   }
 
   Future<Map<String, dynamic>?> getArtisanProducts(Artisan artisan) async {

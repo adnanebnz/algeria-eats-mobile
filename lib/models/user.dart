@@ -13,7 +13,7 @@ class User {
   String updated_at;
 
   User({
-    required this.id,
+    this.id,
     required this.nom,
     required this.prenom,
     required this.email,

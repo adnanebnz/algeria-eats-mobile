@@ -32,6 +32,45 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
+        cardTheme: const CardTheme(
+          shadowColor: Colors.black,
+          color: Colors.white,
+          elevation: 6,
+          surfaceTintColor: Colors.white,
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          floatingLabelStyle: TextStyle(color: Colors.orange),
+          contentPadding: EdgeInsets.all(15),
+          isDense: false,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderSide: BorderSide(
+              color: Colors.orange,
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderSide: BorderSide(
+              color: Colors.orange,
+              width: 1,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderSide: BorderSide(
+              color: Colors.red,
+              width: 1,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderSide: BorderSide(
+              color: Colors.orange,
+              width: 1,
+            ),
+          ),
+        ),
       ),
       home: const EntryPage(),
       getPages: Routes.pages,

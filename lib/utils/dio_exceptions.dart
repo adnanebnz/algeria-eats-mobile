@@ -15,6 +15,11 @@ class DioExceptions implements Exception {
       case DioExceptionType.receiveTimeout:
         message = "Receive timeout in connection with API server";
         break;
+
+      case DioExceptionType.badResponse:
+        message = "Error: ${dioError.response?.data['error']}";
+        break;
+
       default:
         message = "Something went wrong";
         break;

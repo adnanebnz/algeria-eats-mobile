@@ -1,5 +1,4 @@
 import 'package:algeria_eats/constants.dart';
-import 'package:algeria_eats/controllers/authController.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -8,7 +7,6 @@ import 'dio_exceptions.dart';
 import 'error_snackbar.dart';
 
 class DioInstance {
-  static final AuthController authController = AuthController();
   static final Dio _dio = Dio(BaseOptions(
     baseUrl: apiUrl,
     headers: {
@@ -17,6 +15,7 @@ class DioInstance {
       'Authorization': 'Bearer ${GetStorage().read('token')}',
     },
   ))
+    ..interceptors.add(PrettyDioLogger())
     ..interceptors.add(InterceptorsWrapper(
       onError: (DioException error, ErrorInterceptorHandler handler) {
         DioExceptions dioExceptions = DioExceptions.fromDioError(error);
@@ -25,20 +24,11 @@ class DioInstance {
 
         handler.next(error);
       },
-      onRequest: (options, handler) async {
-        String? token = GetStorage().read('token');
-        if (token != null) {
-          if (await authController.isTokenExpired(token)) {
-            String newToken = await authController.refreshToken();
-            GetStorage().write('token', newToken);
-            token = newToken;
-          }
-          options.headers['Bearer'] = 'Bearer $token';
-        }
-        return handler.next(options);
-      },
-    ))
-    ..interceptors.add(PrettyDioLogger());
+      // onRequest: (options, handler) async {
+      //   // handle token refresh later
+      //   return handler.next(options);
+      // },
+    ));
 
   static Dio getDio() {
     return _dio;

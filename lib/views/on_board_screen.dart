@@ -1,11 +1,9 @@
 import 'dart:ui';
 
-import 'package:algeria_eats/components/custom_sign_in.dart';
 import 'package:algeria_eats/controllers/authController.dart';
 import 'package:algeria_eats/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'dart:developer' as console show log;
 
 class OnBoardPage extends StatefulWidget {
   const OnBoardPage({super.key});
@@ -100,15 +98,7 @@ class _HomePageState extends State<OnBoardPage> {
                                       horizontal: 12.0, vertical: 8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        isSignInDialogShown = true;
-                                      });
-                                      customSigninDialog(context,
-                                          onClosed: (_) {
-                                        setState(() {
-                                          isSignInDialogShown = false;
-                                        });
-                                      });
+                                      Get.toNamed("/register");
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -139,15 +129,7 @@ class _HomePageState extends State<OnBoardPage> {
                                       horizontal: 12.0, vertical: 8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        isSignInDialogShown = true;
-                                      });
-                                      customSigninDialog(context,
-                                          onClosed: (_) {
-                                        setState(() {
-                                          isSignInDialogShown = false;
-                                        });
-                                      });
+                                      Get.toNamed("/login");
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

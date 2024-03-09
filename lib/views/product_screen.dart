@@ -123,10 +123,14 @@ class _ProductScreenState extends State<ProductScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                                "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
-                                style: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                  "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                             RatingView(
                               iconSize: 18,
                               fontSize: 18,
@@ -266,11 +270,16 @@ class _ProductScreenState extends State<ProductScreen> {
 
 class MyTheme {
   static Color get backgroundColor => const Color(0xFFF7F7F7);
+
   static Color get grey => const Color(0xFF999999);
+
   static Color get catalogueCardColor =>
       const Color(0xFFBAE5D4).withOpacity(0.5);
+
   static Color get catalogueButtonColor => const Color(0xFF29335C);
+
   static Color get courseCardColor => const Color(0xFFEDF1F1);
+
   static Color get progressColor => const Color(0xFF36F1CD);
 
   static Padding get largeVerticalPadding =>

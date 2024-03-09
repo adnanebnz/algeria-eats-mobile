@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 
+import 'dart:developer' show log;
+
 import 'package:algeria_eats/models/user.dart';
-import 'package:algeria_eats/utils/dio_exceptions.dart';
 import 'package:algeria_eats/utils/dio_instance.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
@@ -28,15 +28,17 @@ class AuthController extends GetxController {
   final dio = DioInstance.getDio();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    me();
+    String? token = await getToken();
+    if (token != null) {
+      await me();
+    }
   }
 
-  Future<Map<String, dynamic>> login(String email, String password) async {
-    isLoading.value = true;
-
+  Future<void> login(String email, String password) async {
     try {
+      isLoading.value = true;
       final response = await dio.post(
         '/auth/login',
         data: {
@@ -52,53 +54,34 @@ class AuthController extends GetxController {
       String trimmedToken = parts.length > 1 ? parts[1] : '';
       await box.write('token', trimmedToken);
 
+      user.value = User.fromJson(responseData['user']);
+      Get.offAllNamed("/home");
       isLoggedIn.value = true;
-
-      return responseData;
-    } on DioException catch (e) {
-      isLoggedIn.value = false;
-      DioExceptions dioExceptions = DioExceptions.fromDioError(e);
+    } catch (e) {
       if (kDebugMode) {
-        print('DioException: ${dioExceptions.message}');
+        log(e.toString());
       }
-      return {
-        'error': dioExceptions.message,
-      };
     } finally {
       isLoading.value = false;
     }
   }
 
-  Future<Map<String, dynamic>?> me() async {
+  Future me() async {
     isLoading.value = true;
     final token = await getToken();
-    try {
-      final response = await dio.get(
-        '/me',
-      );
+    final response = await dio.get(
+      '/me',
+    );
 
-      if (response.statusCode != 200 || token == null) {
-        isLoggedIn.value = false;
-        update();
-      } else {
-        final responseData = response.data;
-        // map the response to the user model
-        user.value = User.fromJson(responseData['user']);
-        isLoggedIn.value = true;
-        isLoading.value = false;
-        update();
-        return responseData;
-      }
-    } on DioException catch (e) {
-      DioExceptions dioExceptions = DioExceptions.fromDioError(e);
-      if (kDebugMode) {
-        print('DioException: ${dioExceptions.message}');
-      }
-      return {
-        'error': dioExceptions.message,
-      };
+    if (response.statusCode != 200 || token == null) {
+      isLoggedIn.value = false;
+    } else {
+      final responseData = response.data;
+      user.value = User.fromJson(responseData['user']);
+      isLoggedIn.value = true;
+      isLoading.value = false;
+      return user;
     }
-    return null;
   }
 
   Future<String?> getToken() async {
