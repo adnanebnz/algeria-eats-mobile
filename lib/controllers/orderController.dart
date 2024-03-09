@@ -14,7 +14,7 @@ class OrderController extends GetxController {
   AuthController authController = Get.find<AuthController>();
   RxList<Order> userOrders = <Order>[].obs;
   RxBool isLoading = false.obs;
-  final dio = DioInstance.instance.getDio();
+  final dio = DioInstance.getDio();
 
   @override
   void onInit() {

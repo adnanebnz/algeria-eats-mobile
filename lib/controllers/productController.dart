@@ -14,7 +14,7 @@ class ProductController extends GetxController {
   RxInt saltyProductsCount = 0.obs;
   RxBool isLoading = true.obs;
 
-  final dio = DioInstance.instance.getDio();
+  final dio = DioInstance.getDio();
 
   @override
   void onInit() {

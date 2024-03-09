@@ -25,7 +25,7 @@ class AuthController extends GetxController {
       .obs;
 
   final box = GetStorage();
-  final dio = DioInstance.instance.getDio();
+  final dio = DioInstance.getDio();
 
   @override
   void onInit() {
@@ -79,12 +79,14 @@ class AuthController extends GetxController {
 
       if (response.statusCode != 200 || token == null) {
         isLoggedIn.value = false;
+        update();
       } else {
         final responseData = response.data;
         // map the response to the user model
         user.value = User.fromJson(responseData['user']);
         isLoggedIn.value = true;
         isLoading.value = false;
+        update();
         return responseData;
       }
     } on DioException catch (e) {

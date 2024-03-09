@@ -12,7 +12,7 @@ class ArtisanController extends GetxController {
   RxList<Artisan> artisans = <Artisan>[].obs;
   RxList<Product> artisanProducts = <Product>[].obs;
   RxBool isLoading = false.obs;
-  final dio = DioInstance.instance.getDio();
+  final dio = DioInstance.getDio();
 
   @override
   void onInit() {
