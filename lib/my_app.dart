@@ -1,6 +1,6 @@
-import 'package:algeria_eats/utils/bindings.dart';
-import 'package:algeria_eats/utils/entry.dart';
-import 'package:algeria_eats/utils/routes.dart';
+import 'package:algeria_eats/core/bindings/bindings.dart';
+import 'package:algeria_eats/core/utils/entry.dart';
+import 'package:algeria_eats/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';

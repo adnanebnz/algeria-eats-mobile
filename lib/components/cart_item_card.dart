@@ -1,5 +1,5 @@
-import 'package:algeria_eats/controllers/cartController.dart';
-import 'package:algeria_eats/models/cartItem.dart';
+import 'package:algeria_eats/features/cart/controllers/cartController.dart';
+import 'package:algeria_eats/features/cart/models/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,5 @@
 import 'package:algeria_eats/components/rating_view.dart';
-import 'package:algeria_eats/models/product.dart';
+import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductCardView extends StatelessWidget {
