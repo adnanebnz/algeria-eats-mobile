@@ -116,7 +116,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         CircleAvatar(
                           radius: 30,
                           backgroundImage: NetworkImage(widget
-                                  .product.artisan.user.image ??
+                                  .product.artisan?.user.image ??
                               'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
                         ),
                         const SizedBox(width: 12),
@@ -126,7 +126,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
-                                  "${widget.product.artisan.user.nom} ${widget.product.artisan.user.prenom}",
+                                  "${widget.product.artisan?.user.nom} ${widget.product.artisan?.user.prenom}",
                                   style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold)),
@@ -134,7 +134,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             RatingView(
                               iconSize: 18,
                               fontSize: 18,
-                              value: widget.product.artisan.rating.toInt(),
+                              value: widget.product.artisan!.rating.toInt(),
                             ),
                           ],
                         ),

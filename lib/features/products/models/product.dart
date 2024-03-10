@@ -11,7 +11,7 @@ class Product {
   int? rating;
   String categorie;
   List<String> images;
-  Artisan artisan;
+  Artisan? artisan;
   String created_at;
   String updated_at;
 
@@ -39,7 +39,7 @@ class Product {
       'rating': rating,
       'categorie': categorie,
       'images': images,
-      'artisan': artisan.toMap(),
+      'artisan': artisan?.toMap(),
       'created_at': created_at,
       'updated_at': updated_at,
     };
@@ -55,7 +55,8 @@ class Product {
       rating: json['rating'],
       categorie: json['categorie'],
       images: List<String>.from(json['images']),
-      artisan: Artisan.fromJson(json['artisan']),
+      artisan:
+          json['artisan'] != null ? Artisan.fromJson(json['artisan']) : null,
       created_at: json['created_at'],
       updated_at: json['updated_at'],
     );

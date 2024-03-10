@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:algeria_eats/features/auth/controllers/authController.dart';
-import 'package:algeria_eats/features/home/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +12,19 @@ class OnBoardPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<OnBoardPage> {
-  bool isSignInDialogShown = false;
-
   AuthController authController = Get.find<AuthController>();
+
+  @override
+  void initState() {
+    super.initState();
+    ever(authController.isLoggedIn, (isLoggedIn) {
+      if (isLoggedIn) {
+        Get.offAllNamed("/main");
+      } else {
+        Get.offAllNamed("/login");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +32,6 @@ class _HomePageState extends State<OnBoardPage> {
       body: Obx(() {
         if (authController.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
-        } else if (authController.isLoggedIn.value) {
-          return const MainScreen();
         } else {
           return Stack(
             children: [
@@ -47,7 +54,7 @@ class _HomePageState extends State<OnBoardPage> {
               ),
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 240),
-                top: isSignInDialogShown ? -50 : 0,
+                top: 0,
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: SafeArea(

@@ -58,7 +58,7 @@ class OrderController extends GetxController {
       // Group the cart items by artisan ID
       Map<int, List<CartItem>> groupedItems = {};
       for (var item in cartController.cartItems) {
-        int? artisanId = item.product.artisan.user_id;
+        int? artisanId = item.product.artisan?.user_id;
         if (!groupedItems.containsKey(artisanId)) {
           groupedItems[artisanId!] = [];
         }

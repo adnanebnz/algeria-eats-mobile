@@ -1,9 +1,9 @@
 // ignore_for_file: file_names, avoid_print
 
-import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/core/errors/dio_exceptions.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/core/utils/error_snackbar.dart';
+import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
 // import 'dart:developer' as console show log;
 
