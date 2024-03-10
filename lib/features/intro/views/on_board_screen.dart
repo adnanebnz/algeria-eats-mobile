@@ -21,7 +21,9 @@ class _HomePageState extends State<OnBoardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if (authController.isLoggedIn.value) {
+        if (authController.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (authController.isLoggedIn.value) {
           return const MainScreen();
         } else {
           return Stack(

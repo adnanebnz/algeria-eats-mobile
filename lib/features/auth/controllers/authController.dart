@@ -2,8 +2,9 @@
 
 import 'dart:developer' show log;
 
-import 'package:algeria_eats/features/auth/models/user.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
+import 'package:algeria_eats/core/managers/token_manager.dart';
+import 'package:algeria_eats/features/auth/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,11 +27,12 @@ class AuthController extends GetxController {
 
   final box = GetStorage();
   final dio = DioInstance.getDio();
+  final TokenManager _tokenManager = TokenManager();
 
   @override
   void onInit() async {
     super.onInit();
-    String? token = await getToken();
+    String? token = await _tokenManager.getToken();
     if (token != null) {
       await me();
     }
@@ -50,9 +52,8 @@ class AuthController extends GetxController {
       final responseData = response.data;
 
       String token = responseData['token'];
-      List<String> parts = token.split('|');
-      String trimmedToken = parts.length > 1 ? parts[1] : '';
-      await box.write('token', trimmedToken);
+
+      await _tokenManager.trimAndSaveToken(token);
 
       user.value = User.fromJson(responseData['user']);
       Get.offAllNamed("/home");
@@ -69,12 +70,11 @@ class AuthController extends GetxController {
   Future me() async {
     try {
       isLoading.value = true;
-      final token = await getToken();
       final response = await dio.get(
         '/me',
       );
 
-      if (response.statusCode != 200 || token == null) {
+      if (response.statusCode != 200) {
         isLoggedIn.value = false;
       } else {
         final responseData = response.data;
@@ -91,33 +91,19 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<String?> getToken() async {
-    final token = await box.read('token');
-    return token;
-  }
-
   Future<void> logout() async {
     await dio.post(
       '/auth/logout',
     );
-    await box.remove('token');
+    await _tokenManager.removeToken();
     isLoggedIn.value = false;
   }
 
-  Future isTokenExpired(String token) async {
-    final response = await dio.get(
-      '/me',
-    );
-    if (response.statusCode == 401) {
-      return true;
-    }
-    return false;
-  }
-
-  Future refreshToken() async {
+  Future<void> refreshToken() async {
     final response = await dio.post(
       '/auth/refresh',
     );
-    return response.data['token'];
+    final token = response.data['token'];
+    await _tokenManager.updateToken(token);
   }
 }
