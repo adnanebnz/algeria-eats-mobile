@@ -1,8 +1,8 @@
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
-import 'package:algeria_eats/features/products/controllers/productController.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
+import 'package:algeria_eats/features/auth/controllers/authController.dart';
 import 'package:algeria_eats/features/home/views/home_screen.dart';
 import 'package:algeria_eats/features/intro/views/on_board_screen.dart';
+import 'package:algeria_eats/features/products/controllers/productController.dart';
 import 'package:algeria_eats/features/products/views/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -84,6 +84,8 @@ class _WelcomeScreenState extends State<MainScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color.fromRGBO(217, 119, 6, 1),
         enableFeedback: true,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,

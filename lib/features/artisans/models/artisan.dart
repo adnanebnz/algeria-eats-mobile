@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/auth/models/user.dart';
-import 'package:algeria_eats/features/order/models/order.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/reviews/models/review.dart';
 
@@ -10,7 +9,6 @@ class Artisan {
   int rating;
   User user;
   List<Product>? products;
-  List<Order>? orders;
   List<Review>? reviews;
   String desc_entreprise;
   String heure_ouverture;
@@ -22,7 +20,6 @@ class Artisan {
   Artisan({
     required this.user_id,
     this.products,
-    this.orders,
     this.reviews,
     required this.desc_entreprise,
     required this.heure_ouverture,
@@ -61,9 +58,6 @@ class Artisan {
       created_at: map['created_at'],
       updated_at: map['updated_at'],
       user: User.fromJson(map['user']),
-      orders: map['orders'] != null
-          ? List<Order>.from(map['orders'].map((x) => Order.fromJson(x)))
-          : null,
       products: map['products'] != null
           ? List<Product>.from(map['products'].map((x) => Product.fromJson(x)))
           : null,

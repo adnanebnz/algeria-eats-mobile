@@ -24,6 +24,8 @@ class _CartItemCardState extends State<CartItemCard> {
         if (direction == DismissDirection.endToStart) {
           cartController.removeItem(widget.cartItem.product);
           Get.snackbar(
+            isDismissible: true,
+            dismissDirection: DismissDirection.horizontal,
             "Supprimé du panier",
             "${widget.cartItem.product.nom} est supprimé de votre panier",
             snackPosition: SnackPosition.TOP,

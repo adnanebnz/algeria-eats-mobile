@@ -21,33 +21,12 @@ class OrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getOrders();
   }
 
   @override
   void onClose() {
     userOrders.clear();
     super.onClose();
-  }
-
-  Future<void> getOrders() async {
-    try {
-      isLoading.value = true;
-      final response = await dio.get(
-        '/orders',
-      );
-
-      final responseData = response.data;
-      userOrders.value = (responseData['orders'] as List<dynamic>)
-          .map((orderJson) => Order.fromJson(orderJson))
-          .toList();
-    } catch (e) {
-      if (kDebugMode) {
-        log(e.toString());
-      }
-    } finally {
-      isLoading.value = false;
-    }
   }
 
   Future<void> makeOrder(
@@ -89,10 +68,8 @@ class OrderController extends GetxController {
         if (response.statusCode == 200) {
           cartController.cartItems.clear();
           Get.toNamed("/order-success");
-          //TODO CREATE ROTUE
         } else {
           Get.toNamed('/order-error');
-          //TODO CREATE ROTUE
         }
       }
     } catch (e) {
@@ -100,7 +77,6 @@ class OrderController extends GetxController {
         log(e.toString());
       }
       Get.toNamed('/order-error');
-      //TODO CREATE ROTUE
     } finally {
       isLoading.value = false;
     }

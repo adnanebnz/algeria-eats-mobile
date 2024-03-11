@@ -109,7 +109,7 @@ class _CartScreenState extends State<CartScreen> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.only(
-                        left: 12.0, right: 12.0, top: 12.0, bottom: 32.0),
+                        left: 12.0, right: 12.0, top: 12.0, bottom: 18.0),
                     child: GestureDetector(
                       onTap: () {
                         Get.to(() => const CheckoutScreen());

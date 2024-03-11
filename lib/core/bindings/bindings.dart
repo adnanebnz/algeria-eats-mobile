@@ -10,8 +10,8 @@ class AppBindings extends Bindings {
   void dependencies() {
     Get.put(AuthController());
     Get.lazyPut(() => CartController());
-    Get.lazyPut(() => ProductController());
-    Get.lazyPut(() => ArtisanController());
+    Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => ArtisanController(), fenix: true);
     Get.lazyPut(() => OrderController());
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
+import 'package:algeria_eats/features/reviews/models/review.dart';
 
 class Product {
   int id;
@@ -14,6 +15,7 @@ class Product {
   Artisan? artisan;
   String created_at;
   String updated_at;
+  List<Review>? reviews;
 
   Product({
     required this.id,
@@ -27,6 +29,7 @@ class Product {
     required this.artisan,
     required this.created_at,
     required this.updated_at,
+    this.reviews,
   });
 
   Map<String, dynamic> toMap() {
@@ -42,6 +45,7 @@ class Product {
       'artisan': artisan?.toMap(),
       'created_at': created_at,
       'updated_at': updated_at,
+      'reviews': reviews?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -59,6 +63,9 @@ class Product {
           json['artisan'] != null ? Artisan.fromJson(json['artisan']) : null,
       created_at: json['created_at'],
       updated_at: json['updated_at'],
+      reviews: json['reviews'] != null
+          ? List<Review>.from(json['reviews'].map((x) => Review.fromJson(x)))
+          : null,
     );
   }
 }

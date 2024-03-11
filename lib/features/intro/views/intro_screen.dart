@@ -69,8 +69,8 @@ class _IntroScreen extends State<IntroScreen> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => {goHomePage(context), setIsSeen()},
-      onSkip: () => goHomePage(context),
+      onDone: () => {goHomePage(), setIsSeen()},
+      onSkip: () => {goHomePage(), setIsSeen()},
       showSkipButton: true,
       nextFlex: 0,
       skip: const Text(
@@ -94,7 +94,7 @@ class _IntroScreen extends State<IntroScreen> {
     );
   }
 
-  void goHomePage(context) {
+  void goHomePage() {
     Get.offAll(() => const OnBoardPage());
   }
 }

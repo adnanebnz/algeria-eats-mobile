@@ -53,189 +53,197 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       appBar: AppBar(
         title: const Text('Commander'),
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Cordonnées de livraison",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[700]),
-              ),
-              const SizedBox(height: 15),
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer votre adresse';
-                  }
-                  return null;
-                },
-                controller: adresseController,
-                keyboardType: TextInputType.streetAddress,
-                decoration: const InputDecoration(
-                    hintText: "Rue N° 12 ...",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.location_on_outlined),
-                    )),
-              ),
-              const SizedBox(height: 20),
-              Text('Wilaya',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
-              DropdownButton<Wilaya>(
-                isExpanded: true,
-                value: selectedWilaya,
-                onChanged: (Wilaya? newValue) {
-                  setState(() {
-                    selectedWilaya = newValue;
-                    dairas = selectedWilaya!.getDairas();
-                    selectedDaira = dairas![0];
-                    communes = selectedDaira!.getCommunes();
-                    selectedCommune = communes![0];
-                  });
-                },
-                items: wilayas!.map<DropdownMenuItem<Wilaya>>((Wilaya? wilaya) {
-                  return DropdownMenuItem<Wilaya>(
-                    value: wilaya,
-                    child: Text(
-                        "${wilaya!.getWilayaCode()!} - ${wilaya.getWilayaName(Language.FR)!}"),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 15),
-              Text('Daira',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
-              DropdownButton<Daira>(
-                isExpanded: true,
-                value: selectedDaira,
-                onChanged: (Daira? newValue) {
-                  setState(() {
-                    selectedDaira = newValue;
-                    communes = selectedDaira!.getCommunes();
-                    selectedCommune = communes![0];
-                  });
-                },
-                items: dairas!.map<DropdownMenuItem<Daira>>((Daira? daira) {
-                  return DropdownMenuItem<Daira>(
-                    value: daira,
-                    child: Text(daira!.getDairaName(Language.FR)!),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 15),
-              Text('Commune',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[800])),
-              DropdownButton<Commune>(
-                isExpanded: true,
-                value: selectedCommune,
-                onChanged: (Commune? newValue) {
-                  setState(() {
-                    selectedCommune = newValue;
-                  });
-                },
-                items: communes!
-                    .map<DropdownMenuItem<Commune>>((Commune? commune) {
-                  return DropdownMenuItem<Commune>(
-                    value: commune,
-                    child: Text(commune!.getCommuneName(Language.FR)!),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 30),
-              Text(
-                "Méthode de paiement",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[700]),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey[300]!),
+      body: Obx(() {
+        return Form(
+          key: _formKey,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Cordonnées de livraison",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[700]),
                 ),
-                child: Row(
-                  children: [
-                    Radio(
-                      value: 0,
-                      groupValue: 0,
-                      onChanged: (value) {},
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Paiement à la livraison",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey[700]),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          "Payer en espèce à la livraison",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.grey[600]),
-                        ),
-                      ],
-                    ),
-                  ],
+                const SizedBox(height: 15),
+                TextFormField(
+                  enabled: orderController.isLoading.value ? false : true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez entrer votre adresse';
+                    }
+                    return null;
+                  },
+                  controller: adresseController,
+                  keyboardType: TextInputType.streetAddress,
+                  decoration: const InputDecoration(
+                      hintText: "Rue N° 12 ...",
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Icon(Icons.location_on_outlined),
+                      )),
                 ),
-              ),
-              const Spacer(),
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        orderController.makeOrder(
-                          adresseController.text,
-                          selectedWilaya!.getWilayaName(Language.FR)!,
-                          selectedDaira!.getDairaName(Language.FR)!,
-                          selectedCommune!.getCommuneName(Language.FR)!,
-                        );
-                      }
-                    },
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        decoration: BoxDecoration(
-                          color: const Color.fromRGBO(251, 146, 60, 1),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: const Center(
-                            child: Text('Placer la commande',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white)))),
+                const SizedBox(height: 20),
+                Text('Wilaya',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[800])),
+                DropdownButton<Wilaya>(
+                  isExpanded: true,
+                  value: selectedWilaya,
+                  onChanged: (Wilaya? newValue) {
+                    setState(() {
+                      selectedWilaya = newValue;
+                      dairas = selectedWilaya!.getDairas();
+                      selectedDaira = dairas![0];
+                      communes = selectedDaira!.getCommunes();
+                      selectedCommune = communes![0];
+                    });
+                  },
+                  items:
+                      wilayas!.map<DropdownMenuItem<Wilaya>>((Wilaya? wilaya) {
+                    return DropdownMenuItem<Wilaya>(
+                      value: wilaya,
+                      child: Text(
+                          "${wilaya!.getWilayaCode()!} - ${wilaya.getWilayaName(Language.FR)!}"),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 15),
+                Text('Daira',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[800])),
+                DropdownButton<Daira>(
+                  isExpanded: true,
+                  value: selectedDaira,
+                  onChanged: (Daira? newValue) {
+                    setState(() {
+                      selectedDaira = newValue;
+                      communes = selectedDaira!.getCommunes();
+                      selectedCommune = communes![0];
+                    });
+                  },
+                  items: dairas!.map<DropdownMenuItem<Daira>>((Daira? daira) {
+                    return DropdownMenuItem<Daira>(
+                      value: daira,
+                      child: Text(daira!.getDairaName(Language.FR)!),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 15),
+                Text('Commune',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[800])),
+                DropdownButton<Commune>(
+                  isExpanded: true,
+                  value: selectedCommune,
+                  onChanged: (Commune? newValue) {
+                    setState(() {
+                      selectedCommune = newValue;
+                    });
+                  },
+                  items: communes!
+                      .map<DropdownMenuItem<Commune>>((Commune? commune) {
+                    return DropdownMenuItem<Commune>(
+                      value: commune,
+                      child: Text(commune!.getCommuneName(Language.FR)!),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  "Méthode de paiement",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[700]),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Row(
+                    children: [
+                      Radio(
+                        value: 0,
+                        groupValue: 0,
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Paiement à la livraison",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey[700]),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            "Payer en espèce à la livraison",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey[600]),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const Spacer(),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Center(
+                    child: FilledButton.icon(
+                      style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(const TextStyle(
+                              fontSize: 16, color: Colors.white)),
+                          fixedSize: MaterialStateProperty.all(
+                              Size(MediaQuery.of(context).size.width - 80, 50)),
+                          shape:
+                              MaterialStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color.fromRGBO(251, 146, 60, 1))),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          orderController.isLoading.value
+                              ? null
+                              : orderController.makeOrder(
+                                  adresseController.text,
+                                  selectedWilaya!.getWilayaName(Language.FR)!,
+                                  selectedDaira!.getDairaName(Language.FR)!,
+                                  selectedCommune!.getCommuneName(Language.FR)!,
+                                );
+                        }
+                      },
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                      label: const Text('Valider la commande'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

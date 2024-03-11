@@ -27,6 +27,7 @@ dependencies:
   carousel_slider: ^4.2.1
   dzair_data_usage: ^1.0.1
   animate_do: ^3.3.4
+  confetti: ^0.7.0
   awesome_notifications_core: ^0.9.1
   awesome_notifications: any
   firebase_core: ^2.27.0
