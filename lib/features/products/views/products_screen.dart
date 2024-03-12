@@ -2,7 +2,7 @@
 
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
-import 'package:algeria_eats/features/products/controllers/productController.dart';
+import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

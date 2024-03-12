@@ -1,5 +1,5 @@
 import 'package:algeria_eats/components/product_card_view.dart';
-import 'package:algeria_eats/features/products/controllers/productController.dart';
+import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class FeaturedProductsScreen extends GetView<ProductController> {
           ),
         ),
         AspectRatio(
-          aspectRatio: 1.65,
+          aspectRatio: 1.5,
           child: Obx(
             () => controller.isLoading.value
                 ? buildShimmerProductList()

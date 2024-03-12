@@ -1,5 +1,5 @@
 import 'package:algeria_eats/components/rating_view.dart';
-import 'package:algeria_eats/features/artisans/controllers/artisanController.dart';
+import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';

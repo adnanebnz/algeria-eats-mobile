@@ -1,6 +1,6 @@
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
-import 'package:algeria_eats/features/cart/controllers/cartController.dart';
-import 'package:algeria_eats/features/order/controllers/orderController.dart';
+import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
+import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
+import 'package:algeria_eats/features/order/controllers/order_controller.dart';
 import 'package:dzair_data_usage/commune.dart';
 import 'package:dzair_data_usage/daira.dart';
 import 'package:dzair_data_usage/dzair.dart';
@@ -208,34 +208,79 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 Container(
                   margin: const EdgeInsets.only(bottom: 16),
                   child: Center(
-                    child: FilledButton.icon(
-                      style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(const TextStyle(
-                              fontSize: 16, color: Colors.white)),
-                          fixedSize: MaterialStateProperty.all(
-                              Size(MediaQuery.of(context).size.width - 80, 50)),
+                    child: SizedBox(
+                      height: 60,
+                      width: double.infinity,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.orange),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          overlayColor:
+                              MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.hovered)) {
+                                return Colors.orange.withOpacity(0.04);
+                              }
+                              if (states.contains(MaterialState.focused) ||
+                                  states.contains(MaterialState.pressed)) {
+                                return Colors.orange.withOpacity(0.12);
+                              }
+                              return null;
+                            },
+                          ),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            const EdgeInsets.all(14.0),
+                          ),
                           shape:
-                              MaterialStatePropertyAll<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromRGBO(251, 146, 60, 1))),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          orderController.isLoading.value
-                              ? null
-                              : orderController.makeOrder(
-                                  adresseController.text,
-                                  selectedWilaya!.getWilayaName(Language.FR)!,
-                                  selectedDaira!.getDairaName(Language.FR)!,
-                                  selectedCommune!.getCommuneName(Language.FR)!,
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            orderController.isLoading.value
+                                ? null
+                                : orderController.makeOrder(
+                                    adresseController.text,
+                                    selectedWilaya!.getWilayaName(Language.FR)!,
+                                    selectedDaira!.getDairaName(Language.FR)!,
+                                    selectedCommune!
+                                        .getCommuneName(Language.FR)!,
+                                  );
+                          }
+                        },
+                        child: Obx(() {
+                          return orderController.isLoading.value
+                              ? const SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Placer la commande',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Icon(Icons.arrow_forward_ios, size: 16),
+                                  ],
                                 );
-                        }
-                      },
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      label: const Text('Valider la commande'),
+                        }),
+                      ),
                     ),
                   ),
                 ),

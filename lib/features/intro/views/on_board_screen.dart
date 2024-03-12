@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
+import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

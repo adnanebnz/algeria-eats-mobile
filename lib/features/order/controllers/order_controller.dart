@@ -1,15 +1,15 @@
-// ignore_for_file: file_names, non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:developer';
 
 import 'package:algeria_eats/core/managers/dio_instance.dart';
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
-import 'package:algeria_eats/features/cart/controllers/cartController.dart';
+import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
+import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/order/models/order.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-import '../../cart/models/cartItem.dart';
+import '../../cart/models/cart_item.dart';
 
 class OrderController extends GetxController {
   CartController cartController = Get.find<CartController>();

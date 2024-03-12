@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, avoid_print
-
 import 'dart:developer';
 
 import 'package:algeria_eats/core/managers/dio_instance.dart';
@@ -46,7 +44,6 @@ class ArtisanController extends GetxController {
     } catch (e) {
       if (kDebugMode) {
         printError(info: e.toString());
-        //TODO interesting
       }
     } finally {
       isLoading.value = false;

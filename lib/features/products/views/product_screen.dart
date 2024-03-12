@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:algeria_eats/components/rating_view.dart';
-import 'package:algeria_eats/features/cart/controllers/cartController.dart';
+import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
 import 'package:algeria_eats/core/constants/constants.dart';
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -8,7 +7,6 @@ import '../errors/dio_exceptions.dart';
 import '../utils/error_snackbar.dart';
 
 class DioInstance {
-  static AuthController authController = AuthController();
   static final Dio _dio = Dio(BaseOptions(
     baseUrl: apiUrl,
     headers: {

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'dart:developer' show log;
 
 import 'package:algeria_eats/core/managers/dio_instance.dart';

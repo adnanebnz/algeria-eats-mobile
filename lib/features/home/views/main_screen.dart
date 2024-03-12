@@ -1,9 +1,11 @@
+import 'package:algeria_eats/core/utils/init_services.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
-import 'package:algeria_eats/features/auth/controllers/authController.dart';
+import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/home/views/home_screen.dart';
 import 'package:algeria_eats/features/intro/views/on_board_screen.dart';
-import 'package:algeria_eats/features/products/controllers/productController.dart';
+import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/views/products_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,6 +19,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<MainScreen> {
+  InitServices initServices = Get.find<InitServices>();
   AuthController authController = Get.find<AuthController>();
   ProductController productController = Get.find<ProductController>();
   int _currentIndex = 0;
@@ -165,6 +168,34 @@ class _WelcomeScreenState extends State<MainScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
+                leading: const Icon(Icons.shopping_bag_outlined),
+                title: const Text('Mes achats'),
+                onTap: () {
+                  Get.toNamed("/user-orders");
+                },
+                tileColor: Colors.white,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                leading: const Icon(Icons.settings_outlined),
+                title: const Text('Paramétres'),
+                onTap: () {
+                  //  TODO: Add Settings Page
+                },
+                tileColor: Colors.white,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 leading: const Icon(Icons.logout),
                 title: const Text('Déconnexion'),
                 onTap: () {
@@ -179,13 +210,52 @@ class _WelcomeScreenState extends State<MainScreen> {
         ),
       ),
       body: SafeArea(
-        child: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
+        child: Column(
           children: [
-            const HomeScreen(),
-            ProductsScreen(),
-            const ArtisansScreen()
+            Obx(() {
+              return initServices.connectivityStatus.value ==
+                      ConnectivityResult.none
+                  ? Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      margin: const EdgeInsets.only(top: 7),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Pas de Connection Internet",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Icon(
+                            Icons.wifi_off_rounded,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    )
+                  : const SizedBox();
+            }),
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                children: [
+                  const HomeScreen(),
+                  ProductsScreen(),
+                  const ArtisansScreen()
+                ],
+              ),
+            ),
           ],
         ),
       ),
