@@ -1,4 +1,4 @@
-import 'package:algeria_eats/core/utils/init_services.dart';
+import 'package:algeria_eats/core/services/connectivity_service.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/home/views/home_screen.dart';
@@ -19,7 +19,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<MainScreen> {
-  InitServices initServices = Get.find<InitServices>();
+  ConnectivityService initServices = Get.find<ConnectivityService>();
   AuthController authController = Get.find<AuthController>();
   ProductController productController = Get.find<ProductController>();
   int _currentIndex = 0;

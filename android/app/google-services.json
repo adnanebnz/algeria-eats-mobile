@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "370524490316",
+    "project_id": "algeriaeats",
+    "storage_bucket": "algeriaeats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370524490316:android:b508b80a9e2234f5a502e9",
+        "android_client_info": {
+          "package_name": "com.example.algeria_eats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZPvTPDhLfRXzykZ80dHfjdttUkRzNhXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

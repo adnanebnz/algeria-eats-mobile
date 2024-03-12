@@ -4,10 +4,11 @@ import 'package:algeria_eats/core/utils/error_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-class InitServices extends GetxService {
+class ConnectivityService extends GetxService {
   Rx<ConnectivityResult> connectivityStatus = (ConnectivityResult.none).obs;
 
   late StreamSubscription<ConnectivityResult> subscription;
+
   @override
   void onInit() {
     super.onInit();
