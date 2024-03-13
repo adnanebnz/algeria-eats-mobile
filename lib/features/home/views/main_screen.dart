@@ -5,7 +5,6 @@ import 'package:algeria_eats/features/home/views/home_screen.dart';
 import 'package:algeria_eats/features/intro/views/on_board_screen.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/views/products_screen.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -213,8 +212,7 @@ class _WelcomeScreenState extends State<MainScreen> {
         child: Column(
           children: [
             Obx(() {
-              return initServices.connectivityStatus.value ==
-                      ConnectivityResult.none
+              return initServices.isConnected.value == false
                   ? Container(
                       width: double.infinity,
                       decoration: const BoxDecoration(

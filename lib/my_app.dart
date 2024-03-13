@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: EntryPage(),
+      home: const EntryPage(),
       getPages: Routes.pages,
       initialBinding: AppBindings(),
     );

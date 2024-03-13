@@ -19,11 +19,6 @@ class OrderController extends GetxController {
   final dio = DioInstance.getDio();
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onClose() {
     userOrders.clear();
     super.onClose();

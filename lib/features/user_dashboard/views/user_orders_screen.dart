@@ -9,6 +9,6 @@ class UserOrdersScreen extends GetView<UserOrdersController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Mes Achats')),
-        body: SafeArea(child: Text('HELLO')));
+        body: const SafeArea(child: Text('HELLO')));
   }
 }

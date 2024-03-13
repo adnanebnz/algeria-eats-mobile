@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,11 +24,27 @@ class FCMService extends GetxService {
           importance: NotificationImportance.High,
           defaultColor: Colors.orange,
           ledColor: Colors.orange,
-          vibrationPattern: lowVibrationPattern,
         ),
       ],
     );
+    AwesomeNotifications()
+        .setListeners(onActionReceivedMethod: FCMService.onNotificationAction);
     initializeRemoteNotifications(debug: true);
+  }
+
+  static Future<void> onNotificationAction(
+      ReceivedAction receivedNotification) async {
+    try {
+      if (receivedNotification.channelKey == 'high_importance_channel') {
+        if (receivedNotification.buttonKeyPressed == 'SEE_ORDER') {
+          log('Notification action received');
+          // NAVIGATE TO SPECEFIC ORDER
+          Get.toNamed('/user-orders');
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   static Future<void> initializeRemoteNotifications(
@@ -43,10 +61,16 @@ class FCMService extends GetxService {
   @pragma("vm:entry-point")
   static Future<void> mySilentDataHandle(FcmSilentData silentData) async {
     if (kDebugMode) {
-      print('"SilentData": ${silentData.toString()}');
+      log('"SilentData": ${silentData.toString()}');
     }
 
     await AwesomeNotifications().createNotification(
+      actionButtons: [
+        NotificationActionButton(
+          key: 'SEE_ORDER',
+          label: 'Voir la commande',
+        ),
+      ],
       content: NotificationContent(
         id: 10,
         channelKey: 'high_importance_channel',
