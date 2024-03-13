@@ -33,6 +33,19 @@ class AuthController extends GetxController {
     String? token = await _tokenManager.getToken();
     if (token != null) {
       await me();
+      await saveFcmToken();
+    }
+  }
+
+  Future<void> saveFcmToken() async {
+    try {
+      String fcmKey = await box.read("fcm_key");
+      await dio.post('/device-key',
+          data: {'fcm_key': fcmKey, 'user_id': user.value.id});
+    } catch (e) {
+      if (kDebugMode) {
+        log(e.toString());
+      }
     }
   }
 

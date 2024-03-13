@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class FCMService extends GetxService {
   @override
@@ -14,13 +15,15 @@ class FCMService extends GetxService {
       null,
       [
         NotificationChannel(
-            channelKey: 'high_importance_channel',
-            channelName: 'High Importance Notifications',
-            channelDescription:
-                'This is a channel for high importance notifications',
-            importance: NotificationImportance.High,
-            defaultColor: const Color(0xFF9D50DD),
-            ledColor: Colors.white),
+          channelKey: 'high_importance_channel',
+          channelName: 'High Importance Notifications',
+          channelDescription:
+              'This is a channel for high importance notifications',
+          importance: NotificationImportance.High,
+          defaultColor: Colors.orange,
+          ledColor: Colors.orange,
+          vibrationPattern: lowVibrationPattern,
+        ),
       ],
     );
     initializeRemoteNotifications(debug: true);
@@ -53,19 +56,17 @@ class FCMService extends GetxService {
     );
   }
 
-  /// Use this method to detect when a new fcm token is received
   @pragma("vm:entry-point")
   static Future<void> myFcmTokenHandle(String token) async {
+    await GetStorage().write("fcm_key", token);
     debugPrint('FCM Token:"$token"');
   }
 
-  /// Use this method to detect when a new native token is received
   @pragma("vm:entry-point")
   static Future<void> myNativeTokenHandle(String token) async {
     debugPrint('Native Token:"$token"');
   }
 
-  // Request FCM token to Firebase
   Future<String> getFirebaseMessagingToken() async {
     String firebaseAppToken = '';
     if (await AwesomeNotificationsFcm().isFirebaseAvailable) {
