@@ -1,5 +1,5 @@
 import 'package:algeria_eats/core/services/connectivity_service.dart';
-import 'package:algeria_eats/core/services/fcm_services.dart';
+import 'package:algeria_eats/core/services/fcm_service.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
