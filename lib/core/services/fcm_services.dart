@@ -1,80 +1,62 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 class FCMService extends GetxService {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-// TODO FIX SERVICE
   @override
   void onInit() {
     super.onInit();
-    AwesomeNotifications().initialize(null, [
-      NotificationChannel(
-        channelKey: 'high_importance_channel',
-        channelName: 'Basic notifications',
-        channelDescription: 'Notification channel for basic tests',
-        importance: NotificationImportance.Max,
-        playSound: true,
-        enableVibration: true,
-        defaultColor: Colors.orange,
-        ledColor: Colors.orange,
-      ),
-    ]);
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      requestIOSPermissions();
+    initializeRemoteNotifications(debug: true);
+  }
+
+  static Future<void> initializeRemoteNotifications(
+      {required bool debug}) async {
+    await AwesomeNotificationsFcm().initialize(
+        onFcmSilentDataHandle: mySilentDataHandle,
+        onFcmTokenHandle: myFcmTokenHandle,
+        onNativeTokenHandle: myNativeTokenHandle,
+        licenseKeys: null,
+        debug: debug);
+  }
+
+  @pragma("vm:entry-point")
+  static Future<void> mySilentDataHandle(FcmSilentData silentData) async {
+    if (kDebugMode) {
+      print('"SilentData": ${silentData.toString()}');
     }
-    setupInteractions();
-  }
 
-  void setupInteractions() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification!.android;
-      if (notification != null && android != null) {
-        AwesomeNotifications()
-            .createNotification(
-          content: NotificationContent(
-            id: 10,
-            channelKey: 'high_importance_channel',
-            title: notification.title ?? '',
-            body: notification.body ?? '',
-          ),
-        )
-            .catchError((e) {
-          if (kDebugMode) {
-            printInfo(info: 'Failed to create notification: $e');
-          }
-        });
-      }
-    });
-  }
-
-  void requestIOSPermissions() async {
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    if (silentData.createdLifeCycle != NotificationLifeCycle.Foreground) {
       if (kDebugMode) {
-        printInfo(info: 'User granted permission');
-      }
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      if (kDebugMode) {
-        printInfo(info: 'User granted provisional permission');
+        print("bg");
       }
     } else {
       if (kDebugMode) {
-        printInfo(info: 'User declined or has not accepted permission');
+        print("FOREGROUND");
       }
     }
+
+    if (kDebugMode) {
+      print("starting long task");
+    }
+    await Future.delayed(const Duration(seconds: 4));
+    final re = await DioInstance.getDio().get("http://google.com");
+    if (kDebugMode) {
+      print(re.data);
+      print("long task done");
+    }
+  }
+
+  /// Use this method to detect when a new fcm token is received
+  @pragma("vm:entry-point")
+  static Future<void> myFcmTokenHandle(String token) async {
+    debugPrint('FCM Token:"$token"');
+  }
+
+  /// Use this method to detect when a new native token is received
+  @pragma("vm:entry-point")
+  static Future<void> myNativeTokenHandle(String token) async {
+    debugPrint('Native Token:"$token"');
   }
 }
