@@ -1,5 +1,6 @@
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/cart/models/cart_item.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,8 +65,8 @@ class _CartItemCardState extends State<CartItemCard> {
               child: SizedBox(
                 height: 120,
                 width: 120,
-                child: Image.network(
-                  widget.cartItem.product.images[0],
+                child: CachedNetworkImage(
+                  imageUrl: widget.cartItem.product.images[0],
                   fit: BoxFit.cover,
                 ),
               ),

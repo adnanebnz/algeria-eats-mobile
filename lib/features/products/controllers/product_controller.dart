@@ -5,7 +5,6 @@ import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/core/utils/error_snackbar.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
-// import 'dart:developer' as console show log;
 
 class ProductController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -19,7 +18,6 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getAllProducts();
     getFeaturedProducts();
   }
 
@@ -30,17 +28,20 @@ class ProductController extends GetxController {
     super.onClose();
   }
 
-  Future<void> getAllProducts() async {
+  Future<List<Product>> getAllProducts(int page) async {
     try {
       isLoading.value = true;
       final response = await dio.get(
         '/products',
+        queryParameters: {
+          'page': page,
+        },
       );
 
       final responseData = response.data;
 
-      products.value =
-          (responseData['products'] as List<dynamic>).map((productJson) {
+      final products = (responseData['products']['data'] as List<dynamic>)
+          .map((productJson) {
         return Product.fromJson(productJson);
       }).toList();
 
@@ -51,6 +52,8 @@ class ProductController extends GetxController {
           saltyProductsCount.value++;
         }
       }
+
+      return products;
     } catch (e) {
       isLoading.value = false;
       if (e is DioExceptions) {
@@ -58,6 +61,7 @@ class ProductController extends GetxController {
       } else {
         ErrorSnackBar.show("Something wrong happened!", "error");
       }
+      return [];
     } finally {
       isLoading.value = false;
     }

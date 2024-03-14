@@ -3,15 +3,48 @@
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
+import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class ProductsScreen extends GetView<ProductController> {
+class ProductsScreen extends StatefulWidget {
+  const ProductsScreen({super.key});
+
+  @override
+  _ProductsScreenState createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
   final TextEditingController textController = TextEditingController();
   String searchText = '';
+  final ProductController controller = Get.find();
+  final PagingController<int, Product> _pagingController =
+      PagingController(firstPageKey: 0);
 
-  ProductsScreen({super.key});
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final newItems = await controller.getAllProducts(pageKey);
+      final isLastPage = newItems.length < 10;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + 1;
+        _pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,41 +70,24 @@ class ProductsScreen extends GetView<ProductController> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1 / 1.43,
-                          mainAxisSpacing: 4,
-                          crossAxisSpacing: 4,
-                          crossAxisCount: 2,
+                    child: PagedGridView<int, Product>(
+                      pagingController: _pagingController,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 1 / 1.43,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        crossAxisCount: 2,
+                      ),
+                      builderDelegate: PagedChildBuilderDelegate<Product>(
+                        itemBuilder: (context, item, index) => ProductCardView(
+                          onTap: () =>
+                              Get.to(() => ProductScreen(product: item)),
+                          product: item,
                         ),
-                        itemCount: searchText.isEmpty
-                            ? controller.products.length
-                            : controller.products
-                                .where((product) => product.nom
-                                    .toLowerCase()
-                                    .contains(searchText.toLowerCase()))
-                                .length,
-                        itemBuilder: (context, index) {
-                          var product = searchText.isEmpty
-                              ? controller.products[index]
-                              : controller.products
-                                  .where((product) => product.nom
-                                      .toLowerCase()
-                                      .contains(searchText.toLowerCase()))
-                                  .toList()[index];
-                          return ProductCardView(
-                            product: product,
-                            onTap: () {
-                              Get.to(
-                                () => ProductScreen(
-                                  product: product,
-                                ),
-                              );
-                            },
-                          );
-                        }),
+                      ),
+                    ),
                   ),
                 ),
               ],

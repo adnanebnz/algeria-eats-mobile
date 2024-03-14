@@ -2,8 +2,9 @@
 
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/reviews/models/review.dart';
+import 'package:equatable/equatable.dart';
 
-class Product {
+class Product extends Equatable {
   int id;
   int artisan_id;
   String nom;
@@ -16,6 +17,22 @@ class Product {
   String created_at;
   String updated_at;
   List<Review>? reviews;
+
+  @override
+  List<Object?> get props => [
+        id,
+        artisan_id,
+        nom,
+        description,
+        prix,
+        rating,
+        categorie,
+        images,
+        artisan,
+        created_at,
+        updated_at,
+        reviews,
+      ];
 
   Product({
     required this.id,

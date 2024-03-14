@@ -3,6 +3,7 @@
 import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,8 +63,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(12.0)),
-                                    child: Image.network(
-                                      image,
+                                    child: CachedNetworkImage(
+                                      imageUrl: image,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
                                     ),

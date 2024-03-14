@@ -4,7 +4,6 @@ import 'package:algeria_eats/features/cart/views/cart_screen.dart';
 import 'package:algeria_eats/features/products/views/categories_view.dart';
 import 'package:algeria_eats/features/products/views/featured_products_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -91,10 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.green.shade400,
                     borderRadius: BorderRadius.circular(16)),
                 child: Row(
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
@@ -122,8 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Expanded(
                         child: Image.asset(
+                          fit: BoxFit.cover,
                           'assets/images/food-plate.png',
-                          height: 140,
+                          height: 165,
                         ),
                       ),
                     ]),

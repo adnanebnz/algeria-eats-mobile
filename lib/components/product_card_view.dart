@@ -1,5 +1,6 @@
 import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductCardView extends StatelessWidget {
@@ -40,15 +41,14 @@ class ProductCardView extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                    product.images[0],
-                    alignment: imageAlignment,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: product.images[0],
+                      alignment: imageAlignment,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )),
               ],
             ),
           ),

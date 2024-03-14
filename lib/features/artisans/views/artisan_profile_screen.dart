@@ -2,6 +2,7 @@ import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -332,8 +333,9 @@ class _ArtisanProfileScreenState extends State<ArtisanProfileScreen> {
                                   },
                                   leading: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(artisanController
-                                        .artisanProducts[index].images[0]),
+                                    child: CachedNetworkImage(
+                                        imageUrl: artisanController
+                                            .artisanProducts[index].images[0]),
                                   ),
                                   title: Text(
                                     artisanController

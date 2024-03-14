@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCardView extends StatelessWidget {
@@ -31,7 +32,7 @@ class CategoryCardView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.network(imageUrl, height: 50, fit: BoxFit.cover),
+          CachedNetworkImage(imageUrl: imageUrl, height: 50, fit: BoxFit.cover),
           Text(text,
               textAlign: TextAlign.center,
               style: const TextStyle(
