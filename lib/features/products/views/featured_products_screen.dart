@@ -1,4 +1,4 @@
-import 'package:algeria_eats/components/product_card_view.dart';
+import 'package:algeria_eats/components/product_card.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
@@ -41,7 +41,7 @@ class FeaturedProductsScreen extends GetView<ProductController> {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: products.map((product) {
-        return ProductCardView(
+        return ProductCard(
           product: product,
           onTap: () {
             Get.to(() => ProductScreen(

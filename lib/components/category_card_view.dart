@@ -18,6 +18,7 @@ class CategoryCardView extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12.0),
       padding: const EdgeInsets.symmetric(horizontal: 38.0, vertical: 18),
       decoration: BoxDecoration(
+        border: Border.all(width: 0.5, color: Colors.grey.shade100),
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.5),
         boxShadow: [

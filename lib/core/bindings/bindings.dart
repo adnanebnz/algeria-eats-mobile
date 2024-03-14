@@ -1,5 +1,6 @@
 import 'package:algeria_eats/core/services/connectivity_service.dart';
 import 'package:algeria_eats/core/services/fcm_service.dart';
+import 'package:algeria_eats/core/services/geolocation_service.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
@@ -13,6 +14,7 @@ class AppBindings extends Bindings {
   void dependencies() {
     Get.put(FCMService());
     Get.put(ConnectivityService());
+    Get.put(GeoLocationService());
     Get.put(AuthController());
     Get.lazyPut(() => ProductController());
     Get.lazyPut(() => ArtisanController());

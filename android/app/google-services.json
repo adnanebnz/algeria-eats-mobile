@@ -12,7 +12,20 @@
           "package_name": "com.example.algeria_eats"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "370524490316-3vb17h28hblek8np4d9iio4m3eoqut5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.algeria_eats",
+            "certificate_hash": "44c67966011630f7bd5e24be0f8e527608102e61"
+          }
+        },
+        {
+          "client_id": "370524490316-g13vnsqa1bodpsi0pfsnpcmmupjpln7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCZPvTPDhLfRXzykZ80dHfjdttUkRzNhXw"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370524490316-g13vnsqa1bodpsi0pfsnpcmmupjpln7i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "370524490316-qqj997dqhl9e7p7vlcpim11mfnaa2efk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.algeriaEats"
+              }
+            }
+          ]
         }
       }
     }

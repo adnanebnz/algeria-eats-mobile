@@ -20,17 +20,6 @@ class _CategoriesViewState extends State<CategoriesView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-            child: Text(
-              "Categories",
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
           Obx(
             () => Center(
               child: Container(

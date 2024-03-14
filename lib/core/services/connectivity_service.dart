@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class ConnectivityService extends GetxService {
-  Rx<bool> isConnected = false.obs;
+  Rx<bool> isConnected = true.obs;
 
   late StreamSubscription<InternetStatus> subscription;
 
@@ -16,11 +16,15 @@ class ConnectivityService extends GetxService {
         InternetConnection().onStatusChange.listen((InternetStatus status) {
       switch (status) {
         case InternetStatus.connected:
-          isConnected.value = true;
+          Future.delayed(const Duration(seconds: 1), () {
+            isConnected.value = true;
+          });
           break;
         case InternetStatus.disconnected:
-          isConnected.value = false;
-          ErrorSnackBar.show("Pas de connexion a Internet!", 'error');
+          Future.delayed(const Duration(seconds: 3), () {
+            isConnected.value = false;
+            ErrorSnackBar.show("Pas de connexion a Internet!", 'error');
+          });
           break;
       }
     });

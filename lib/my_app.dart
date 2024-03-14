@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Algeria Eats',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "INTER",
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
         cardTheme: const CardTheme(
