@@ -1,7 +1,6 @@
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/cart/views/cart_screen.dart';
-import 'package:algeria_eats/features/products/views/categories_view.dart';
 import 'package:algeria_eats/features/products/views/featured_products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -125,14 +124,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Image.asset(
                           fit: BoxFit.cover,
                           'assets/images/food-plate.png',
-                          height: 165,
+                          height: MediaQuery.of(context).size.height * 0.16,
                         ),
                       ),
                     ]),
               ),
             ),
           ),
-          const CategoriesView(),
+          const SizedBox(
+            height: 8,
+          ),
           const FeaturedProductsScreen(),
         ],
       ),

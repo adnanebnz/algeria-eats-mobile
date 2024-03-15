@@ -116,14 +116,24 @@ class _WelcomeScreenState extends State<MainScreen> {
                         ),
                       );
                     } else {
-                      return CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(
-                          authController.user.value.image ??
-                              'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
-                        ),
-                        backgroundColor: Colors.grey[300],
-                      );
+                      return Builder(builder: (context) {
+                        if (authController.user.value.image != null) {
+                          return CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                              authController.user.value.image!,
+                            ),
+                          );
+                        } else {
+                          return const CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 25,
+                            backgroundImage: AssetImage(
+                              'assets/images/profile-pic.png',
+                            ),
+                          );
+                        }
+                      });
                     }
                   },
                 ),
@@ -145,13 +155,13 @@ class _WelcomeScreenState extends State<MainScreen> {
           items: [
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
-                'assets/images/home-alt.svg',
+                'assets/images/home.svg',
                 height: 24,
                 width: 24,
                 color: const Color.fromRGBO(217, 119, 6, 1),
               ),
               icon: SvgPicture.asset(
-                'assets/images/home-alt.svg',
+                'assets/images/home.svg',
                 height: 24,
                 width: 24,
               ),
@@ -159,13 +169,13 @@ class _WelcomeScreenState extends State<MainScreen> {
             ),
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
-                'assets/images/food.svg',
+                'assets/images/store.svg',
                 height: 24,
                 width: 24,
                 color: const Color.fromRGBO(217, 119, 6, 1),
               ),
               icon: SvgPicture.asset(
-                'assets/images/food.svg',
+                'assets/images/store.svg',
                 height: 24,
                 width: 24,
               ),
@@ -213,14 +223,24 @@ class _WelcomeScreenState extends State<MainScreen> {
                             ),
                           );
                         } else {
-                          return CircleAvatar(
-                            radius: 40,
-                            backgroundImage: NetworkImage(
-                              authController.user.value.image ??
-                                  'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
-                            ),
-                            backgroundColor: Colors.grey[300],
-                          );
+                          return Builder(builder: (context) {
+                            if (authController.user.value.image != null) {
+                              return CircleAvatar(
+                                radius: 25,
+                                backgroundImage: NetworkImage(
+                                  authController.user.value.image!,
+                                ),
+                              );
+                            } else {
+                              return const CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 25,
+                                backgroundImage: AssetImage(
+                                  'assets/images/profile-pic.png',
+                                ),
+                              );
+                            }
+                          });
                         }
                       },
                     ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -5,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 
 class GeoLocationService extends GetxService {
   final box = GetStorage();
+  StreamSubscription<Position>? _positionStreamSubscription;
 
   Map<String, dynamic>? get locationData => box.read('location');
 
@@ -12,8 +15,7 @@ class GeoLocationService extends GetxService {
   void onInit() {
     super.onInit();
     _requestPermissionsAndSaveLocation();
-    //print locationData
-    printInfo(info: 'Location Data: ${locationData ?? 'No location data'}');
+    startListeningLocationChanges();
   }
 
   Future<void> _requestPermissionsAndSaveLocation() async {
@@ -60,5 +62,42 @@ class GeoLocationService extends GetxService {
       'city': place.locality,
       'country': place.country,
     };
+  }
+
+  void startListeningLocationChanges() {
+    _positionStreamSubscription = Geolocator.getPositionStream(
+        locationSettings: const LocationSettings(
+      accuracy: LocationAccuracy.medium,
+      distanceFilter: 10,
+    )).listen((Position position) async {
+      // Get the place from the coordinates
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+
+      // Save the location data
+      Map<String, dynamic> locationData = {
+        'latitude': position.latitude,
+        'longitude': position.longitude,
+        'country': place.country,
+        'city': place.locality,
+      };
+      box.write('location', locationData);
+
+      printInfo(info: 'LAST SAVED LOCATION: ${locationData.toString()}');
+    });
+  }
+
+  void stopListeningLocationChanges() {
+    if (_positionStreamSubscription != null) {
+      _positionStreamSubscription!.cancel();
+      _positionStreamSubscription = null;
+    }
+  }
+
+  @override
+  void onClose() {
+    stopListeningLocationChanges();
+    super.onClose();
   }
 }

@@ -26,7 +26,7 @@ class FeaturedProductsScreen extends GetView<ProductController> {
           ),
         ),
         AspectRatio(
-          aspectRatio: 1.5,
+          aspectRatio: 1.24,
           child: Obx(
             () => controller.isLoading.value
                 ? buildShimmerProductList()
@@ -38,8 +38,11 @@ class FeaturedProductsScreen extends GetView<ProductController> {
   }
 
   Widget buildProductList(List<Product> products) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
+    return GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1 / 1.5,
+      ),
       children: products.map((product) {
         return FeaturedProductCard(
           product: product,
@@ -54,19 +57,22 @@ class FeaturedProductsScreen extends GetView<ProductController> {
   }
 
   Widget buildShimmerProductList() {
-    return ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
+    return GridView.builder(
       itemCount: 4,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1 / 1.5,
+      ),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.6,
-            margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
-            color: Colors.white,
+            margin: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+            ),
           ),
         );
       },

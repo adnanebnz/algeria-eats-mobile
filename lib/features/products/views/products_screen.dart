@@ -20,31 +20,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   final TextEditingController textController = TextEditingController();
   String searchText = '';
   final ProductController controller = Get.find();
-  final PagingController<int, Product> _pagingController =
-      PagingController(firstPageKey: 0);
-
-  @override
-  void initState() {
-    super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await controller.getAllProducts(pageKey);
-      final isLastPage = newItems.length < 10;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +36,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   child: SearchInput(
                     onChanged: (value) {
                       searchText = value;
-                      controller.update();
+                      // controller.update();
                     },
                     textController: textController,
                     hintText: 'Rechercher un produit',
@@ -71,8 +46,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: PagedGridView<int, Product>(
-                      pagingController: _pagingController,
-                      shrinkWrap: true,
+                      pagingController: controller.pagingController,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 1 / 1.43,

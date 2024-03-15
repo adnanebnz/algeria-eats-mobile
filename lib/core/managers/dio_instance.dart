@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../errors/dio_exceptions.dart';
-import '../utils/error_snackbar.dart';
+import '../utils/snackbar.dart';
 
 class DioInstance {
   static final Dio _dio = Dio(BaseOptions(
@@ -20,7 +20,7 @@ class DioInstance {
       onError: (DioException error, ErrorInterceptorHandler handler) {
         DioExceptions dioExceptions = DioExceptions.fromDioError(error);
 
-        ErrorSnackBar.show(dioExceptions.message, 'error');
+        ShowSnackBar.show(dioExceptions.message, 'error');
 
         handler.next(error);
       },

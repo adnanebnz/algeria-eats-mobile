@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:algeria_eats/core/utils/error_snackbar.dart';
+import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
@@ -16,17 +16,17 @@ class ConnectivityService extends GetxService {
         InternetConnection().onStatusChange.listen((InternetStatus status) {
       switch (status) {
         case InternetStatus.connected:
-          Future.delayed(const Duration(seconds: 1), () {
-            isConnected.value = true;
-          });
+          isConnected.value = true;
           break;
         case InternetStatus.disconnected:
-          Future.delayed(const Duration(seconds: 3), () {
-            isConnected.value = false;
-            ErrorSnackBar.show("Pas de connexion a Internet!", 'error');
-          });
+          isConnected.value = false;
           break;
       }
+      isConnected.listen((value) {
+        if (!value) {
+          ShowSnackBar.show("Auccune connexion a Internet", 'error');
+        }
+      });
     });
   }
 

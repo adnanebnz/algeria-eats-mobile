@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 class AppBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(FCMService());
     Get.put(ConnectivityService());
+    Get.put(FCMService());
     Get.put(GeoLocationService());
     Get.put(AuthController());
     Get.lazyPut(() => ProductController());

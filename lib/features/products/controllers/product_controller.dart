@@ -2,9 +2,10 @@
 
 import 'package:algeria_eats/core/errors/dio_exceptions.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
-import 'package:algeria_eats/core/utils/error_snackbar.dart';
+import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProductController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -15,10 +16,16 @@ class ProductController extends GetxController {
 
   final dio = DioInstance.getDio();
 
+  final PagingController<int, Product> pagingController =
+      PagingController(firstPageKey: 0);
+
   @override
   void onInit() {
     super.onInit();
     getFeaturedProducts();
+    pagingController.addPageRequestListener((pageKey) {
+      fetchPage(pageKey);
+    });
   }
 
   @override
@@ -57,9 +64,9 @@ class ProductController extends GetxController {
     } catch (e) {
       isLoading.value = false;
       if (e is DioExceptions) {
-        ErrorSnackBar.show(e.message, "error");
+        ShowSnackBar.show(e.message, "error");
       } else {
-        ErrorSnackBar.show("Something wrong happened!", "error");
+        ShowSnackBar.show("Something wrong happened!", "error");
       }
       return [];
     } finally {
@@ -83,12 +90,27 @@ class ProductController extends GetxController {
     } catch (e) {
       isLoading.value = false;
       if (e is DioExceptions) {
-        ErrorSnackBar.show(e.message, "error");
+        ShowSnackBar.show(e.message, "error");
       } else {
-        ErrorSnackBar.show("Something wrong happened!", "error");
+        ShowSnackBar.show("Something wrong happened!", "error");
       }
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> fetchPage(int pageKey) async {
+    try {
+      final newItems = await getAllProducts(pageKey);
+      final isLastPage = newItems.length < 10;
+      if (isLastPage) {
+        pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      pagingController.error = error;
     }
   }
 }

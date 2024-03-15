@@ -1,6 +1,6 @@
 import 'package:algeria_eats/core/errors/dio_exceptions.dart';
 import 'package:algeria_eats/core/managers/dio_instance.dart';
-import 'package:algeria_eats/core/utils/error_snackbar.dart';
+import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:algeria_eats/features/order/models/order.dart';
 import 'package:get/get.dart';
 
@@ -27,9 +27,9 @@ class UserOrdersController extends GetxController {
       }).toList();
     } catch (e) {
       if (e is DioExceptions) {
-        ErrorSnackBar.show(e.message, "error");
+        ShowSnackBar.show(e.message, "error");
       } else {
-        ErrorSnackBar.show("Something wrong happened!", "error");
+        ShowSnackBar.show("Something wrong happened!", "error");
       }
     } finally {
       isLoading.value = false;

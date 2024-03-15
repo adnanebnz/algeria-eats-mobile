@@ -22,28 +22,25 @@ class _CategoriesViewState extends State<CategoriesView> {
         children: [
           Obx(
             () => Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CategoryCardView(
-                      text: 'Sucrée',
-                      subtitle:
-                          '${productController.sweetProductsCount.value} produits',
-                      imageUrl:
-                          'https://static.vecteezy.com/system/resources/previews/023/522/885/non_2x/birthday-cake-cutout-free-png.png',
-                    ),
-                    CategoryCardView(
-                      text: 'Salée',
-                      subtitle:
-                          '${productController.saltyProductsCount.value} produits',
-                      imageUrl:
-                          'https://static.vecteezy.com/system/resources/previews/021/217/138/non_2x/arabian-esfiha-of-chicken-esfirra-brazilian-snack-png.png',
-                    ),
-                  ],
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CategoryCardView(
+                    text: 'Sucrée',
+                    subtitle:
+                        '${productController.sweetProductsCount.value} produits',
+                    imageUrl:
+                        'https://static.vecteezy.com/system/resources/previews/023/522/885/non_2x/birthday-cake-cutout-free-png.png',
+                  ),
+                  CategoryCardView(
+                    text: 'Salée',
+                    subtitle:
+                        '${productController.saltyProductsCount.value} produits',
+                    imageUrl:
+                        'https://static.vecteezy.com/system/resources/previews/021/217/138/non_2x/arabian-esfiha-of-chicken-esfirra-brazilian-snack-png.png',
+                  ),
+                ],
               ),
             ),
           ),
