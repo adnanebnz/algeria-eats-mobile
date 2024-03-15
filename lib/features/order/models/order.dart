@@ -1,14 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
-import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/auth/models/user.dart';
+import 'package:algeria_eats/features/order/models/order_item.dart';
 
 class Order {
   int id;
   int buyer_id;
   int artisan_id;
   String status;
+  String adresse;
   String wilaya;
   String daira;
   String commune;
@@ -16,13 +17,14 @@ class Order {
   String updated_at;
   User buyer;
   Artisan artisan;
-  List<Product> orderItems;
+  List<OrderItem> orderItems;
 
   Order({
     required this.id,
     required this.buyer_id,
     required this.artisan_id,
     required this.status,
+    required this.adresse,
     required this.wilaya,
     required this.daira,
     required this.commune,
@@ -39,6 +41,7 @@ class Order {
       buyer_id: json['buyer_id'],
       artisan_id: json['artisan_id'],
       status: json['status'],
+      adresse: json['adresse'],
       wilaya: json['wilaya'],
       daira: json['daira'],
       commune: json['commune'],
@@ -47,7 +50,7 @@ class Order {
       buyer: User.fromJson(json['buyer']),
       artisan: Artisan.fromJson(json['artisan']),
       orderItems: (json['order_items'] as List<dynamic>)
-          .map((productJson) => Product.fromJson(productJson))
+          .map((orderItemJson) => OrderItem.fromJson(orderItemJson))
           .toList(),
     );
   }
@@ -65,7 +68,7 @@ class Order {
       'updated_at': updated_at,
       'buyer': buyer.toMap(),
       'artisan': artisan.toMap(),
-      'order_items': orderItems.map((product) => product.toMap()).toList(),
+      'order_items': orderItems.map((orderItem) => orderItem.toMap()).toList(),
     };
   }
 }

@@ -1,5 +1,6 @@
-import 'package:algeria_eats/features/cart/controllers/cartController.dart';
-import 'package:algeria_eats/features/cart/models/cartItem.dart';
+import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
+import 'package:algeria_eats/features/cart/models/cart_item.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +25,8 @@ class _CartItemCardState extends State<CartItemCard> {
         if (direction == DismissDirection.endToStart) {
           cartController.removeItem(widget.cartItem.product);
           Get.snackbar(
+            isDismissible: true,
+            dismissDirection: DismissDirection.horizontal,
             "Supprimé du panier",
             "${widget.cartItem.product.nom} est supprimé de votre panier",
             snackPosition: SnackPosition.TOP,
@@ -62,8 +65,8 @@ class _CartItemCardState extends State<CartItemCard> {
               child: SizedBox(
                 height: 120,
                 width: 120,
-                child: Image.network(
-                  widget.cartItem.product.images[0],
+                child: CachedNetworkImage(
+                  imageUrl: widget.cartItem.product.images[0],
                   fit: BoxFit.cover,
                 ),
               ),

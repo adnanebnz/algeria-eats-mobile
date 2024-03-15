@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
-
-import 'package:algeria_eats/features/cart/models/cartItem.dart';
+import 'package:algeria_eats/features/cart/models/cart_item.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
 

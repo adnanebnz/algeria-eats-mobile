@@ -36,11 +36,21 @@ class ArtisanCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(artisan.user.image ??
-                        'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
-                  ),
+                  Builder(builder: (context) {
+                    if (artisan.user.image != null) {
+                      return CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(artisan.user.image!),
+                      );
+                    } else {
+                      return const CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 25,
+                        backgroundImage:
+                            AssetImage('assets/images/profile-pic.png'),
+                      );
+                    }
+                  }),
                   const SizedBox(width: 10),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.40,

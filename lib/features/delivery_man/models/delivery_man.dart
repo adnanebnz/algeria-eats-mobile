@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, file_names
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/auth/models/user.dart';
 

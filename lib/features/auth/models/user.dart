@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:algeria_eats/features/order/models/order.dart';
+
 class User {
   int? id;
   String nom;
@@ -11,9 +13,11 @@ class User {
   String? image;
   String created_at;
   String updated_at;
+  List<Order>? orders;
 
   User({
     this.id,
+    this.orders,
     required this.nom,
     required this.prenom,
     required this.email,
@@ -37,6 +41,7 @@ class User {
       'wilaya': wilaya,
       'created_at': created_at,
       'updated_at': updated_at,
+      'orders': orders?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -51,6 +56,9 @@ class User {
         wilaya: map['wilaya'],
         created_at: map['created_at'],
         updated_at: map['updated_at'],
-        image: map['image']);
+        image: map['image'],
+        orders: map['orders'] != null
+            ? List<Order>.from(map['orders'].map((x) => Order.fromJson(x)))
+            : null);
   }
 }

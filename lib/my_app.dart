@@ -1,6 +1,6 @@
 import 'package:algeria_eats/core/bindings/bindings.dart';
-import 'package:algeria_eats/core/utils/entry.dart';
 import 'package:algeria_eats/core/routes/routes.dart';
+import 'package:algeria_eats/core/utils/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Algeria Eats',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "INTER",
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
         cardTheme: const CardTheme(

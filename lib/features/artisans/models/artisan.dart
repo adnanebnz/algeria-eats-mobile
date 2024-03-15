@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:algeria_eats/features/auth/models/user.dart';
-import 'package:algeria_eats/features/order/models/order.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/reviews/models/review.dart';
 
@@ -10,9 +9,7 @@ class Artisan {
   int rating;
   User user;
   List<Product>? products;
-  List<Order>? orders;
   List<Review>? reviews;
-  //TODO ADD THESE 3 LISTS TO TOMAP AND FROM JSON
   String desc_entreprise;
   String heure_ouverture;
   String heure_fermeture;
@@ -23,6 +20,7 @@ class Artisan {
   Artisan({
     required this.user_id,
     this.products,
+    this.reviews,
     required this.desc_entreprise,
     required this.heure_ouverture,
     required this.heure_fermeture,
@@ -43,6 +41,9 @@ class Artisan {
       'created_at': created_at,
       'updated_at': updated_at,
       'user': user.toMap(),
+      // 'orders': orders?.map((x) => x.toMap()).toList(),
+      // 'products': products?.map((x) => x.toMap()).toList(),
+      // 'reviews': reviews?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -57,6 +58,12 @@ class Artisan {
       created_at: map['created_at'],
       updated_at: map['updated_at'],
       user: User.fromJson(map['user']),
+      products: map['products'] != null
+          ? List<Product>.from(map['products'].map((x) => Product.fromJson(x)))
+          : null,
+      reviews: map['reviews'] != null
+          ? List<Review>.from(map['reviews'].map((x) => Review.fromJson(x)))
+          : null,
     );
   }
 }

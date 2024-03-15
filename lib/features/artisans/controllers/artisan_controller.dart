@@ -1,12 +1,10 @@
-// ignore_for_file: file_names, avoid_print
-
 import 'dart:developer';
 
+import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
-import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class ArtisanController extends GetxController {
   RxList<Artisan> artisans = <Artisan>[].obs;
@@ -37,14 +35,15 @@ class ArtisanController extends GetxController {
 
       final responseData = response.data;
       artisans.value = (responseData['artisans'] as List<dynamic>)
-          .map((artisanJson) => Artisan.fromJson(artisanJson))
+          .map((artisanJson) =>
+              Artisan.fromJson(artisanJson as Map<String, dynamic>))
           .toList();
 
       isLoading.value = false;
       return artisans;
     } catch (e) {
       if (kDebugMode) {
-        log(e.toString());
+        printError(info: e.toString());
       }
     } finally {
       isLoading.value = false;

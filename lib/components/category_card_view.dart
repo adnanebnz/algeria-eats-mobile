@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCardView extends StatelessWidget {
@@ -15,11 +16,10 @@ class CategoryCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      height: 150,
-      padding: const EdgeInsets.all(15.0),
+      margin: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 38.0, vertical: 18),
       decoration: BoxDecoration(
+        border: Border.all(width: 0.5, color: Colors.grey.shade100),
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.5),
         boxShadow: [
@@ -32,8 +32,7 @@ class CategoryCardView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.network(imageUrl, height: 59, fit: BoxFit.cover),
-          const Spacer(),
+          CachedNetworkImage(imageUrl: imageUrl, height: 50, fit: BoxFit.cover),
           Text(text,
               textAlign: TextAlign.center,
               style: const TextStyle(
@@ -42,11 +41,10 @@ class CategoryCardView extends StatelessWidget {
                 fontSize: 18,
               )),
           const SizedBox(
-            height: 5,
+            height: 4,
           ),
           Text(
             subtitle,
-            textAlign: TextAlign.center,
             style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.normal,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ErrorSnackBar {
+class ShowSnackBar {
   static SnackbarController show(String message, String type) {
     return GetSnackBar(
       borderRadius: 12,

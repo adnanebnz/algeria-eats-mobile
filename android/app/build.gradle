@@ -28,6 +28,7 @@ android {
     ndkVersion "25.1.8937393"
 
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -65,3 +66,6 @@ flutter {
 }
 
 dependencies {}
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

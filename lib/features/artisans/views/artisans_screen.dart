@@ -2,7 +2,7 @@
 
 import 'package:algeria_eats/components/artisan_card.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
-import 'package:algeria_eats/features/artisans/controllers/artisanController.dart';
+import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/artisans/views/artisan_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
