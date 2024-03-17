@@ -27,11 +27,13 @@ class GoogleAuthService {
         "displayName": user.displayName,
         "email": user.email,
         "photoURL": user.photoURL,
+        "num_telephone": user.phoneNumber
       }
     });
+    var data = response.data;
     await _tokenManager.removeToken();
-    await _tokenManager.trimAndSaveToken(response.data["token"]);
+    await _tokenManager.trimAndSaveToken(data["token"]);
 
-    return model.User.fromJson(response.data["user"]);
+    return model.User.fromJson(data["user"]);
   }
 }

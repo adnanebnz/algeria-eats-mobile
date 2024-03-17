@@ -26,7 +26,7 @@ class FeaturedProductsScreen extends GetView<ProductController> {
           ),
         ),
         AspectRatio(
-          aspectRatio: 1.24,
+          aspectRatio: 1.6,
           child: Obx(
             () => controller.isLoading.value
                 ? buildShimmerProductList()
@@ -38,11 +38,8 @@ class FeaturedProductsScreen extends GetView<ProductController> {
   }
 
   Widget buildProductList(List<Product> products) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1 / 1.5,
-      ),
+    return ListView(
+      scrollDirection: Axis.horizontal,
       children: products.map((product) {
         return FeaturedProductCard(
           product: product,

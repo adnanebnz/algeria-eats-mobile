@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:algeria_eats/core/services/connectivity_service.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
@@ -347,12 +349,11 @@ class _WelcomeScreenState extends State<MainScreen> {
             }),
             Expanded(
               child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                children: [
-                  const HomeScreen(),
+                children: const [
+                  HomeScreen(),
                   ProductsScreen(),
-                  const ArtisansScreen()
+                  ArtisansScreen()
                 ],
               ),
             ),

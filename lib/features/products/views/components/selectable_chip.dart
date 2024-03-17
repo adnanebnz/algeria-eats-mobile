@@ -8,7 +8,7 @@ class SelectableChip extends StatefulWidget {
       {super.key, required this.label, required this.onSelected});
 
   @override
-  _SelectableChipState createState() => _SelectableChipState();
+  State createState() => _SelectableChipState();
 }
 
 class _SelectableChipState extends State<SelectableChip> {

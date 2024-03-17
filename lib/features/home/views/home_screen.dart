@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Image.asset(
                           fit: BoxFit.cover,
                           'assets/images/food-plate.png',
-                          height: MediaQuery.of(context).size.height * 0.16,
+                          height: MediaQuery.of(context).size.height * 0.23,
                         ),
                       ),
                     ]),

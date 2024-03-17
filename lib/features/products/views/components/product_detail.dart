@@ -25,7 +25,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: ListView(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,38 +152,42 @@ class ProductDetails extends StatelessWidget {
             ],
           ),
           MyTheme.largeVerticalPadding,
-          FilledButton.icon(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
-                padding: MaterialStateProperty.all(
-                  const EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.orangeAccent),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 16.0),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                   ),
                 ),
-              ),
-              onPressed: () {
-                cartController.addItem(product, quantity);
+                onPressed: () {
+                  cartController.addItem(product, quantity);
 
-                Get.snackbar(
-                  isDismissible: true,
-                  dismissDirection: DismissDirection.horizontal,
-                  "Produit ajouté au panier",
-                  "${product.nom} a été ajouté au panier",
-                  backgroundColor: Colors.green,
-                  duration: const Duration(milliseconds: 2000),
-                  icon: const Icon(
-                    Icons.check_circle,
-                    color: Colors.white,
-                  ),
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.TOP,
-                );
-              },
-              icon: const Icon(Icons.shopping_cart),
-              label: const Text("Ajouter au panier")),
+                  Get.snackbar(
+                    isDismissible: true,
+                    dismissDirection: DismissDirection.horizontal,
+                    "Produit ajouté au panier",
+                    "${product.nom} a été ajouté au panier",
+                    backgroundColor: Colors.green,
+                    duration: const Duration(milliseconds: 2000),
+                    icon: const Icon(
+                      Icons.check_circle,
+                      color: Colors.white,
+                    ),
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.TOP,
+                  );
+                },
+                icon: const Icon(Icons.shopping_cart),
+                label: const Text("Ajouter au panier")),
+          ),
         ],
       ),
     );

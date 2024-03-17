@@ -57,18 +57,31 @@ class _ProductScreenState extends State<ProductScreen> {
                     aspectRatio: 1,
                     child: CarouselWithIndicator(images: widget.product.images),
                   ),
-                  TabBar(
-                    indicatorColor: Colors.orange.shade300,
-                    dividerColor: Colors.grey[200],
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.grey[700],
-                    tabs: const [
-                      Tab(text: 'Details du produit'),
-                      Tab(text: 'Avis des clients'),
+                  Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+                        height: 5,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                      ),
+                      TabBar(
+                        indicatorColor: Colors.orange.shade300,
+                        dividerColor: Colors.grey[200],
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Colors.grey[700],
+                        tabs: const [
+                          Tab(text: 'Details du produit'),
+                          Tab(text: 'Avis des clients'),
+                        ],
+                      ),
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.5,
                     child: TabBarView(
                       children: [
                         ProductDetails(

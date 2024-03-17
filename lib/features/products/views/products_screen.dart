@@ -13,7 +13,7 @@ class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
   @override
-  _ProductsScreenState createState() => _ProductsScreenState();
+  State createState() => _ProductsScreenState();
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
