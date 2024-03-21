@@ -1,3 +1,5 @@
+import 'package:algeria_eats/components/nearest_artisan_profile.dart';
+import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/cart/views/cart_screen.dart';
@@ -15,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.find<AuthController>();
   CartController cartController = Get.find<CartController>();
-  TextEditingController textController = TextEditingController();
+  ArtisanController artisanController = Get.find<ArtisanController>();
 
   @override
   Widget build(BuildContext context) {
@@ -124,12 +126,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Image.asset(
                           fit: BoxFit.cover,
                           'assets/images/food-plate.png',
-                          height: MediaQuery.of(context).size.height * 0.23,
+                          height: MediaQuery.of(context).size.height * 0.16,
                         ),
                       ),
                     ]),
               ),
             ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Artisans proches de vous",
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+            child: Obx(() {
+              if (artisanController.neirestArtisans.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              return ListView.separated(
+                separatorBuilder: (context, index) => const SizedBox(
+                  width: 5,
+                ),
+                scrollDirection: Axis.horizontal,
+                itemCount: artisanController.neirestArtisans.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: NeirestArtisanProfile(
+                      artisan: artisanController.neirestArtisans[index],
+                    ),
+                  );
+                },
+              );
+            }),
           ),
           const SizedBox(
             height: 8,
