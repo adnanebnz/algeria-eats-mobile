@@ -1,4 +1,6 @@
+import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/components/rating_view.dart';
+import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
@@ -56,24 +58,10 @@ class _ArtisanProfileScreenState extends State<ArtisanProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Builder(builder: (context) {
-                              if (widget.artisan.user.image != null) {
-                                return CircleAvatar(
-                                  radius: 25,
-                                  backgroundImage: NetworkImage(
-                                    widget.artisan.user.image!,
-                                  ),
-                                );
-                              } else {
-                                return const CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: 25,
-                                  backgroundImage: AssetImage(
-                                    'assets/images/profile-pic.png',
-                                  ),
-                                );
-                              }
-                            }),
+                            UserProfilePic(
+                              image: widget.artisan.user.image,
+                              radius: 25,
+                            ),
                             const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +316,7 @@ class _ArtisanProfileScreenState extends State<ArtisanProfileScreen> {
                         builder: (controller) {
                           if (controller.isLoading.value) {
                             return const Center(
-                              child: CircularProgressIndicator(),
+                              child: Loader(),
                             );
                           } else {
                             return ListView.builder(

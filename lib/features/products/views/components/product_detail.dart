@@ -1,4 +1,5 @@
 import 'package:algeria_eats/components/rating_view.dart';
+import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/components/product_theme.dart';
@@ -53,24 +54,10 @@ class ProductDetails extends StatelessWidget {
           MyTheme.mediumVerticalPadding,
           Row(
             children: [
-              Builder(builder: (context) {
-                if (product.artisan?.user.image != null) {
-                  return CircleAvatar(
-                    radius: 23,
-                    backgroundImage: NetworkImage(
-                      product.artisan!.user.image!,
-                    ),
-                  );
-                } else {
-                  return const CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 23,
-                    backgroundImage: AssetImage(
-                      'assets/images/profile-pic.png',
-                    ),
-                  );
-                }
-              }),
+              UserProfilePic(
+                image: product.artisan?.user.image,
+                radius: 23,
+              ),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

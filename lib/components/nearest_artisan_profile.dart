@@ -1,3 +1,4 @@
+import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/artisans/views/artisan_profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,24 +22,15 @@ class _NeirestArtisanProfileState extends State<NeirestArtisanProfile> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Builder(builder: (context) {
-            if (widget.artisan.user.image != null) {
-              return CircleAvatar(
-                radius: 27,
-                backgroundImage: NetworkImage(widget.artisan.user.image!),
-              );
-            } else {
-              return const CircleAvatar(
-                backgroundColor: Colors.transparent,
-                radius: 27,
-                backgroundImage: AssetImage('assets/images/profile-pic.png'),
-              );
-            }
-          }),
+          UserProfilePic(
+            image: widget.artisan.user.image,
+            radius: 27,
+          ),
           const SizedBox(
             height: 7,
           ),
           SizedBox(
+            width: MediaQuery.of(context).size.width * 0.2,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,9 +38,13 @@ class _NeirestArtisanProfileState extends State<NeirestArtisanProfile> {
                 Text(
                   widget.artisan.user.nom,
                   style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
+                ),
+                const SizedBox(
+                  height: 3,
                 ),
                 Text(
                   widget.artisan.type_service == "sucree"

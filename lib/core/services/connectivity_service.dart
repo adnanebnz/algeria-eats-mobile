@@ -22,11 +22,11 @@ class ConnectivityService extends GetxService {
           isConnected.value = false;
           break;
       }
-      isConnected.listen((value) {
-        if (!value) {
-          ShowSnackBar.show("Auccune connexion a Internet", 'error');
-        }
-      });
+    });
+    isConnected.listen((value) {
+      if (!value) {
+        ShowSnackBar.show("Auccune connexion a Internet", 'error');
+      }
     });
   }
 

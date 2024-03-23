@@ -252,7 +252,7 @@ class RegisterScreen extends GetView<AuthController> {
                               const Text(
                                 "Vous avez déja un compte?",
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -261,7 +261,7 @@ class RegisterScreen extends GetView<AuthController> {
                                 child: const Text(
                                   'Connectez-vous',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.orange),
                                 ),

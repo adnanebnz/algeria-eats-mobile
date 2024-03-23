@@ -1,4 +1,5 @@
 import 'package:algeria_eats/components/nearest_artisan_profile.dart';
+import 'package:algeria_eats/components/neirest_artisans_shimmer.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
@@ -154,9 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: MediaQuery.of(context).size.height * 0.15,
             child: Obx(() {
               if (artisanController.neirestArtisans.isEmpty) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const NeirestArtisansShimmer();
               }
 
               return ListView.separated(

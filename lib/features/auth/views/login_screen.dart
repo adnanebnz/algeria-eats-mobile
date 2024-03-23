@@ -203,7 +203,7 @@ class LoginScreen extends GetView<AuthController> {
                               const Text(
                                 "Vous n'avez pas de compte?",
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -212,13 +212,14 @@ class LoginScreen extends GetView<AuthController> {
                                 child: const Text(
                                   'Inscrivez-vous',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.orange),
                                 ),
                               ),
                             ],
                           ),
+
                           // const SizedBox(
                           //   height: 20,
                           // ),

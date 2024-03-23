@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,10 @@ class _HomePageState extends State<OnBoardPage> {
     return Scaffold(
       body: Obx(() {
         if (authController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: Loader(
+            size: 50,
+          ));
         } else {
           return Stack(
             children: [

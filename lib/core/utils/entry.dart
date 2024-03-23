@@ -1,3 +1,4 @@
+import 'package:algeria_eats/components/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,7 +27,9 @@ class _EntryPageState extends State<EntryPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Loader(
+          size: 50,
+        ),
       ),
     );
   }

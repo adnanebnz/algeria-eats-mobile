@@ -64,7 +64,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 5,
                         width: 70,
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color: Colors.grey.shade400,
                           borderRadius: BorderRadius.circular(32),
                         ),
                       ),
@@ -80,7 +80,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
+                    margin: const EdgeInsets.only(top: 20.0),
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: TabBarView(
                       children: [
@@ -95,7 +96,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 12),
-                            margin: const EdgeInsets.only(top: 18, bottom: 12),
+                            margin: const EdgeInsets.only(bottom: 12),
                             child: Column(
                               children: [
                                 Row(

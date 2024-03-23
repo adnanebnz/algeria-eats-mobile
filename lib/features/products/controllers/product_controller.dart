@@ -5,6 +5,7 @@ import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProductController extends GetxController {
@@ -18,6 +19,11 @@ class ProductController extends GetxController {
 
   final PagingController<int, Product> pagingController =
       PagingController(firstPageKey: 0);
+
+  RxString productType = "".obs;
+  RxString search = "".obs;
+  RxInt productRating = 0.obs;
+  RxString orderDirection = "asc".obs;
 
   @override
   void onInit() {
@@ -42,6 +48,10 @@ class ProductController extends GetxController {
         '/products',
         queryParameters: {
           'page': page,
+          'productType': productType,
+          'search': search,
+          'productRating': productRating,
+          'orderDirection': orderDirection,
         },
       );
 

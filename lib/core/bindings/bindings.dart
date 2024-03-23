@@ -12,13 +12,13 @@ import 'package:get/get.dart';
 class AppBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(ConnectivityService());
-    Get.put(FCMService());
-    Get.put(GeoLocationService());
-    Get.put(AuthController());
+    Get.put(ConnectivityService(), permanent: true);
+    Get.put(FCMService(), permanent: true);
+    Get.put(GeoLocationService(), permanent: true);
+    Get.put(AuthController(), permanent: true);
     Get.lazyPut(() => ProductController());
     Get.lazyPut(() => ArtisanController());
-    Get.lazyPut(() => CartController());
+    Get.lazyPut(() => CartController(), fenix: true);
     Get.lazyPut(() => OrderController());
     Get.lazyPut(() => UserOrdersController());
   }
