@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
@@ -78,26 +76,26 @@ class ArtisanController extends GetxController {
     return null;
   }
 
-  Future<List<Product>?> getArtisanProducts(Artisan artisan) async {
-    try {
-      isLoading.value = true;
-      final response = await dio.get(
-        '/products?artisan=${artisan.user.nom} ${artisan.user.prenom}',
-      );
+  // Future getArtisanProducts(Artisan artisan) async {
+  //   try {
+  //     isLoading.value = true;
+  //     final response = await dio.get(
+  //       '/products?artisan=${artisan.user.nom} ${artisan.user.prenom}',
+  //     );
 
-      final responseData = response.data;
-      artisanProducts.value = (responseData['products'] as List<dynamic>)
-          .map((productJson) => Product.fromJson(productJson))
-          .toList();
-
-      return artisanProducts;
-    } catch (e) {
-      if (kDebugMode) {
-        log(e.toString());
-      }
-    } finally {
-      isLoading.value = false;
-    }
-    return null;
-  }
+  //     final responseData = response.data;
+  //     printInfo(info: responseData['products']['data'].toString());
+  //     artisanProducts.value =
+  //         (responseData['products']['data'] as List<dynamic>)
+  //             .map((productJson) => Product.fromJson(productJson))
+  //             .toList();
+  //     printInfo(info: artisanProducts.toJson());
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       log(e.toString());
+  //     }
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 }

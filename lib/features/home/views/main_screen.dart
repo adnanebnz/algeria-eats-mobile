@@ -310,10 +310,10 @@ class _WelcomeScreenState extends State<MainScreen> {
             Expanded(
               child: PageView(
                 controller: _pageController,
-                children: const [
+                children: [
                   HomeScreen(),
-                  ProductsScreen(),
-                  ArtisansScreen()
+                  const ProductsScreen(),
+                  const ArtisansScreen()
                 ],
               ),
             ),

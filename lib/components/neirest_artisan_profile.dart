@@ -4,26 +4,22 @@ import 'package:algeria_eats/features/artisans/views/artisan_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NeirestArtisanProfile extends StatefulWidget {
+class NeirestArtisanProfile extends StatelessWidget {
   const NeirestArtisanProfile({super.key, required this.artisan});
   final Artisan artisan;
   @override
-  State<NeirestArtisanProfile> createState() => _NeirestArtisanProfileState();
-}
-
-class _NeirestArtisanProfileState extends State<NeirestArtisanProfile> {
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ArtisanProfileScreen(artisan: widget.artisan));
+        Get.to(() => ArtisanProfileScreen(artisan: artisan));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           UserProfilePic(
-            image: widget.artisan.user.image,
+            image: artisan.user.image,
             radius: 27,
           ),
           const SizedBox(
@@ -36,7 +32,7 @@ class _NeirestArtisanProfileState extends State<NeirestArtisanProfile> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  widget.artisan.user.nom,
+                  artisan.user.nom,
                   style: const TextStyle(
                     overflow: TextOverflow.ellipsis,
                     fontSize: 12,
@@ -47,12 +43,13 @@ class _NeirestArtisanProfileState extends State<NeirestArtisanProfile> {
                   height: 3,
                 ),
                 Text(
-                  widget.artisan.type_service == "sucree"
+                  artisan.type_service == "sucree"
                       ? "Sucrée"
-                      : widget.artisan.type_service == "salee"
+                      : artisan.type_service == "salee"
                           ? "Salée"
                           : "Sucrée et Salée",
                   style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
                     fontSize: 11,
                     color: Colors.grey,
                   ),

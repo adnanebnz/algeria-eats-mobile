@@ -1,4 +1,6 @@
-import 'package:algeria_eats/components/nearest_artisan_profile.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:algeria_eats/components/neirest_artisan_profile.dart';
 import 'package:algeria_eats/components/neirest_artisans_shimmer.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
@@ -8,14 +10,9 @@ import 'package:algeria_eats/features/products/views/featured_products_screen.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   AuthController authController = Get.find<AuthController>();
   CartController cartController = Get.find<CartController>();
   ArtisanController artisanController = Get.find<ArtisanController>();

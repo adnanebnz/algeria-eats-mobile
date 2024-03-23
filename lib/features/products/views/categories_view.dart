@@ -1,16 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:algeria_eats/components/category_card_view.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoriesView extends StatefulWidget {
-  const CategoriesView({super.key});
+class CategoriesView extends StatelessWidget {
+  CategoriesView({super.key});
 
-  @override
-  State<CategoriesView> createState() => _CategoriesViewState();
-}
-
-class _CategoriesViewState extends State<CategoriesView> {
   ProductController productController = Get.find<ProductController>();
   @override
   Widget build(BuildContext context) {

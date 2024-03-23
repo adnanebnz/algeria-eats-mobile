@@ -1,34 +1,31 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/cart/models/cart_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CartItemCard extends StatefulWidget {
-  const CartItemCard({Key? key, required this.cartItem}) : super(key: key);
+class CartItemCard extends StatelessWidget {
+  CartItemCard({Key? key, required this.cartItem}) : super(key: key);
 
   final CartItem cartItem;
 
-  @override
-  State<CartItemCard> createState() => _CartItemCardState();
-}
-
-class _CartItemCardState extends State<CartItemCard> {
   CartController cartController = Get.find<CartController>();
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return Dismissible(
-      key: Key(widget.cartItem.product.id.toString()),
+      key: Key(cartItem.product.id.toString()),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
-          cartController.removeItem(widget.cartItem.product);
+          cartController.removeItem(cartItem.product);
           Get.snackbar(
             isDismissible: true,
             dismissDirection: DismissDirection.horizontal,
             "Supprimé du panier",
-            "${widget.cartItem.product.nom} est supprimé de votre panier",
+            "${cartItem.product.nom} est supprimé de votre panier",
             snackPosition: SnackPosition.TOP,
             icon: const Icon(
               Icons.delete,
@@ -66,7 +63,7 @@ class _CartItemCardState extends State<CartItemCard> {
                 height: 120,
                 width: 120,
                 child: CachedNetworkImage(
-                  imageUrl: widget.cartItem.product.images[0],
+                  imageUrl: cartItem.product.images[0],
                   fit: BoxFit.cover,
                 ),
               ),
@@ -78,20 +75,18 @@ class _CartItemCardState extends State<CartItemCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.cartItem.product.categorie == "sucree"
-                        ? "Sucrée"
-                        : "Salée",
+                    cartItem.product.categorie == "sucree" ? "Sucrée" : "Salée",
                     style: const TextStyle(fontSize: 13, color: Colors.orange),
                   ),
                   Text(
-                    widget.cartItem.product.nom,
+                    cartItem.product.nom,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "${widget.cartItem.product.prix} DA",
+                    "${cartItem.product.prix} DA",
                     style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                   ),
                 ],
@@ -105,8 +100,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   children: [
                     InkWell(
                       onTap: () => {
-                        controller.decrementQuantity(widget.cartItem.product),
-                        setState(() {})
+                        controller.decrementQuantity(cartItem.product),
                       },
                       child: Container(
                         decoration: const BoxDecoration(
@@ -126,15 +120,14 @@ class _CartItemCardState extends State<CartItemCard> {
                       margin: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Text(
                         controller
-                            .getCartItemQuantity(widget.cartItem.product)
+                            .getCartItemQuantity(cartItem.product)
                             .toString(),
                         style: const TextStyle(fontSize: 14),
                       ),
                     ),
                     InkWell(
                       onTap: () => {
-                        controller.incrementQuantity(widget.cartItem.product),
-                        setState(() {})
+                        controller.incrementQuantity(cartItem.product),
                       },
                       child: Container(
                         decoration: const BoxDecoration(

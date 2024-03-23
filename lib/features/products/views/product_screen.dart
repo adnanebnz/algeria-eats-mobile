@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:algeria_eats/components/back_arrow_button.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/components/carousel_component.dart';
@@ -254,37 +255,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                height: 40.0,
-                width: 40.0,
-                margin: const EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 36.0),
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  shape: BoxShape.rectangle,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(2, 10)),
-                  ],
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                  color: Colors.grey[800],
-                  iconSize: 22,
-                ),
-              ),
-            ),
+            const BackArrowButton(),
           ],
         ),
       ),
