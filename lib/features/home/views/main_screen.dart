@@ -1,3 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:algeria_eats/components/user_app_bar_shimmer.dart';
+import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/core/services/connectivity_service.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
@@ -10,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -107,33 +110,11 @@ class _WelcomeScreenState extends State<MainScreen> {
                 child: Obx(
                   () {
                     if (authController.isLoading.value) {
-                      return Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Colors.grey[300],
-                        ),
-                      );
+                      return const UserProfilePicShimmer();
                     } else {
-                      return Builder(builder: (context) {
-                        if (authController.user.value.image != null) {
-                          return CircleAvatar(
-                            radius: 25,
-                            backgroundImage: NetworkImage(
-                              authController.user.value.image!,
-                            ),
-                          );
-                        } else {
-                          return const CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 25,
-                            backgroundImage: AssetImage(
-                              'assets/images/profile-pic.png',
-                            ),
-                          );
-                        }
-                      });
+                      return UserProfilePic(
+                        image: authController.user.value.image,
+                      );
                     }
                   },
                 ),
@@ -214,33 +195,14 @@ class _WelcomeScreenState extends State<MainScreen> {
                     Obx(
                       () {
                         if (authController.isLoading.value) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: Colors.grey[300],
-                            ),
+                          return const UserProfilePicShimmer(
+                            radius: 40,
                           );
                         } else {
-                          return Builder(builder: (context) {
-                            if (authController.user.value.image != null) {
-                              return CircleAvatar(
-                                radius: 25,
-                                backgroundImage: NetworkImage(
-                                  authController.user.value.image!,
-                                ),
-                              );
-                            } else {
-                              return const CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 25,
-                                backgroundImage: AssetImage(
-                                  'assets/images/profile-pic.png',
-                                ),
-                              );
-                            }
-                          });
+                          return UserProfilePic(
+                            image: authController.user.value.image,
+                            radius: 40,
+                          );
                         }
                       },
                     ),
@@ -347,11 +309,10 @@ class _WelcomeScreenState extends State<MainScreen> {
             }),
             Expanded(
               child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 children: [
-                  const HomeScreen(),
-                  ProductsScreen(),
+                  HomeScreen(),
+                  const ProductsScreen(),
                   const ArtisansScreen()
                 ],
               ),

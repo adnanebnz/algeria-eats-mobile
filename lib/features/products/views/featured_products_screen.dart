@@ -1,4 +1,5 @@
 import 'package:algeria_eats/components/featured_product_card.dart';
+import 'package:algeria_eats/components/featured_product_card_shimmer.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
@@ -26,7 +27,7 @@ class FeaturedProductsScreen extends GetView<ProductController> {
           ),
         ),
         AspectRatio(
-          aspectRatio: 1.24,
+          aspectRatio: 1.6,
           child: Obx(
             () => controller.isLoading.value
                 ? buildShimmerProductList()
@@ -38,11 +39,8 @@ class FeaturedProductsScreen extends GetView<ProductController> {
   }
 
   Widget buildProductList(List<Product> products) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1 / 1.5,
-      ),
+    return ListView(
+      scrollDirection: Axis.horizontal,
       children: products.map((product) {
         return FeaturedProductCard(
           product: product,
@@ -57,24 +55,17 @@ class FeaturedProductsScreen extends GetView<ProductController> {
   }
 
   Widget buildShimmerProductList() {
-    return GridView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, index) {
+        return const SizedBox(width: 14);
+      },
+      scrollDirection: Axis.horizontal,
       itemCount: 4,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1 / 1.5,
-      ),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: Container(
-            margin: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-            ),
-          ),
-        );
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: const FeaturedProductCardShimmer());
       },
     );
   }

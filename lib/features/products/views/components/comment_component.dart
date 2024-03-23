@@ -1,6 +1,7 @@
 import 'package:algeria_eats/components/rating_view.dart';
-import 'package:flutter/material.dart';
+import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/features/reviews/models/review.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CommentComponent extends StatelessWidget {
@@ -13,24 +14,10 @@ class CommentComponent extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Builder(builder: (context) {
-          if (review.user?.image != null) {
-            return CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(
-                review.user!.image!,
-              ),
-            );
-          } else {
-            return const CircleAvatar(
-              backgroundColor: Colors.transparent,
-              radius: 25,
-              backgroundImage: AssetImage(
-                'assets/images/profile-pic.png',
-              ),
-            );
-          }
-        }),
+        UserProfilePic(
+          image: review.user?.image,
+          radius: 25,
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(

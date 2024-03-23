@@ -2,15 +2,17 @@ import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends GetView<AuthController> {
+class RegisterScreen extends GetView<AuthController> {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _prenomController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final ValueNotifier<bool> _obscureText = ValueNotifier(true);
 
-  LoginScreen({super.key});
+  RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,14 @@ class LoginScreen extends GetView<AuthController> {
                       height: 60,
                     ),
                     Text(
-                      'Connectez-vous',
+                      'Créer un compte',
                       style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
                     Text(
-                      'Bienvenue à nouveau!',
+                      'Créer votre compte maintenant!',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -75,12 +77,60 @@ class LoginScreen extends GetView<AuthController> {
                           ),
                           TextFormField(
                             enabled: !controller.isLoading.value,
+                            controller: _nomController,
+                            autocorrect: true,
+                            keyboardType: TextInputType.name,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Veuillez Entre votre nom';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              prefixIcon: Icon(Icons.person_outline_rounded,
+                                  color: Colors.grey[700]),
+                              labelText: 'Nom',
+                              hintText: 'Entrez votre nom',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            enabled: !controller.isLoading.value,
+                            controller: _prenomController,
+                            autocorrect: true,
+                            keyboardType: TextInputType.name,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Veuillez Entre votre prénom';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              prefixIcon: Icon(Icons.person_outline_rounded,
+                                  color: Colors.grey[700]),
+                              labelText: 'Prénom',
+                              hintText: 'Entrez votre prénom',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            enabled: !controller.isLoading.value,
                             controller: _emailController,
                             autocorrect: true,
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Veuillez entrer votre email';
+                                return 'Please enter your email';
                               }
                               return null;
                             },
@@ -91,7 +141,7 @@ class LoginScreen extends GetView<AuthController> {
                               prefixIcon: Icon(Icons.email_outlined,
                                   color: Colors.grey[700]),
                               labelText: 'Email',
-                              hintText: 'Entrez votre email',
+                              hintText: 'Enter your email',
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -171,8 +221,7 @@ class LoginScreen extends GetView<AuthController> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  controller.login(_emailController.text,
-                                      _passwordController.text);
+                                  //  TODO REGISTER METHOD
                                 }
                               },
                               child: Obx(() {
@@ -188,7 +237,7 @@ class LoginScreen extends GetView<AuthController> {
                                         ),
                                       )
                                     : const Text(
-                                        'Connectez-vous',
+                                        'Créer votre compte',
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),
@@ -201,16 +250,16 @@ class LoginScreen extends GetView<AuthController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               const Text(
-                                "Vous n'avez pas de compte?",
+                                "Vous avez déja un compte?",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Get.toNamed('/register');
+                                  Get.toNamed('/login');
                                 },
                                 child: const Text(
-                                  'Inscrivez-vous',
+                                  'Connectez-vous',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -219,75 +268,6 @@ class LoginScreen extends GetView<AuthController> {
                               ),
                             ],
                           ),
-
-                          // const SizedBox(
-                          //   height: 20,
-                          // ),
-                          // Row(
-                          //   children: [
-                          //     Expanded(
-                          //       child: Container(
-                          //         height: 1,
-                          //         color: Colors.grey.shade300,
-                          //       ),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 6,
-                          //     ),
-                          //     const Text(
-                          //       "OR",
-                          //       style: TextStyle(
-                          //           fontSize: 16, fontWeight: FontWeight.w400),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 6,
-                          //     ),
-                          //     Expanded(
-                          //       child: Container(
-                          //         height: 1,
-                          //         color: Colors.grey.shade300,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // const SizedBox(
-                          //   height: 20,
-                          // ),
-                          // SizedBox(
-                          //   width: double.infinity,
-                          //   child: GestureDetector(
-                          //     onTap: () {
-                          //       // controller.loginWithGoogle();
-                          //     },
-                          //     child: Container(
-                          //       padding: const EdgeInsets.all(16),
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(color: Colors.grey.shade400),
-                          //         borderRadius: BorderRadius.circular(10),
-                          //       ),
-                          //       child: Row(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //           SvgPicture.asset(
-                          //             'assets/images/GOOGLE.svg',
-                          //             height: 30,
-                          //             width: 30,
-                          //           ),
-                          //           const SizedBox(
-                          //             width: 15,
-                          //           ),
-                          //           Text(
-                          //             'Login with Google',
-                          //             style: TextStyle(
-                          //                 fontSize: 16,
-                          //                 fontWeight: FontWeight.w500,
-                          //                 color: Colors.grey[700]),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       );
                     })),

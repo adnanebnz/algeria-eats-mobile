@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
@@ -8,64 +9,73 @@ import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
   @override
-  _ProductsScreenState createState() => _ProductsScreenState();
+  State createState() => _ProductsScreenState();
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  final TextEditingController textController = TextEditingController();
-  String searchText = '';
+  final TextEditingController search = TextEditingController();
+
   final ProductController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: controller.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  margin: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-                  child: SearchInput(
-                    onChanged: (value) {
-                      searchText = value;
-                      // controller.update();
-                    },
-                    textController: textController,
-                    hintText: 'Rechercher un produit',
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.only(bottom: 8.0, top: 8.0),
+            child: SearchInput(
+              onChanged: (value) {},
+              textController: search,
+              hintText: 'Rechercher un produit',
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Skeletonizer(
+                enabled: controller.isLoading.value,
+                child: PagedGridView<int, Product>(
+                  showNewPageProgressIndicatorAsGridChild: false,
+                  showNoMoreItemsIndicatorAsGridChild: true,
+                  pagingController: controller.pagingController,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1 / 1.43,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    crossAxisCount: 2,
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: PagedGridView<int, Product>(
-                      pagingController: controller.pagingController,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 1 / 1.43,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        crossAxisCount: 2,
-                      ),
-                      builderDelegate: PagedChildBuilderDelegate<Product>(
-                        itemBuilder: (context, item, index) => ProductCardView(
-                          onTap: () =>
-                              Get.to(() => ProductScreen(product: item)),
-                          product: item,
-                        ),
-                      ),
+                  builderDelegate: PagedChildBuilderDelegate<Product>(
+                    animateTransitions: true,
+                    firstPageProgressIndicatorBuilder: (context) {
+                      return const Center(
+                        child: Loader(),
+                      );
+                    },
+                    newPageProgressIndicatorBuilder: (context) {
+                      return const Center(
+                        child: Loader(),
+                      );
+                    },
+                    itemBuilder: (context, item, index) => ProductCardView(
+                      onTap: () => Get.to(() => ProductScreen(product: item)),
+                      product: item,
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
+          ),
+        ],
+      ),
     );
   }
 }

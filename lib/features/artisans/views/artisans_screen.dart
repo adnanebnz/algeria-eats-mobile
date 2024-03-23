@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:algeria_eats/components/artisan_card.dart';
+import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
 import 'package:algeria_eats/features/artisans/views/artisan_profile_screen.dart';
@@ -77,7 +78,7 @@ Widget _buildLoadingState(BuildContext context) {
         height: MediaQuery.of(context).size.height * 0.3,
       ),
       const Center(
-        child: CircularProgressIndicator(),
+        child: Loader(),
       ),
     ],
   );

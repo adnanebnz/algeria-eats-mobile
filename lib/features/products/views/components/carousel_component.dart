@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class CarouselWithIndicator extends StatefulWidget {
   final List<String> images;
 
-  CarouselWithIndicator({required this.images});
+  const CarouselWithIndicator({super.key, required this.images});
 
   @override
-  _CarouselWithIndicatorState createState() => _CarouselWithIndicatorState();
+  State createState() => _CarouselWithIndicatorState();
 }
 
 class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {

@@ -43,8 +43,6 @@ class ProductCardView extends StatelessWidget {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                       imageUrl: product.images[0],
