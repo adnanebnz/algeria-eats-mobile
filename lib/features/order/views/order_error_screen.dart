@@ -50,7 +50,7 @@ class _OrderErrorScreenState extends State<OrderErrorScreen> {
                   backgroundColor: MaterialStateProperty.all(
                       const Color.fromRGBO(249, 115, 22, 0.93))),
               onPressed: () {
-                Get.offNamed("/home");
+                Get.offNamed("/main");
               },
               icon: const Icon(Icons.arrow_back),
               label: const Text('Retour à la maison'),

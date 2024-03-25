@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FeaturedProductCardShimmer extends StatelessWidget {
   const FeaturedProductCardShimmer({super.key});
@@ -7,7 +8,7 @@ class FeaturedProductCardShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8.0),
-      width: MediaQuery.of(context).size.width * 0.5,
+      width: Get.width * 0.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.5),
         color: Colors.white,

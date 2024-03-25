@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class GeoLocationService extends GetxService {
-  final GetStorage box = GetStorage();
+  final box = GetStorage();
   StreamSubscription<Position>? _positionStreamSubscription;
 
   Map<String, dynamic>? get locationData => box.read('location');
@@ -15,58 +14,54 @@ class GeoLocationService extends GetxService {
   @override
   void onInit() {
     super.onInit();
-    _checkLocationServicesAndPermissions();
+    _requestPermissionsAndSaveLocation();
+    startListeningLocationChanges();
   }
 
-  Future<void> _checkLocationServicesAndPermissions() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (!serviceEnabled ||
-        permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      _showLocationDialog(
-          'Please enable location services and grant location permissions to use this app.');
-    } else {
-      saveLocationData();
+  Future<void> _requestPermissionsAndSaveLocation() async {
+    try {
+      Map<String, dynamic> locationData = await determinePosition();
+      box.write('location', locationData);
+    } catch (e) {
+      printError(info: 'Failed to get location: $e');
     }
   }
 
-  Future<void> saveLocationData() async {
+  Future<Map<String, dynamic>> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
     Position position = await Geolocator.getCurrentPosition();
+
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks[0];
 
-    // Save the location data
-    Map<String, dynamic> locationData = {
-      'latitude': position.latitude,
+    return {
       'longitude': position.longitude,
-      'country': place.country,
+      'latitude': position.latitude,
       'city': place.locality,
+      'country': place.country,
     };
-    box.write('location', locationData);
-
-    printInfo(info: 'LAST SAVED LOCATION: ${locationData.toString()}');
-  }
-
-  Future<void> _showLocationDialog(String message) async {
-    await Get.dialog(
-      AlertDialog(
-        title: const Text('Location Services'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Geolocator.openLocationSettings();
-              Geolocator.requestPermission();
-              Get.back();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
   }
 
   void startListeningLocationChanges() {

@@ -2,6 +2,7 @@ import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/components/user_profile_pic.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ArtisanCard extends StatelessWidget {
   const ArtisanCard({
@@ -44,7 +45,7 @@ class ArtisanCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.70,
+                  width: Get.width * 0.70,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -76,7 +77,7 @@ class ArtisanCard extends StatelessWidget {
                           color: Colors.grey[700], size: 30),
                       const SizedBox(width: 5),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
+                        width: Get.width * 0.5,
                         child: Text(
                           "${artisan.user.adresse}, ${artisan.user.wilaya}",
                           style: TextStyle(

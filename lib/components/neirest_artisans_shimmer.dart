@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NeirestArtisansShimmer extends StatelessWidget {
@@ -28,7 +29,7 @@ class NeirestArtisansShimmer extends StatelessWidget {
                   color: Colors.white,
                 ),
                 height: 10,
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: Get.width * 0.2,
               ),
             ],
           );

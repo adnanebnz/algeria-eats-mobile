@@ -10,8 +10,8 @@ class ConnectivityService extends GetxService {
   late StreamSubscription<InternetStatus> subscription;
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     subscription =
         InternetConnection().onStatusChange.listen((InternetStatus status) {
       switch (status) {
@@ -23,6 +23,7 @@ class ConnectivityService extends GetxService {
           break;
       }
     });
+
     isConnected.listen((value) {
       if (!value) {
         ShowSnackBar.show("Auccune connexion a Internet", 'error');

@@ -4,6 +4,7 @@ import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class FeaturedProductCard extends StatelessWidget {
   const FeaturedProductCard(
@@ -25,7 +26,7 @@ class FeaturedProductCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(8.0),
-        width: MediaQuery.of(context).size.width * 0.5,
+        width: Get.width * 0.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.5),
           color: Colors.white,

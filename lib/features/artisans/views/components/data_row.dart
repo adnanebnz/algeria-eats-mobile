@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Widget buildDataRow(String label, String value, BuildContext context) {
   return Padding(
@@ -7,8 +8,7 @@ Widget buildDataRow(String label, String value, BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width *
-              0.4, // Set a consistent width for labels
+          width: Get.width * 0.4, // Set a consistent width for labels
           child: Text(
             label,
             style: TextStyle(

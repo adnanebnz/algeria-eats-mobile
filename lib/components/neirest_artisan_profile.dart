@@ -26,7 +26,7 @@ class NeirestArtisanProfile extends StatelessWidget {
             height: 7,
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.2,
+            width: Get.width * 0.2,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,

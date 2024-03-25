@@ -11,10 +11,6 @@ import 'package:get/get.dart';
 class Routes {
   static List<GetPage> pages = [
     GetPage(
-      name: '/home',
-      page: () => const MainScreen(),
-    ),
-    GetPage(
       name: '/on-board',
       page: () => const OnBoardPage(),
     ),

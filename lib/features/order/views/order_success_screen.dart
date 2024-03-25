@@ -70,7 +70,7 @@ class _SuccessScreenState extends State<OrderSuccessScreen> {
                       backgroundColor: MaterialStateProperty.all(
                           const Color.fromRGBO(249, 115, 22, 0.93))),
                   onPressed: () {
-                    Get.offNamed("/home");
+                    Get.offNamed("/main");
                   },
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Continuer à magasiner'),

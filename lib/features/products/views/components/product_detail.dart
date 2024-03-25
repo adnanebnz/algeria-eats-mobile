@@ -63,7 +63,7 @@ class ProductDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
+                    width: Get.width * 0.7,
                     child: Text(
                         "${product.artisan?.user.nom} ${product.artisan?.user.prenom}",
                         style: const TextStyle(

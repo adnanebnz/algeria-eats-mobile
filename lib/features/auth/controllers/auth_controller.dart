@@ -67,7 +67,7 @@ class AuthController extends GetxController {
       await _tokenManager.trimAndSaveToken(token);
 
       user.value = User.fromJson(responseData['user']);
-      Get.offAllNamed("/home");
+      Get.offAllNamed("/main");
       isLoggedIn.value = true;
     } catch (e) {
       if (kDebugMode) {
