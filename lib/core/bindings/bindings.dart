@@ -16,10 +16,10 @@ class AppBindings extends Bindings {
     Get.put(FCMService(), permanent: true);
     Get.put(GeoLocationService(), permanent: true);
     Get.put(AuthController(), permanent: true);
-    Get.lazyPut(() => ProductController());
-    Get.lazyPut(() => ArtisanController());
+    Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => ArtisanController(), fenix: true);
+    Get.lazyPut(() => OrderController(), fenix: true);
     Get.lazyPut(() => CartController(), fenix: true);
-    Get.lazyPut(() => OrderController());
-    Get.lazyPut(() => UserOrdersController());
+    Get.lazyPut(() => UserOrdersController(), fenix: true);
   }
 }

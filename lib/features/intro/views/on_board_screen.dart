@@ -43,7 +43,7 @@ class _HomePageState extends State<OnBoardPage> {
                 bottom: 0,
                 left: 0,
                 child: Image.asset(
-                    height: MediaQuery.of(context).size.height,
+                    height: Get.height,
                     fit: BoxFit.cover,
                     'assets/images/bg.jpg'),
               ),
@@ -59,8 +59,8 @@ class _HomePageState extends State<OnBoardPage> {
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 240),
                 top: 0,
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                height: Get.height,
+                width: Get.width,
                 child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -68,7 +68,7 @@ class _HomePageState extends State<OnBoardPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.08,
+                          height: Get.height * 0.08,
                         ),
                         const SizedBox(
                           width: 260,

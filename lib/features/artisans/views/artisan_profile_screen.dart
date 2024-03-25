@@ -1,12 +1,12 @@
 import 'package:algeria_eats/components/rating_view.dart';
 import 'package:algeria_eats/components/user_profile_pic.dart';
+import 'package:algeria_eats/core/utils/date_formatter.dart';
 import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/artisans/views/components/data_row.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class ArtisanProfileScreen extends StatelessWidget {
   const ArtisanProfileScreen({super.key, required this.artisan});
@@ -142,8 +142,7 @@ class ArtisanProfileScreen extends StatelessWidget {
                         const Text("Membre depuis"),
                         const SizedBox(width: 10),
                         Text(
-                          DateFormat.yMMMd()
-                              .format(DateTime.parse(artisan.created_at)),
+                          DateFormattter.getFormattedDate(artisan.created_at),
                           style: TextStyle(color: Colors.grey[800]),
                         )
                       ],

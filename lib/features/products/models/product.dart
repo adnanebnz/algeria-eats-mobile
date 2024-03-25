@@ -9,7 +9,7 @@ class Product extends Equatable {
   int artisan_id;
   String nom;
   String description;
-  double prix;
+  int prix;
   int? rating;
   String categorie;
   List<String> images;
@@ -72,7 +72,7 @@ class Product extends Equatable {
       artisan_id: json['artisan_id'],
       nom: json['nom'],
       description: json['description'],
-      prix: json['prix'].toDouble(),
+      prix: json['prix'].toInt(),
       rating: json['rating'],
       categorie: json['categorie'],
       images: List<String>.from(json['images']),

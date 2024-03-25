@@ -60,7 +60,7 @@ Widget _buildEmptyState(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: Get.height * 0.3,
       ),
       const Center(
         child: Text("Aucun artisan trouvé"),
@@ -75,7 +75,7 @@ Widget _buildLoadingState(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: Get.height * 0.3,
       ),
       const Center(
         child: Loader(),

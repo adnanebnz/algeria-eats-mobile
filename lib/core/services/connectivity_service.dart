@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
@@ -26,7 +25,7 @@ class ConnectivityService extends GetxService {
 
     isConnected.listen((value) {
       if (!value) {
-        ShowSnackBar.show("Auccune connexion a Internet", 'error');
+        // ShowSnackBar.show("Auccune connexion a Internet", 'error');
       }
     });
   }

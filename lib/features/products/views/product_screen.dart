@@ -83,7 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 20.0),
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: Get.height * 0.5,
                     child: TabBarView(
                       children: [
                         ProductDetails(

@@ -101,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                             height: 10,
                           ),
                           const Text(
-                            "Claim Your Daily \nfree delivery now!",
+                            "Profitez de nos\nOffres spéciales!",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           const SizedBox(
@@ -115,8 +115,9 @@ class HomeScreen extends StatelessWidget {
                                           Colors.grey[50]!)),
                               onPressed: () {},
                               child: const Text(
-                                'Order now',
-                                style: TextStyle(color: Colors.black),
+                                'Acheter Maintenant',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12.5),
                               ))
                         ],
                       ),
@@ -124,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                         child: Image.asset(
                           fit: BoxFit.cover,
                           'assets/images/food-plate.png',
-                          height: MediaQuery.of(context).size.height * 0.16,
+                          height: Get.height * 0.16,
                         ),
                       ),
                     ]),
@@ -149,7 +150,7 @@ class HomeScreen extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: Get.height * 0.15,
             child: Obx(() {
               if (artisanController.neirestArtisans.isEmpty) {
                 return const NeirestArtisansShimmer();

@@ -35,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset("assets/images/empty.svg",
-                        height: MediaQuery.of(context).size.height * 0.25),
+                        height: Get.height * 0.25),
                     const SizedBox(height: 20),
                     Text(
                       "Votre panier est vide",

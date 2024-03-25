@@ -7,7 +7,7 @@ class OrderItem {
   int order_id;
   int product_id;
   int quantity;
-  double prix_total;
+  int prix_total;
   String created_at;
   String updated_at;
   Product product;

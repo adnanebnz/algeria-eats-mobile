@@ -11,8 +11,8 @@ class UserOrdersController extends GetxController {
 
   @override
   void onInit() {
-    fetchUserOrders();
     super.onInit();
+    fetchUserOrders();
   }
 
   Future<void> fetchUserOrders() async {

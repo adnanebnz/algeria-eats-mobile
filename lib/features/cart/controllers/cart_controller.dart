@@ -1,9 +1,10 @@
 import 'package:algeria_eats/features/cart/models/cart_item.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
 class CartController extends GetxController {
-  RxDouble total = 0.0.obs;
+  RxInt total = 0.obs;
   RxList<CartItem> cartItems = RxList<CartItem>();
 
   @override
@@ -62,6 +63,6 @@ class CartController extends GetxController {
   @override
   void onClose() {
     cartItems.clear();
-    total.value = 0.0;
+    total.value = 0;
   }
 }
