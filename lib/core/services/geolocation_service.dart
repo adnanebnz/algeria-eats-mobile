@@ -9,7 +9,13 @@ class GeoLocationService extends GetxService {
   final box = GetStorage();
   StreamSubscription<Position>? _positionStreamSubscription;
 
-  Map<String, dynamic>? get locationData => box.read('location');
+  RxMap<String, dynamic> currentPosition = RxMap<String, dynamic>();
+
+  String get currentCity =>
+      currentPosition['city'] ?? box.read("location")['city'];
+
+  String get currentCountry =>
+      currentPosition['country'] ?? box.read("location")['country'];
 
   @override
   void onInit() {
@@ -22,6 +28,7 @@ class GeoLocationService extends GetxService {
     try {
       Map<String, dynamic> locationData = await determinePosition();
       box.write('location', locationData);
+      currentPosition.value = locationData;
     } catch (e) {
       printError(info: 'Failed to get location: $e');
     }
@@ -82,9 +89,7 @@ class GeoLocationService extends GetxService {
         'country': place.country,
         'city': place.locality,
       };
-      box.write('location', locationData);
-
-      printInfo(info: 'LAST SAVED LOCATION: ${locationData.toString()}');
+      currentPosition.value = locationData;
     });
   }
 

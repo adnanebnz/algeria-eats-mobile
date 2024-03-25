@@ -81,7 +81,7 @@ class AuthController extends GetxController {
   Future register() async {
     try {
       isLoading.value = true;
-      final response = await dio.post("/auth/register", data: {});
+      // final response = await dio.post("/auth/register", data: {});
       // TODO FINISH METHOD
     } catch (e) {
       if (kDebugMode) {

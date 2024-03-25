@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:algeria_eats/components/back_arrow_button.dart';
 import 'package:algeria_eats/features/cart/controllers/cart_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
@@ -20,7 +18,7 @@ class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key, required this.product}) : super(key: key);
 
   @override
-  _ProductScreenState createState() => _ProductScreenState();
+  State<ProductScreen> createState() => _ProductScreenState();
 }
 
 class _ProductScreenState extends State<ProductScreen> {

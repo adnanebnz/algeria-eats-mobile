@@ -10,7 +10,6 @@ class CartItemCard extends StatelessWidget {
   CartItemCard({Key? key, required this.cartItem}) : super(key: key);
 
   final CartItem cartItem;
-
   CartController cartController = Get.find<CartController>();
 
   @override

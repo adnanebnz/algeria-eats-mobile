@@ -57,20 +57,18 @@ class MapScreenState extends State<MapScreen> {
                       final GoogleMapController controller =
                           await mapController.completer.future;
                       final locationData =
-                          Get.find<GeoLocationService>().locationData;
-                      if (locationData != null) {
-                        controller.animateCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: LatLng(
-                                locationData['latitude'],
-                                locationData['longitude'],
-                              ),
-                              zoom: 13.0,
+                          Get.find<GeoLocationService>().currentPosition;
+                      controller.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(
+                              locationData['latitude'],
+                              locationData['longitude'],
                             ),
+                            zoom: 13.0,
                           ),
-                        );
-                      }
+                        ),
+                      );
                     },
                     icon: const Icon(
                       Icons.location_searching_rounded,

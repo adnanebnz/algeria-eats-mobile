@@ -11,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapController extends GetxController {
   RxSet<Marker> markers = <Marker>{}.obs;
-  final locationData = Get.find<GeoLocationService>().locationData;
+  final locationData = Get.find<GeoLocationService>().currentPosition;
 
   final Completer<GoogleMapController> completer =
       Completer<GoogleMapController>();
@@ -21,22 +21,15 @@ class MapController extends GetxController {
   final dio = DioInstance.getDio();
 
   void initialize() {
-    if (locationData != null) {
-      initialCameraPosition = CameraPosition(
-        target: LatLng(locationData?['latitude'], locationData?['longitude']),
-        zoom: 10.0,
-      );
-      markers.add(Marker(
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        markerId: const MarkerId('currentLocation'),
-        position: LatLng(locationData?['latitude'], locationData?['longitude']),
-      ));
-    } else {
-      initialCameraPosition = const CameraPosition(
-        target: LatLng(37.42796133580664, -122.085749655962),
-        zoom: 10,
-      );
-    }
+    initialCameraPosition = CameraPosition(
+      target: LatLng(locationData['latitude'], locationData['longitude']),
+      zoom: 10.0,
+    );
+    markers.add(Marker(
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+      markerId: const MarkerId('currentLocation'),
+      position: LatLng(locationData['latitude'], locationData['longitude']),
+    ));
   }
 
   Future setMarkersOfArtisans() async {
@@ -45,7 +38,6 @@ class MapController extends GetxController {
       for (Artisan artisan in artisanController.artisans) {
         final cords = await getLatLongFromAddress(
             "${artisan.user.adresse} ${artisan.user.wilaya}");
-        printInfo(info: cords.toString());
         markers.add(Marker(
           markerId: MarkerId(artisan.user.id.toString()),
           position: LatLng(cords[0].latitude, cords[0].longitude),
