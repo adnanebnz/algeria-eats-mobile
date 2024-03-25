@@ -59,8 +59,8 @@ class UserOrdersScreen extends GetView<UserOrdersController> {
                         );
                       }),
                     ),
-                    Text("hello"),
-                    Text("hello"),
+                    const Text("hello"),
+                    const Text("hello"),
                   ],
                 ),
               ),

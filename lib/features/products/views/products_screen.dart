@@ -9,7 +9,6 @@ import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -41,34 +40,31 @@ class _ProductsScreenState extends State<ProductsScreen> {
             child: Container(
               margin: const EdgeInsets.only(bottom: 12.0),
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: Skeletonizer(
-                enabled: controller.isLoading.value,
-                child: PagedGridView<int, Product>(
-                  showNewPageProgressIndicatorAsGridChild: false,
-                  showNoMoreItemsIndicatorAsGridChild: true,
-                  pagingController: controller.pagingController,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1 / 1.43,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    crossAxisCount: 2,
-                  ),
-                  builderDelegate: PagedChildBuilderDelegate<Product>(
-                    animateTransitions: true,
-                    firstPageProgressIndicatorBuilder: (context) {
-                      return const Center(
-                        child: Loader(),
-                      );
-                    },
-                    newPageProgressIndicatorBuilder: (context) {
-                      return const Center(
-                        child: Loader(),
-                      );
-                    },
-                    itemBuilder: (context, item, index) => ProductCardView(
-                      onTap: () => Get.to(() => ProductScreen(product: item)),
-                      product: item,
-                    ),
+              child: PagedGridView<int, Product>(
+                showNewPageProgressIndicatorAsGridChild: false,
+                showNoMoreItemsIndicatorAsGridChild: true,
+                pagingController: controller.pagingController,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1 / 1.43,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  crossAxisCount: 2,
+                ),
+                builderDelegate: PagedChildBuilderDelegate<Product>(
+                  animateTransitions: true,
+                  firstPageProgressIndicatorBuilder: (context) {
+                    return const Center(
+                      child: Loader(),
+                    );
+                  },
+                  newPageProgressIndicatorBuilder: (context) {
+                    return const Center(
+                      child: Loader(),
+                    );
+                  },
+                  itemBuilder: (context, item, index) => ProductCardView(
+                    onTap: () => Get.to(() => ProductScreen(product: item)),
+                    product: item,
                   ),
                 ),
               ),

@@ -7,6 +7,7 @@ import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/home/views/home_screen.dart';
 import 'package:algeria_eats/features/intro/views/on_board_screen.dart';
+import 'package:algeria_eats/features/map/views/map_screen.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/views/products_screen.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -147,6 +148,20 @@ class _WelcomeScreenState extends State<MainScreen> {
                 width: 24,
               ),
               label: "Acceuil",
+            ),
+            BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset(
+                'assets/images/map.svg',
+                height: 24,
+                width: 24,
+                color: const Color.fromRGBO(217, 119, 6, 1),
+              ),
+              icon: SvgPicture.asset(
+                'assets/images/map.svg',
+                height: 24,
+                width: 24,
+              ),
+              label: "Carte",
             ),
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
@@ -309,11 +324,13 @@ class _WelcomeScreenState extends State<MainScreen> {
             }),
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                children: [
+                children: const [
                   HomeScreen(),
-                  const ProductsScreen(),
-                  const ArtisansScreen()
+                  MapScreen(),
+                  ProductsScreen(),
+                  ArtisansScreen()
                 ],
               ),
             ),
