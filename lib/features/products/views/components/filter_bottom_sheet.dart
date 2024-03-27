@@ -77,7 +77,13 @@ class FilterBottomSheet extends StatelessWidget {
           Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 14.0),
+                      ),
+                    ),
                     onPressed: () {
                       controller.productType.value = '';
                       // Add your filtering logic here
@@ -91,7 +97,16 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 14.0),
+                      ),
+                    ),
                     onPressed: () {
                       controller.productType.value = 'sucree';
                     },
@@ -104,7 +119,16 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 14.0),
+                      ),
+                    ),
                     onPressed: () {
                       controller.productType.value = 'salee';
                       // Add your filtering logic here
@@ -134,7 +158,13 @@ class FilterBottomSheet extends StatelessWidget {
           Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 14.0),
+                      ),
+                    ),
                     onPressed: () {
                       controller.orderDirection.value = 'asc';
                     },
@@ -147,7 +177,16 @@ class FilterBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            vertical: 7.0, horizontal: 14.0),
+                      ),
+                    ),
                     onPressed: () {
                       controller.orderDirection.value = 'desc';
                       // Add your filtering logic here

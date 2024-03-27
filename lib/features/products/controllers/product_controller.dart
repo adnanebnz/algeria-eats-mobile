@@ -42,9 +42,6 @@ class ProductController extends GetxController {
         pagingController.refresh();
       },
       time: const Duration(milliseconds: 800),
-      onDone: () {
-        pagingController.refresh();
-      },
     );
   }
 
