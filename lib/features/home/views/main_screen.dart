@@ -6,7 +6,6 @@ import 'package:algeria_eats/core/services/connectivity_service.dart';
 import 'package:algeria_eats/features/artisans/views/artisans_screen.dart';
 import 'package:algeria_eats/features/auth/controllers/auth_controller.dart';
 import 'package:algeria_eats/features/home/views/home_screen.dart';
-import 'package:algeria_eats/features/map/controllers/map_controller.dart';
 import 'package:algeria_eats/features/map/views/map_screen.dart';
 import 'package:algeria_eats/features/products/views/products_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +34,6 @@ class _WelcomeScreenState extends State<MainScreen> {
   @override
   void initState() {
     pageController = PageController(initialPage: _currentIndex);
-    pageController.addListener(() {
-      if (pageController.page != 1) {
-        Get.delete<MapController>();
-      } else if (!Get.isRegistered<MapController>()) {
-        Get.lazyPut(() => MapController(), fenix: true);
-      }
-    });
     super.initState();
   }
 
