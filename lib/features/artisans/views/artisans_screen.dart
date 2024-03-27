@@ -1,116 +1,133 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:algeria_eats/components/artisan_card.dart';
 import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/features/artisans/controllers/artisan_controller.dart';
+import 'package:algeria_eats/features/artisans/models/artisan.dart';
 import 'package:algeria_eats/features/artisans/views/artisan_profile_screen.dart';
+import 'package:algeria_eats/features/artisans/views/components/filter_artisans_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ArtisansScreen extends StatefulWidget {
   const ArtisansScreen({super.key});
 
   @override
-  State<ArtisansScreen> createState() => _ArtisansScreenState();
+  State createState() => _ProductsScreenState();
 }
 
-class _ArtisansScreenState extends State<ArtisansScreen> {
-  ArtisanController artisanController = Get.find<ArtisanController>();
-  String _searchText = "";
-  TextEditingController textController = TextEditingController();
+class _ProductsScreenState extends State<ArtisansScreen> {
+  final TextEditingController search = TextEditingController();
+
+  final ArtisanController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
+          const SizedBox(
+            height: 8,
+          ),
           Container(
             padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-            child: SearchInput(
-              onChanged: (value) {
-                setState(() {
-                  _searchText = value;
-                });
-              },
-              textController: textController,
-              hintText: 'Rechercher un artisan',
+            child: Row(
+              children: [
+                Expanded(
+                  child: SearchInput(
+                    onChanged: (value) {
+                      controller.setArtisanName = value;
+                    },
+                    textController: search,
+                    hintText: 'Rechercher un Artisan',
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]),
+                  child: IconButton(
+                      onPressed: () {
+                        // hide keyboard
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Get.bottomSheet(
+                          FilterArtisanBottomSheet(controller: controller),
+                          enableDrag: true,
+                          isDismissible: true,
+                          isScrollControlled: true,
+                        );
+                      },
+                      icon: const Icon(Icons.filter_list_outlined)),
+                )
+              ],
             ),
           ),
-          Obx(() {
-            if (artisanController.artisans.isEmpty &&
-                !artisanController.isLoading.value) {
-              return _buildEmptyState(context);
-            } else if (artisanController.isLoading.value) {
-              return _buildLoadingState(context);
-            } else {
-              return _buildArtisanList(_searchText, artisanController);
-            }
-          })
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: PagedListView<int, Artisan>.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 16),
+                  pagingController: controller.pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<Artisan>(
+                    animateTransitions: true,
+                    noItemsFoundIndicatorBuilder: (context) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Aucun artisan trouvé',
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 18,
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'La liste des artisans est vide.',
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                    firstPageProgressIndicatorBuilder: (context) {
+                      return const Center(
+                        child: Loader(),
+                      );
+                    },
+                    newPageProgressIndicatorBuilder: (context) {
+                      return const Center(
+                        child: Loader(),
+                      );
+                    },
+                    itemBuilder: (context, item, index) => ArtisanCard(
+                      onTap: (id) =>
+                          Get.to(() => ArtisanProfileScreen(artisan: item)),
+                      artisan: item,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-}
-
-Widget _buildEmptyState(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      SizedBox(
-        height: Get.height * 0.3,
-      ),
-      const Center(
-        child: Text("Aucun artisan trouvé"),
-      ),
-    ],
-  );
-}
-
-Widget _buildLoadingState(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      SizedBox(
-        height: Get.height * 0.3,
-      ),
-      const Center(
-        child: Loader(),
-      ),
-    ],
-  );
-}
-
-Widget _buildArtisanList(String _searchText, ArtisanController controller) {
-  return Expanded(
-    child: ListView.builder(
-      itemCount: _searchText.isEmpty
-          ? controller.artisans.length
-          : controller.artisans
-              .where((artisan) =>
-                  artisan.user.nom
-                      .toLowerCase()
-                      .contains(_searchText.toLowerCase()) ||
-                  artisan.user.prenom
-                      .toLowerCase()
-                      .contains(_searchText.toLowerCase()))
-              .length,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.all(12.0),
-          child: ArtisanCard(
-            artisan: controller.artisans[index],
-            onTap: (userId) {
-              Get.to(() => ArtisanProfileScreen(
-                    artisan: controller.artisans[index],
-                  ));
-            },
-          ),
-        );
-      },
-    ),
-  );
 }

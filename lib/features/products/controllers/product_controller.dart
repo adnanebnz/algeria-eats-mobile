@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProductController extends GetxController {
-  RxList<Product> products = <Product>[].obs;
   RxList<Product> featuredProducts = <Product>[].obs;
   RxBool isLoading = true.obs;
   RxString search = "".obs;
@@ -47,8 +46,8 @@ class ProductController extends GetxController {
 
   @override
   void onClose() {
-    products.clear();
     featuredProducts.clear();
+    pagingController.dispose();
     super.onClose();
   }
 
@@ -75,7 +74,6 @@ class ProductController extends GetxController {
 
       return products;
     } catch (e) {
-      isLoading.value = false;
       if (e is DioExceptions) {
         ShowSnackBar.show(e.message, "error");
       } else {
