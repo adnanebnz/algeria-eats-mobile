@@ -1,10 +1,9 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:algeria_eats/components/loader.dart';
 import 'package:algeria_eats/components/product_card_view.dart';
 import 'package:algeria_eats/components/search_input_view.dart';
 import 'package:algeria_eats/features/products/controllers/product_controller.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
+import 'package:algeria_eats/features/products/views/components/filter_bottom_sheet.dart';
 import 'package:algeria_eats/features/products/views/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,20 +24,56 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
+          const SizedBox(
+            height: 8,
+          ),
           Container(
             padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-            child: SearchInput(
-              onChanged: (value) {},
-              textController: search,
-              hintText: 'Rechercher un produit',
+            child: Row(
+              children: [
+                Expanded(
+                  child: SearchInput(
+                    onChanged: (value) {
+                      controller.setProductName = value;
+                    },
+                    textController: search,
+                    hintText: 'Rechercher un produit',
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]),
+                  child: IconButton(
+                      onPressed: () {
+                        // hide keyboard
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Get.bottomSheet(
+                          FilterBottomSheet(controller: controller),
+                          enableDrag: true,
+                          isDismissible: true,
+                          isScrollControlled: true,
+                        );
+                      },
+                      icon: const Icon(Icons.filter_list_outlined)),
+                )
+              ],
             ),
           ),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.only(bottom: 12.0),
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: PagedGridView<int, Product>(
                 showNewPageProgressIndicatorAsGridChild: false,
@@ -52,6 +87,29 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 ),
                 builderDelegate: PagedChildBuilderDelegate<Product>(
                   animateTransitions: true,
+                  noItemsFoundIndicatorBuilder: (context) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Aucun produit trouvé',
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 18,
+                          color: Colors.grey[800],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'La liste des produits est vide.',
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
                   firstPageProgressIndicatorBuilder: (context) {
                     return const Center(
                       child: Loader(),

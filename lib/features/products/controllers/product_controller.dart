@@ -5,25 +5,23 @@ import 'package:algeria_eats/core/managers/dio_instance.dart';
 import 'package:algeria_eats/core/utils/snackbar.dart';
 import 'package:algeria_eats/features/products/models/product.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProductController extends GetxController {
   RxList<Product> products = <Product>[].obs;
   RxList<Product> featuredProducts = <Product>[].obs;
-  RxInt sweetProductsCount = 0.obs;
-  RxInt saltyProductsCount = 0.obs;
   RxBool isLoading = true.obs;
+  RxString search = "".obs;
+  RxString productType = "".obs;
+  RxInt productRating = 0.obs;
+  RxString orderDirection = "asc".obs;
 
   final dio = DioInstance.getDio();
 
   final PagingController<int, Product> pagingController =
       PagingController(firstPageKey: 0);
 
-  RxString productType = "".obs;
-  RxString search = "".obs;
-  RxInt productRating = 0.obs;
-  RxString orderDirection = "asc".obs;
+  set setProductName(String value) => search.value = value;
 
   @override
   void onInit() {
@@ -32,6 +30,22 @@ class ProductController extends GetxController {
     pagingController.addPageRequestListener((pageKey) {
       fetchPage(pageKey);
     });
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    debounce(
+      search,
+      (value) {
+        search.value = value;
+        pagingController.refresh();
+      },
+      time: const Duration(milliseconds: 800),
+      onDone: () {
+        pagingController.refresh();
+      },
+    );
   }
 
   @override
@@ -61,14 +75,6 @@ class ProductController extends GetxController {
           .map((productJson) {
         return Product.fromJson(productJson);
       }).toList();
-
-      for (var product in products) {
-        if (product.categorie == 'sucree') {
-          sweetProductsCount.value++;
-        } else {
-          saltyProductsCount.value++;
-        }
-      }
 
       return products;
     } catch (e) {

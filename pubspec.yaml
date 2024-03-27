@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.19.0
   flutter_native_splash: ^2.3.10
   flutter_svg: ^2.0.9
+  flutter_rating_bar: ^4.0.1
   shimmer: ^3.0.0
   carousel_slider: ^4.2.1
   dzair_data_usage: ^1.0.1
@@ -70,6 +71,14 @@ flutter_launcher_icons:
     generate: false
     image_path: "assets/images/launcher_icon.png"
 
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/algeria_eats_logo.png
+
+  android: true
+  ios: true
+  web: true
+
 flutter:
   uses-material-design: true
 
@@ -101,11 +110,3 @@ flutter:
           weight: 500
         - asset: assets/Fonts/Poppins-Regular.ttf
           weight: 400
-
-flutter_native_splash:
-  color: "#FFFFFF"
-  image: assets/images/algeria_eats_logo.png
-
-  android: true
-  ios: true
-  web: true
