@@ -79,6 +79,13 @@ class FilterBottomSheet extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: controller.productType.value == ''
+                              ? Colors.orange
+                              : Colors.grey[700]!.withAlpha(140),
+                        ),
+                      ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 7.0, horizontal: 14.0),
@@ -102,6 +109,13 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: controller.productType.value == 'sucree'
+                              ? Colors.orange
+                              : Colors.grey[700]!.withAlpha(140),
+                        ),
+                      ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 7.0, horizontal: 14.0),
@@ -124,6 +138,13 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: controller.productType.value == 'salee'
+                              ? Colors.orange
+                              : Colors.grey[700]!.withAlpha(140),
+                        ),
+                      ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 7.0, horizontal: 14.0),
@@ -160,6 +181,13 @@ class FilterBottomSheet extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: controller.orderDirection.value == 'asc'
+                              ? Colors.orange
+                              : Colors.grey[700]!.withAlpha(140),
+                        ),
+                      ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 7.0, horizontal: 14.0),
@@ -182,6 +210,13 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                   OutlinedButton(
                     style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: controller.orderDirection.value == 'desc'
+                              ? Colors.orange
+                              : Colors.grey[700]!.withAlpha(140),
+                        ),
+                      ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         const EdgeInsets.symmetric(
                             vertical: 7.0, horizontal: 14.0),
