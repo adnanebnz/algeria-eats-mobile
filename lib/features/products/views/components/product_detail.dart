@@ -144,7 +144,7 @@ class ProductDetails extends StatelessWidget {
             child: FilledButton.icon(
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all(Colors.orangeAccent),
+                      MaterialStateProperty.all(Colors.orange.shade500),
                   padding: MaterialStateProperty.all(
                     const EdgeInsets.symmetric(vertical: 16.0),
                   ),
