@@ -130,7 +130,10 @@ class RegisterScreen extends GetView<AuthController> {
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return 'Veuillez entrer votre email';
+                              }
+                              if (!GetUtils.isEmail(value.trim())) {
+                                return 'Veuillez entrer un email valide';
                               }
                               return null;
                             },
@@ -141,7 +144,7 @@ class RegisterScreen extends GetView<AuthController> {
                               prefixIcon: Icon(Icons.email_outlined,
                                   color: Colors.grey[700]),
                               labelText: 'Email',
-                              hintText: 'Enter your email',
+                              hintText: 'Entrez votre email',
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -155,6 +158,9 @@ class RegisterScreen extends GetView<AuthController> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Veuillez entrer votre mot de passe';
+                                  }
+                                  if (value.length < 8) {
+                                    return 'Le mot de passe doit contenir au moins 8 caractères';
                                   }
                                   return null;
                                 },
@@ -221,7 +227,12 @@ class RegisterScreen extends GetView<AuthController> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  //  TODO REGISTER METHOD
+                                  controller.register(
+                                    nom: _nomController.text,
+                                    prenom: _prenomController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
                                 }
                               },
                               child: Obx(() {
