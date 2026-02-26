@@ -78,15 +78,47 @@ class AuthController extends GetxController {
     }
   }
 
-  Future register() async {
+  Future<void> register({
+    required String nom,
+    required String prenom,
+    required String email,
+    required String password,
+  }) async {
     try {
       isLoading.value = true;
-      final response = await dio.post("/auth/register", data: {});
-      // TODO FINISH METHOD
+      final response = await dio.post(
+        "/auth/register",
+        data: {
+          'nom': nom.trim(),
+          'prenom': prenom.trim(),
+          'email': email.trim(),
+          'password': password,
+        },
+      );
+
+      final responseData = response.data;
+      final token = responseData['token'];
+
+      if (token != null) {
+        await _tokenManager.trimAndSaveToken(token);
+      }
+
+      if (responseData['user'] != null) {
+        user.value = User.fromJson(responseData['user']);
+      }
+
+      isLoggedIn.value = true;
+      Get.offAllNamed('/home');
     } catch (e) {
       if (kDebugMode) {
         log(e.toString());
       }
+
+      Get.snackbar(
+        'Inscription échouée',
+        'Impossible de créer votre compte. Vérifiez vos informations.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }
